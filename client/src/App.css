@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -10,19 +11,73 @@
   display: grid;
   grid-template-rows: 80px auto 90px; 
   min-height: 100vh;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 header {
+  display: flex;
   background: #1d2126;
+  align-items: center;
+}
+
+.title {
+  margin-left: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 2rem;
+}
+
+.nav-link {
+  margin: 0 0.75rem;
+  padding: 0.25rem 1rem;
+  font-weight: bold;
+}
+
+.nav-link:last-child {
+  color: #000000;
+  background: #ffffff;
+  border-radius: 20px;
 }
 
 main {
-  background: url('http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  color: #000000;
+  font-size: 1.4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 3fr 1fr;
+}
+
+.carousel {
+  grid-column: span 3;
+  background: center / cover  url('http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg');
+  height: 100%;
+}
+
+main section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 2rem 1rem;;
+}
+
+main section:nth-child(3) {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   background: #1d2126;
+}
+
+footer p {
+  margin-right: 2rem;
 }
 

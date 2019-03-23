@@ -3,8 +3,10 @@ import React from 'react';
 const Header = () => {
   return (
    <header>
+       <h1 className="title">octave.</h1>
      <nav>
-       <h1>Octave.</h1>
+        <p className="nav-link">Sign In</p>
+        <p className="nav-link">Create Account</p>
      </nav>
    </header>
   )
