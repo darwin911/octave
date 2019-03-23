@@ -1,0 +1,28 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+
+.App {
+  color: #ffffff;
+  display: grid;
+  grid-template-rows: 80px auto 90px; 
+  min-height: 100vh;
+}
+
+header {
+  background: #1d2126;
+}
+
+main {
+  background: url('http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+footer {
+  background: #1d2126;
+}
+
