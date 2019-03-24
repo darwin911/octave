@@ -13,7 +13,7 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   sequelize = new Sequelize({
-    database: `p3_music_db`,
+    database: `octave_db`,
     dialect: `postgresql`,
     operatorsAliases: false,
     define: {
