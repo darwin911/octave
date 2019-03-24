@@ -2,16 +2,16 @@ const express = require('express');
 const { User, Artist, Event, Venue, Review } = require('../models')
 const { hash, compare, encode, verify, restrict } = require('../auth');
 
-const venuesRouter = express.Router();
+const artistRouter = express.Router();
 
-venuesRouter.get('/', async (req, res) => {
+artistRouter.get('/', async (req, res) => {
   try {
-    const venues =  await Venue.findAll();
-    res.json({ venues });
+    const artists =  await Artist.findAll();
+    res.json({ artists });
   } catch(e) {
     console.log(e);
     res.stats(500).send(e.message);
   }
 });
 
-module.exports = venuesRouter
+module.exports = artistRouter

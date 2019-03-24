@@ -2,9 +2,9 @@ const express = require('express');
 const { User, Artist, Event, Venue, Review } = require('../models')
 const { hash, compare, encode, verify, restrict } = require('../auth');
 
-const usersRouter = express.Router();
+const userRouter = express.Router();
 
-usersRouter.get('/', async (req, res) => {
+userRouter.get('/', async (req, res) => {
   try {
     const users =  await User.findAll();
     res.json({ users });
@@ -14,7 +14,7 @@ usersRouter.get('/', async (req, res) => {
   }
 });
 
-usersRouter.post('/', async (req, res) => {
+userRouter.post('/', async (req, res) => {
   try {
     const user =  await User.create(req.body);
     res.json({ user });
@@ -24,4 +24,4 @@ usersRouter.post('/', async (req, res) => {
   }
 });
 
-module.exports = usersRouter
+module.exports = userRouter
