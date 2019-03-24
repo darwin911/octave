@@ -5,7 +5,6 @@ import './App.css';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
-import FacebookLogin from 'react-facebook-login';
 
 class App extends Component {
   constructor() {
@@ -22,10 +21,6 @@ class App extends Component {
 
 
   render() {
-    const responseFacebook = (response) => {
-      console.log(response);
-      
-    } 
     return (
       <div className="App">
         <Header />
