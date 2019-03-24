@@ -8,12 +8,12 @@ if (process.env.DATABASE_URL) {
     loggin: true,
     operatorsAliases: false,
     define: {
-      underscored: true,
-    },
+      underscored: true
+    }
   });
 } else {
   sequelize = new Sequelize({
-    database: `p3_music_db`,
+    database: `octave_db`,
     dialect: `postgresql`,
     operatorsAliases: false,
     define: {
@@ -41,24 +41,24 @@ const Artist = sequelize.define('artists', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
-  },
+  }
 });
 
 const Event = sequelize.define('events', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
-  },
+  }
 });
 
 const Venue = sequelize.define('venues', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
-  },
+  }
 });
 
-const ArtistReview = sequelize.define('artistReviews', {
+const VenueReview = sequelize.define('venue_reviews', {
   content: {
     type: Sequelize.STRING,
     allowNull: false
@@ -66,9 +66,10 @@ const ArtistReview = sequelize.define('artistReviews', {
   score: {
     type: Sequelize.INTEGER,
     allowNull: false
-  },
+  }
 });
-const VenueReview = sequelize.define('venueReviews', {
+
+const EventReview = sequelize.define('event_reviews', {
   content: {
     type: Sequelize.STRING,
     allowNull: false
@@ -76,26 +77,93 @@ const VenueReview = sequelize.define('venueReviews', {
   score: {
     type: Sequelize.INTEGER,
     allowNull: false
-  },
+  }
 });
 
-User.hasMany(ArtistReview, VenueReview, {
-  onDelete: 'cascade',
+// Relationships between User, EventReview, and Event
+
+User.hasMany(EventReview, {
+  onDelete: 'cascade'
 });
 
-ArtistReview.belongsTo(User, {
+EventReview.belongsTo(User, {
   foreignKey: {
     allowNull: false
   }
 });
+
+Event.hasMany(EventReview, {
+  onDelete: 'cascade'
+});
+
+EventReview.belongsTo(Event, {
+  foreignKey: {
+    allowNull: false
+  }
+});
+
+// Relationships between User, VenueReview, and Venue
+
+User.hasMany(VenueReview, {
+  onDelete: 'cascade'
+});
+
 VenueReview.belongsTo(User, {
   foreignKey: {
     allowNull: false
   }
 });
 
-User.hasMany(Artist, {
-  onDelete: 'cascade',
+Venue.hasMany(VenueReview, {
+  onDelete: 'cascade'
+});
+
+VenueReview.belongsTo(Venue, {
+  foreignKey: {
+    allowNull: false
+  }
+});
+
+// JOIN TABLE between users and artists
+
+User.belongsToMany(Artist, {
+  through: 'likes'
+});
+
+Artist.belongsToMany(User, {
+  through: 'likes'
+});
+
+// JOIN TABLE between users and events
+
+User.belongsToMany(Event, {
+  through: 'attends'
+});
+
+Event.belongsToMany(User, {
+  through: 'attends'
+});
+
+// JOIN TABLE between events and artists
+
+Artist.belongsToMany(Event, {
+  through: 'performs'
+});
+
+Event.belongsToMany(Artist, {
+  through: 'performs'
+});
+
+// Relationship between events and venues
+
+Venue.hasMany(Event, {
+  onDelete: 'cascade'
+});
+
+Event.belongsTo(Venue, {
+  foreignKey: {
+    allowNull: false
+  }
 });
 
 module.exports = {
@@ -104,6 +172,6 @@ module.exports = {
   Artist,
   Event,
   Venue,
-  ArtistReview,
   VenueReview,
+  EventReview
 };
