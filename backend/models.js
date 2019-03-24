@@ -58,7 +58,17 @@ const Venue = sequelize.define('venues', {
   },
 });
 
-const Review = sequelize.define('reviews', {
+const ArtistReview = sequelize.define('artistReviews', {
+  content: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  score: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+});
+const VenueReview = sequelize.define('venueReviews', {
   content: {
     type: Sequelize.STRING,
     allowNull: false
@@ -69,11 +79,16 @@ const Review = sequelize.define('reviews', {
   },
 });
 
-User.hasMany(Review, {
+User.hasMany(ArtistReview, VenueReview, {
   onDelete: 'cascade',
 });
 
-Review.belongsTo(User, {
+ArtistReview.belongsTo(User, {
+  foreignKey: {
+    allowNull: false
+  }
+});
+VenueReview.belongsTo(User, {
   foreignKey: {
     allowNull: false
   }
@@ -89,5 +104,6 @@ module.exports = {
   Artist,
   Event,
   Venue,
-  Review
+  ArtistReview,
+  VenueReview,
 };
