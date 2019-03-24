@@ -1,13 +1,26 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
-  database: `octave_db`,
-  dialect: 'postgres',
-  operatorsAliases: false,
-  define: {
-    underscored: true
-  }
-});
+let sequelize;
+if (process.env.DATABASE_URL) {
+  console.log('called');
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgresql',
+    loggin: true,
+    operatorsAliases: false,
+    define: {
+      underscored: true,
+    },
+  });
+} else {
+  sequelize = new Sequelize({
+    database: `p3_music_db`,
+    dialect: `postgresql`,
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  });
+};
 
 const User = sequelize.define('users', {
   email: {
@@ -64,6 +77,10 @@ Review.belongsTo(User, {
   foreignKey: {
     allowNull: false
   }
+});
+
+User.hasMany(Artist, {
+  onDelete: 'cascade',
 });
 
 module.exports = {
