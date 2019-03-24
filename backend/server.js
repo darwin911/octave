@@ -7,7 +7,7 @@ const userRouter = require('./routes/userRouter');
 const artistRouter = require('./routes/artistRouter');
 const eventRouter = require('./routes/eventRouter');
 const venueRouter = require('./routes/venueRouter');
-const artistReviewRouter = require('./routes/artistReviewRouter');
+const eventReviewRouter = require('./routes/eventReviewRouter');
 const venueReviewRouter = require('./routes/venueReviewRouter');
 const PORT = process.env.PORT || 3001;
 
@@ -21,7 +21,7 @@ app.use('/users', userRouter);
 app.use('/artists', artistRouter);
 app.use('/events', eventRouter);
 app.use('/venues', venueRouter);
-app.use('/artist-reviews', artistReviewRouter);
+app.use('/event-reviews', eventReviewRouter);
 app.use('/venue-reviews', venueReviewRouter);
 
 app.get('/', async(req, res) => {
