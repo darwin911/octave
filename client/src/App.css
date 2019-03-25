@@ -55,15 +55,25 @@ main {
   grid-column: span 3;
   background: center / cover  url('http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg');
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  height: 470px;
-  width: 454px;
-  background: #ffffff;
+  width: 100%
+}
+
+.fb-login {
+  width: 400px;
   margin: 0 auto;
+  background: rgba(244, 244, 244, 0.95);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.login-form img{
+  border-radius: 50%;
 }
 
 main section {
