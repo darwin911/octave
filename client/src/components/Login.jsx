@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+
 
 class Login extends Component {
   constructor(props) {
@@ -51,7 +53,13 @@ class Login extends Component {
     let fbContent;
 
     (this.state.isLoggedIn) ?
-      fbContent = null
+      fbContent = (
+        <div className="fb-login">
+          <img src={this.state.picture} alt={this.state.name} />
+          <h3>Welcome {this.state.name}</h3>
+          <p>Email: {this.state.email}</p>
+        </div>
+      )
       :
       fbContent = (
         <FacebookLogin
@@ -59,6 +67,10 @@ class Login extends Component {
           autoLoad={true}
           fields="name,email,picture"
           onClick={this.componentClicked}
+          render={renderProps => (
+            <button 
+              onClick={renderProps.onClick}>This is my custom FB button</button>
+          )}
           callback={this.responseFacebook} />
       );
 
@@ -68,13 +80,8 @@ class Login extends Component {
         onSubmit={this.handleLogin}
         className="login-form">
 
-        <div>
           {fbContent}
-          <p>{this.state.name}</p>
-          <p>{this.state.email}</p>
-          <img src={this.state.picture} alt={this.state.name} />
-        </div>
-
+{/* 
         <label htmlFor="name">Username</label>
         <input
           className="login-input"
@@ -94,7 +101,7 @@ class Login extends Component {
         <input
           type="submit"
           value="Sign In"
-          onSubmit={this.handleLogin} />
+          onSubmit={this.handleLogin} /> */}
       </form>
     )
   }
