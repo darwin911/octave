@@ -1,12 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const SECRET = 'Secret';
 
-const hash = async(password) => {
+const hash = async (password) => {
   return await bcrypt.hash(password, 10);
 }
 
-const compare = async(password, hash) => {
+const compare = async (password, hash) => {
   return await bcrypt.compare(password, hash);
 }
 
@@ -21,12 +22,11 @@ const verify = (token) => {
 const restrict = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
     const data = verify(token);
-      res.locals.user = data;
-      next();
-  }
-  catch(e){
+    res.locals.user = data;
+    next();
+  } catch(e) {
     console.log(e);
     res.status(401).send('Invalid Creds');
   }
@@ -42,4 +42,10 @@ const main = async() => {
 
 // main();
 
-module.exports = { hash, compare, encode, verify, restrict };
+module.exports = {
+  hash,
+  compare,
+  encode,
+  verify,
+  restrict,
+};

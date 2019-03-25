@@ -8,162 +8,162 @@ if (process.env.DATABASE_URL) {
     loggin: true,
     operatorsAliases: false,
     define: {
-      underscored: true
-    }
+      underscored: true,
+    },
   });
 } else {
   sequelize = new Sequelize({
-    database: `octave_db`,
-    dialect: `postgresql`,
+    database: 'octave_db',
+    dialect: 'postgresql',
     operatorsAliases: false,
     define: {
-      underscored: true
-    }
+      underscored: true,
+    },
   });
 };
 
 const User = sequelize.define('users', {
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   password_digest: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 const Artist = sequelize.define('artists', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 const Event = sequelize.define('events', {
   title: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 const Venue = sequelize.define('venues', {
   title: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 const VenueReview = sequelize.define('venue_reviews', {
   content: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   score: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
-const EventReview = sequelize.define('event_reviews', {
+const ArtistReview = sequelize.define('event_reviews', {
   content: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   score: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
-// Relationships between User, EventReview, and Event
+// Relationships between User, ArtistReview, and Artist
 
-User.hasMany(EventReview, {
-  onDelete: 'cascade'
+User.hasMany(ArtistReview, {
+  onDelete: 'cascade',
 });
 
-EventReview.belongsTo(User, {
+ArtistReview.belongsTo(User, {
   foreignKey: {
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
-Event.hasMany(EventReview, {
-  onDelete: 'cascade'
+Artist.hasMany(ArtistReview, {
+  onDelete: 'cascade',
 });
 
-EventReview.belongsTo(Event, {
+ArtistReview.belongsTo(Artist, {
   foreignKey: {
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 // Relationships between User, VenueReview, and Venue
 
 User.hasMany(VenueReview, {
-  onDelete: 'cascade'
+  onDelete: 'cascade',
 });
 
 VenueReview.belongsTo(User, {
   foreignKey: {
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 Venue.hasMany(VenueReview, {
-  onDelete: 'cascade'
+  onDelete: 'cascade',
 });
 
 VenueReview.belongsTo(Venue, {
   foreignKey: {
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 // JOIN TABLE between users and artists
 
 User.belongsToMany(Artist, {
-  through: 'likes'
+  through: 'likes',
 });
 
 Artist.belongsToMany(User, {
-  through: 'likes'
+  through: 'likes',
 });
 
 // JOIN TABLE between users and events
 
 User.belongsToMany(Event, {
-  through: 'attends'
+  through: 'attends',
 });
 
 Event.belongsToMany(User, {
-  through: 'attends'
+  through: 'attends',
 });
 
 // JOIN TABLE between events and artists
 
 Artist.belongsToMany(Event, {
-  through: 'performs'
+  through: 'performs',
 });
 
 Event.belongsToMany(Artist, {
-  through: 'performs'
+  through: 'performs',
 });
 
 // Relationship between events and venues
 
 Venue.hasMany(Event, {
-  onDelete: 'cascade'
+  onDelete: 'cascade',
 });
 
 Event.belongsTo(Venue, {
   foreignKey: {
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 module.exports = {
@@ -173,5 +173,5 @@ module.exports = {
   Event,
   Venue,
   VenueReview,
-  EventReview
+  ArtistReview,
 };
