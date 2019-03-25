@@ -33,11 +33,11 @@ const restrict = (req, res, next) => {
 }
 
 const main = async() => {
-  // const pw = 'hello';
+  // const pw = 'bye';
   // const digest = await hash(pw);
   // const f = await compare('adfjp', digest);
-  const f = verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1yZ21haWxAZ21haWwuY29tIiwiaWQiOjYsImNyZWF0ZWRfYXQiOiIyMDE5LTAzLTEyVDIyOjU5OjIyLjc3NFoiLCJ1cGRhdGVkX2F0IjoiMjAxOS0wMy0xMlQyMjo1OToyMi43NzRaIiwiaWF0IjoxNTUyNDMyMzQ2fQ.1RaAn4z4_brSSKhpIPpqm6MeLu1nIaceIc53StifknE')
-  console.log(f);
+  // const f = verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1yZ21haWxAZ21haWwuY29tIiwiaWQiOjYsImNyZWF0ZWRfYXQiOiIyMDE5LTAzLTEyVDIyOjU5OjIyLjc3NFoiLCJ1cGRhdGVkX2F0IjoiMjAxOS0wMy0xMlQyMjo1OToyMi43NzRaIiwiaWF0IjoxNTUyNDMyMzQ2fQ.1RaAn4z4_brSSKhpIPpqm6MeLu1nIaceIc53StifknE')
+  console.log(digest);
 }
 
 // main();
