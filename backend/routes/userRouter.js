@@ -77,7 +77,7 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
-userRouter.put('/:user_id/artists/:artist_id', async (req, res) => {
+userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const prevArtists = await user.getArtists();
@@ -90,7 +90,7 @@ userRouter.put('/:user_id/artists/:artist_id', async (req, res) => {
   }
 });
 
-userRouter.delete('/:user_id/artists/:artist_id', async (req, res) => {
+userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const deleteArtist = await Artist.findByPk(req.params.artist_id);
@@ -102,7 +102,7 @@ userRouter.delete('/:user_id/artists/:artist_id', async (req, res) => {
   }
 });
 
-userRouter.put('/:user_id/events/:event_id', async (req, res) => {
+userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const prevEvents = await user.getEvents();
@@ -115,7 +115,7 @@ userRouter.put('/:user_id/events/:event_id', async (req, res) => {
   }
 });
 
-userRouter.delete('/:user_id/events/:event_id', async (req, res) => {
+userRouter.delete('/:user_id/events/:event_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const deleteEvent = await Event.findByPk(req.params.event_id);

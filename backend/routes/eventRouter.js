@@ -1,9 +1,10 @@
 const express = require('express');
 const { Event, Artist } = require('../models');
+const { restrict } = require('../auth');
 
 const eventRouter = express.Router();
 
-eventRouter.get('/', async (req, res) => {
+eventRouter.get('/', restrict, async (req, res) => {
   try {
     const events = await Event.findAll();
     res.json({ events });
@@ -13,7 +14,7 @@ eventRouter.get('/', async (req, res) => {
   }
 });
 
-eventRouter.post('/', async (req, res) => {
+eventRouter.post('/', restrict, async (req, res) => {
   try {
     const { title } = req.body;
     const event = await Event.create({
@@ -26,7 +27,7 @@ eventRouter.post('/', async (req, res) => {
   }
 });
 
-eventRouter.delete('/:id', async (req, res) => {
+eventRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;
     const event = await Event.destroy({
@@ -42,7 +43,7 @@ eventRouter.delete('/:id', async (req, res) => {
 });
 
 
-eventRouter.put('/:event_id/artists/:artist_id', async (req, res) => {
+eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
     const prevArtists = await event.getArtists();
@@ -55,7 +56,7 @@ eventRouter.put('/:event_id/artists/:artist_id', async (req, res) => {
   }
 });
 
-eventRouter.delete('/:event_id/artists/:artist_id', async (req, res) => {
+eventRouter.delete('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
     const deleteArtist = await Artist.findByPk(req.params.artist_id);
