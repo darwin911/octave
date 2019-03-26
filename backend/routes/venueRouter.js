@@ -1,9 +1,10 @@
 const express = require('express');
 const { Venue } = require('../models');
+const { restrict } = require('../auth');
 
 const venueRouter = express.Router();
 
-venueRouter.get('/', async (req, res) => {
+venueRouter.get('/', restrict, async (req, res) => {
   try {
     const venues = await Venue.findAll();
     res.json({ venues });
@@ -13,7 +14,7 @@ venueRouter.get('/', async (req, res) => {
   }
 });
 
-venueRouter.post('/', async (req, res) => {
+venueRouter.post('/', restrict, async (req, res) => {
   try {
     const { title } = req.body;
     const venue = await Venue.create({
@@ -26,7 +27,7 @@ venueRouter.post('/', async (req, res) => {
   }
 });
 
-venueRouter.delete('/:id', async (req, res) => {
+venueRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;
     const venue = await Venue.destroy({
