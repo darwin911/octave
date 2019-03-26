@@ -1,10 +1,8 @@
 import React from 'react';
-import Carousel from './Carousel';
 
-const Hero = () => {
+const HomeDetails = () => {
   return (
-    <main>
-      <Carousel />
+    <>
       <section>
         <h4>Discover events near you</h4>
         <p>Get alerts when your favorite artists are in town</p>
@@ -17,8 +15,8 @@ const Hero = () => {
         <h4>Follow your favorite artists</h4>
         <p>View artist tour reviews and learn more about the venues they play at</p>
       </section>
-    </main>
+    </>
   )
-};
+}
 
-export default Hero;
+export default HomeDetails;
