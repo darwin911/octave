@@ -69,7 +69,7 @@ const VenueReview = sequelize.define('venue_reviews', {
   },
 });
 
-const ArtistReview = sequelize.define('event_reviews', {
+const ArtistReview = sequelize.define('artist_reviews', {
   content: {
     type: Sequelize.STRING,
     allowNull: false,
