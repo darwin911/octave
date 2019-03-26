@@ -58,7 +58,6 @@ nav {
 
 main {
   color: #000000;
-  font-size: 1.4rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto minmax(200px, 300px);
@@ -119,6 +118,10 @@ footer {
 
 footer p {
   margin-right: 2rem;
+}
+
+img {
+  max-width: 200px;
 }
 
 @media screen and (min-width: 620px) {
