@@ -2,7 +2,8 @@ import React from 'react';
 
 const Reel = props => {
   return (
-    <>
+    <section className={props.className}>
+      <h3>Upcoming Events in NYC</h3>
       {props.events.map(event => (
         <article
           key={event.id}
@@ -22,8 +23,7 @@ const Reel = props => {
           {/* Event Name */}
           <p>{event.name}</p>
           {/* Min/Max Price. If returned from API */}
-          {event.priceRanges && <p>Min: {event.priceRanges[0].min}</p>}
-          {event.priceRanges && <p>Max: {event.priceRanges[0].max}</p>}
+          {event.priceRanges && <p>${event.priceRanges[0].min}</p>}
           {/* Date YYYY/MM/DD */}
           <p>{event.dates.start.localDate}</p>
 
@@ -42,7 +42,7 @@ const Reel = props => {
           ))}
         </article>
       ))}
-    </>
+    </section>
   );
 };
 

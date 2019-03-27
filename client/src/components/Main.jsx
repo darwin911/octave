@@ -5,16 +5,25 @@ import { withRouter } from 'react-router';
 import HomeDetails from './HomeDetails';
 import Home from './Home';
 import Events from './Events';
+import { allEvents } from '../services/helper';
 
 
 class Main extends Component {
   constructor() {
     super();
     this.state = {
+      events: [],
       currentEvent: null
     };
     this.handleSetEvent = this.handleSetEvent.bind(this);
 
+  }
+
+  async componentDidMount() {
+    const events = await allEvents();
+    this.setState({
+      events
+    });
   }
 
   handleSetEvent(ev) {
@@ -26,18 +35,22 @@ class Main extends Component {
   render() {
     return (
       <main>
-        <Route
-          exact
-          path='/'
-          render={() => (
+        <Route exact path='/' render={() =>
             <>
               <Carousel />
               <HomeDetails />
-            </>
-          )}
-        />
-        <Route path='/home' render={() => <Home handleSetEvent={this.handleSetEvent}/>} />
-        <Route path='/events/:id' render={()=> <Events currentEvent={this.state.currentEvent}/>} />
+            </> } />
+            
+        <Route path='/home' render={() =>
+        <Home
+          events={this.state.events}
+          handleSetEvent={this.handleSetEvent}/>} />
+
+        <Route path='/events/:id' render={()=>
+        <Events 
+          events={this.state.events}
+          handleSetEvent={this.handleSetEvent}
+          currentEvent={this.state.currentEvent} />} />
         
       </main>
     );
