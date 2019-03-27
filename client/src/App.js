@@ -14,10 +14,10 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
-    const hello = await getHello();
-    console.log(hello);
-  }
+  // async componentDidMount() {
+  //   const hello = await getHello();
+  //   console.log(hello);
+  // }
 
 
   render() {
