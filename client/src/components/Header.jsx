@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 const Header = props => {
+
   return (
    <header>
-       <h1 className="title">octave.</h1>
+       <Link to="/"><h1 className="title">octave.</h1></Link>
      <nav>
      {
        props.token

@@ -4,6 +4,11 @@
   padding: 0;
   box-sizing: border-box;
   list-style-type: none;
+  text-decoration: none;
+}
+
+a {
+  color: white;
 }
 
 html {
@@ -16,7 +21,6 @@ html {
   grid-template-rows: 80px 1fr 90px; 
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
-  max-height: 100vh;
 }
 
 header {
@@ -59,8 +63,7 @@ nav {
 main {
   color: #000000;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto minmax(200px, 300px);
+  grid-template-columns: 1fr;
 }
 
 .carousel {
@@ -71,6 +74,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 400px;
   width: 100%;
 }
 
@@ -97,7 +101,7 @@ main section {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 2rem 1rem;;
+  padding: 0 1rem;;
 }
 
 main section {
@@ -120,8 +124,12 @@ footer p {
   margin-right: 2rem;
 }
 
+.event {
+  margin: 0 auto;
+}
+
 img {
-  max-width: 200px;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 620px) {
