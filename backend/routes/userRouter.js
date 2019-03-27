@@ -16,29 +16,53 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.post('/', async (req, res) => {
   try {
-    const { email, password, name } = req.body;
-    const passwordDigest = await hash(password);
+    const { email, password, name, picture } = req.body;
+    if (password) {
+      const passwordDigest = await hash(password);
+      const user = await User.create({
+        email,
+        password_digest: passwordDigest,
+        name,
+        picture
+      });
+      const userData = {
+        email: user.email,
+        name: user.name,
+        password_digest: user.password_digest,
+        picture: user.picture,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      };
 
-    const user = await User.create({
-      email,
-      password_digest: passwordDigest,
-      name,
-    });
+      const token = encode(userData);
 
-    const userData = {
-      email: user.email,
-      password_digest: user.password_digest,
-      name: user.name,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
+      res.json({
+        token,
+        userData,
+      });
+    }
+    else {
+      const user = await User.create({
+        email,
+        name,
+        picture
+      });
 
-    const token = encode(userData);
+      const userData = {
+        email: user.email,
+        name: user.name,
+        picture: user.picture,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      };
 
-    res.json({
-      token,
-      userData,
-    });
+      const token = encode(userData);
+
+      res.json({
+        token,
+        userData,
+      });
+    }
   } catch(e) {
     console.error(e);
   }

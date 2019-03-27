@@ -1,11 +1,7 @@
 import axios from 'axios';
-const API_KEY = process.env.REACT_APP_API_KEY;
-//const BASE_URL ='https://app.ticketmaster.com/discovery/v2/events.json?postalCode=10010&size=5&';
+const API_KEY = process.env.REACT_APP_TM_KEY;
 
-
-const BASE_URL = 'http://localhost:3001';
-const KEY = process.env.REACT_APP_TM_KEY;
-
+const BASE_URL = "http://localhost:3001"
 const api = axios.create({
   baseURL: BASE_URL
   // headers: {
@@ -35,15 +31,21 @@ const deleteReview = async (user_id, review_id) => {
   );
   return resp.data;
 };
+// // Show all events
+// const allEvents = async () => {
+//   try {
+//     const resp = await axios.get(`${API_KEY}`);
+//     return resp.data._embedded;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 // Show all events
 const allEvents = async () => {
-  try {
-    const resp = await axios.get(`${API_KEY}`);
-    return resp.data._embedded;
-  } catch (e) {
-    console.log(e);
-  }
-};
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`)
+  // console.log(resp.data._embedded.events.map(e => e.images));
+  return resp.data._embedded.events
+}
 // Show events on profile page
 const userEvents = async id => {
   const resp = await api.get(`/users/${id}/events`);
@@ -51,13 +53,12 @@ const userEvents = async id => {
 };
 
 const loadEvents = async () => {
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${KEY}`)
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${API_KEY}`)
   // console.log(resp.data._embedded.events.map(e => e.images));
   return resp.data._embedded.events
 }
 
 export {
-  getHello,
   createUser,
   loginUser,
   createReview,
@@ -66,3 +67,4 @@ export {
   userEvents,
   loadEvents,
 }
+
