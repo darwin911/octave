@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Reel = (props) => {
   return (
@@ -8,7 +8,9 @@ const Reel = (props) => {
           event =>
             <article 
               key={event.id}
-              className="event">
+              className="event"
+              onClick={() => {
+              props.handleSetEvent(event)}}>
   {/* Event Image */}
               <a href="../events/:id">
                 <img src={event.images.sort((a, b) => b.width - a.width)[4].url} alt={event.name} />
@@ -39,7 +41,7 @@ const Reel = (props) => {
         )
       }
     </>
-  )
-}
+  );
+};
 
 export default Reel;
