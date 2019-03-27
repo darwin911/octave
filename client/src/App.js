@@ -13,12 +13,6 @@ class App extends Component {
     }
   }
 
-  // async componentDidMount() {
-  //   const hello = await getHello();
-  //   console.log(hello);
-  // }
-
-
   render() {
     return (
       <div className="App">
