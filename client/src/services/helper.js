@@ -52,14 +52,19 @@ const userEvents = async (id) => {
 };
 
 const loadEvents = async () => {
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${KEY}`)
-  console.log(resp.data._embedded.events)
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${KEY}`)
+  // console.log(resp.data._embedded.events.map(e => e.images));
   return resp.data._embedded.events
 }
 
-
 export {
   getHello,
-  loadEvents
+  createUser,
+  loginUser,
+  createReview,
+  deleteReview,
+  allEvents,
+  userEvents,
+  loadEvents,
 }
 
