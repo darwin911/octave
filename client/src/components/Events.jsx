@@ -1,5 +1,7 @@
 import React from 'react';
+import ReviewForm from './ReviewForm'
 import Reel from './Reel'
+
 
 const Events = props => {
   const { currentEvent, events, handleSetEvent } = props;
@@ -26,6 +28,7 @@ const Events = props => {
           </>
         )}
       </article>
+      <ReviewForm />
       <Reel 
         className="events-reel"
         handleSetEvent={handleSetEvent}
