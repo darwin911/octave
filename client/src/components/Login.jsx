@@ -67,9 +67,10 @@ class Login extends Component {
           autoLoad={true}
           fields="name,email,picture"
           onClick={this.componentClicked}
+          scope="public_profile,user_friends,user_actions.books"
           render={renderProps => (
             <button 
-              onClick={renderProps.onClick}>This is my custom FB button</button>
+              onClick={renderProps.onClick}>Login with Facebook</button>
           )}
           callback={this.responseFacebook} />
       );
