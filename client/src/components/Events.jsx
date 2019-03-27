@@ -1,4 +1,5 @@
 import React from 'react';
+import ReviewForm from './ReviewForm'
 
 const Events = props => {
   const { currentEvent } = props;
@@ -9,6 +10,7 @@ const Events = props => {
         {currentEvent && (
           <>
             <img src={currentEvent.images[0].url} alt={currentEvent.name} />
+            <ReviewForm />
             <p>{currentEvent.name}</p>
             <p>{currentEvent.dates.start.localDate}</p>
             {currentEvent.priceRanges && 
