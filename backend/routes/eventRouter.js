@@ -16,9 +16,10 @@ eventRouter.get('/', restrict, async (req, res) => {
 
 eventRouter.post('/', restrict, async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title, picture } = req.body;
     const event = await Event.create({
       title,
+      picture
     });
     res.json({ event });
   } catch (e) {

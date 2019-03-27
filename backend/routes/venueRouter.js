@@ -16,9 +16,10 @@ venueRouter.get('/', restrict, async (req, res) => {
 
 venueRouter.post('/', restrict, async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title, picture } = req.body;
     const venue = await Venue.create({
       title,
+      picture
     });
     res.json({ venue });
   } catch (e) {
