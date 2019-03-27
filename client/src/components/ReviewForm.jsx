@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { createReview } from '../services/helper.js'
 
 export class ReviewForm extends Component {
-  
+
   constructor() {
     super();
     this.state = {
@@ -20,7 +19,7 @@ export class ReviewForm extends Component {
   }
   async handleSubmit() {
     // e.preventDefault()
-    const newReview = await createReview(1 ,this.state.review)
+    const newReview = 'hello'
     this.setState(prevState => ({
       review: [...prevState.review, newReview]
     }));
@@ -33,14 +32,14 @@ export class ReviewForm extends Component {
             <form
               onSubmit={e => {
                 e.preventDefault();
-                 this.handleSubmit();                  
+                 this.handleSubmit();
                 this.setState({ isReview: false });
               }}
             >
               <input
                 type='text'
                 value={this.review}
-                onChange={this.props.handleChange} 
+                onChange={this.props.handleChange}
               />
               {/* <input
                 type='interger'
