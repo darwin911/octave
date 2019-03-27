@@ -28,11 +28,8 @@ class App extends Component {
           token={this.state.token}
           user={this.state.user}/>
         <Main
-          token={this.state.token}
-          user={this.state.user}/>
-        <Footer
-          token={this.state.token}
-          user={this.state.user}/>
+          token={this.state.token} />
+        <Footer />
       </div>
     );
   }
