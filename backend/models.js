@@ -33,8 +33,10 @@ const User = sequelize.define('users', {
   },
   password_digest: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
+  picture: {
+    type: Sequelize.STRING,
+  }
 });
 
 const Artist = sequelize.define('artists', {
@@ -42,6 +44,10 @@ const Artist = sequelize.define('artists', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  picture: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
 });
 
 const Event = sequelize.define('events', {
@@ -49,6 +55,10 @@ const Event = sequelize.define('events', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  picture: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
 });
 
 const Venue = sequelize.define('venues', {
@@ -56,6 +66,10 @@ const Venue = sequelize.define('venues', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  picture: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
 });
 
 const VenueReview = sequelize.define('venue_reviews', {

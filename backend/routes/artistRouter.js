@@ -16,9 +16,10 @@ artistRouter.get('/', restrict, async (req, res) => {
 
 artistRouter.post('/', restrict, async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, picture } = req.body;
     const artist = await Artist.create({
       name,
+      picture
     });
     res.json({ artist });
   } catch (e) {
