@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Reel from './Reel';
 
-
 import { allEvents } from '../services/helper';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
