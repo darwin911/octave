@@ -1,31 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Reel from './Reel';
 
-import { allEvents } from '../services/helper';
-
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: []
-    };
-  }
-
-  async componentDidMount() {
-    const events = await allEvents();
-    this.setState({
-      events
-    });
-  }
-
-  render() {
-    const { events } = this.state;
-    return (
-      <div>
-        <Reel events={events} handleSetEvent={this.props.handleSetEvent}/>
-      </div>
-    );
-  }
+const Home = (props) => {
+  return (
+    <section>
+      <h1>Home</h1>
+      <Reel
+        className="reel"
+        events={props.events}
+        handleSetEvent={props.handleSetEvent} />
+    </section>
+  );
 }
 
 export default Home;
