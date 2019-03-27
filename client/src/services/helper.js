@@ -2,7 +2,9 @@ import axios from 'axios';
 const API_KEY = process.env.REACT_APP_API_KEY;
 const BASE_URL ='https://app.ticketmaster.com/discovery/v2/events.json?postalCode=10010&size=5&';
 
-// const DATA_BASE_URL = 
+
+const BASE_URL = 'http://localhost:3001';
+const KEY = process.env.REACT_APP_TM_KEY;
 
 const api = axios.create({
   baseURL: BASE_URL
@@ -57,4 +59,14 @@ const userEvents = async id => {
   return resp.data;
 };
 
-export { getHello, allEvents };
+const loadEvents = async () => {
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${KEY}`)
+  console.log(resp.data._embedded.events)
+  return resp.data._embedded.events
+}
+
+
+export {
+  getHello,
+  loadEvents
+}

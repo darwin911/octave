@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../models');
+const { User, Artist, Event } = require('../models');
 const { hash, compare, encode, verify, restrict } = require('../auth');
 
 const userRouter = express.Router();
@@ -18,7 +18,7 @@ userRouter.post('/', async (req, res) => {
   try {
     const { email, password, name } = req.body;
     const passwordDigest = await hash(password);
-  
+
     const user = await User.create({
       email,
       password_digest: passwordDigest,
@@ -74,6 +74,56 @@ userRouter.post('/login', async (req, res) => {
     return res.status(401).send('Invalid Credentials');
   } catch(e) {
     console.error(e);
+  }
+});
+
+userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const prevArtists = await user.getArtists();
+    const newArtist = await Artist.findByPk(req.params.artist_id);
+    await user.setArtists([...prevArtists, newArtist]);
+    res.json({ ...user.get(), artists: [...prevArtists, newArtist] })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
+userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const deleteArtist = await Artist.findByPk(req.params.artist_id);
+    await user.removeArtist(deleteArtist);
+    res.json({ ...user.get(), artist: deleteArtist })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
+userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const prevEvents = await user.getEvents();
+    const newEvent = await Event.findByPk(req.params.event_id);
+    await user.setEvents([...prevEvents, newEvent]);
+    res.json({ ...user.get(), events: [...prevEvents, newEvent] })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
+userRouter.delete('/:user_id/events/:event_id', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const deleteEvent = await Event.findByPk(req.params.event_id);
+    await user.removeEvent(deleteEvent);
+    res.json({ ...user.get(), event: deleteEvent })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
   }
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import FacebookLogin from 'react-facebook-login';
+import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 
@@ -56,8 +56,8 @@ class Login extends Component {
       fbContent = (
         <div className="fb-login">
           <img src={this.state.picture} alt={this.state.name} />
-          <h3>Welcome {this.state.name}</h3>
           <p>Email: {this.state.email}</p>
+          <Link to="/home">Continue as {this.state.name}</Link>
         </div>
       )
       :
@@ -67,9 +67,10 @@ class Login extends Component {
           autoLoad={true}
           fields="name,email,picture"
           onClick={this.componentClicked}
+          scope="public_profile,user_friends,user_actions.books"
           render={renderProps => (
             <button 
-              onClick={renderProps.onClick}>This is my custom FB button</button>
+              onClick={renderProps.onClick}>Login with Facebook</button>
           )}
           callback={this.responseFacebook} />
       );
