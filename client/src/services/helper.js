@@ -13,15 +13,6 @@ const api = axios.create({
   // }
 });
 
-const getHello = async () => {
-  try {
-    const resp = await api(`/`);
-    return resp.data;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 // Register
 const createUser = async data => {
   const resp = await api.post(`/users`, data);
