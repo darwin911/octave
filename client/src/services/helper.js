@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.REACT_APP_TM_KEY;
 
 const BASE_URL = "http://localhost:3001"
 const api = axios.create({
@@ -59,7 +59,6 @@ const loadEvents = async () => {
 }
 
 export {
-  getHello,
   createUser,
   loginUser,
   createReview,
