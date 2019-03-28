@@ -15,8 +15,23 @@ artistReviewRouter.get('/', async (req, res) => {
   }
 });
 
+// Get all artist reviews for an artist
+artistReviewRouter.get('/:artist_id', async (req, res) => {
+  try {
+    const artistReviews = await ArtistReview.findAll({
+      where: {
+        artist_id: req.params.artist_id
+      }
+    });
+    res.json({ artistReviews });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Add an artist review. first id is the artist id, second id is the user id
-artistReviewRouter.post('/:id/:user_id', restrict, async (req, res) => {
+artistReviewRouter.post('/:id/users/:user_id', restrict, async (req, res) => {
   try {
     const { content, score } = req.body;
     const userId = req.params.user_id;
@@ -50,7 +65,7 @@ artistReviewRouter.delete('/:id', restrict, async (req, res) => {
   }
 });
 
-// Edit an artist review 
+// Edit an artist review
 artistReviewRouter.put('/:id', restrict, async (req, res, next) => {
   try {
     const { id } = req.params;

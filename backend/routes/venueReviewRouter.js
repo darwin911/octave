@@ -1,5 +1,5 @@
 const express = require('express');
-const { VenueReview } = require('../models');
+const { VenueReview, Venue } = require('../models');
 const { restrict } = require('../auth');
 
 const venueReviewRouter = express.Router();
@@ -15,8 +15,23 @@ venueReviewRouter.get('/', async (req, res) => {
   }
 });
 
+// Get all venue reviews of a venue
+venueReviewRouter.get('/:venue_id', async (req, res) => {
+  try {
+    const venueReviews = await VenueReview.findAll({
+      where: {
+        venue_id: req.params.venue_id
+      }
+    });
+    res.json({ venueReviews });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Add a venue review. first id is venue id, second id is user id
-venueReviewRouter.post('/:id/:user_id', restrict, async (req, res) => {
+venueReviewRouter.post('/:id/users/:user_id', restrict, async (req, res) => {
   try {
     const { content, score } = req.body;
     const userId = req.params.user_id;
