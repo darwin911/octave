@@ -10,20 +10,23 @@ class Events extends Component {
   constructor() {
     super();
     this.state = {
-      venueReviews: []
+      venueReviews: [],
+      artistReviews: []
     }
   }
 
   async componentDidMount() {
     const venueReviews = await getVenueReviews();
+    const artistReviews = await getArtistReviews();
     this.setState({
-      venueReviews
+      venueReviews,
+      artistReviews
     });
   }
 
   render() {
     const { currentEvent, events, handleSetEvent } = this.props;
-    const { venueReviews } = this.state;
+    const { venueReviews, artistReviews } = this.state;
     return (
       <section>
         <h2>{currentEvent && currentEvent.name}</h2>
@@ -49,6 +52,12 @@ class Events extends Component {
         <div>
           <div>{venueReviews.map(venueReview => (
             <p key={venueReview.id}>{venueReview.content}, {venueReview.score}</p>
+          ))}
+          </div>
+        </div>
+        <div>
+          <div>{artistReviews.map(artistReview => (
+            <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>
           ))}
           </div>
         </div>

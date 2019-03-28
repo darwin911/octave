@@ -14,13 +14,15 @@ eventRouter.get('/', restrict, async (req, res) => {
   }
 });
 
-eventRouter.post('/', restrict, async (req, res) => {
+eventRouter.post('/:id', restrict, async (req, res) => {
   try {
     const { title, picture } = req.body;
+    const venueId = req.params.id;
     const event = await Event.create({
       title,
       picture
     });
+    event.setVenue(venueId)
     res.json({ event });
   } catch (e) {
     console.log(e);
