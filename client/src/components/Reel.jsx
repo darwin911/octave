@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const Reel = props => {
   return (
@@ -10,9 +11,7 @@ const Reel = props => {
           className='event'
           onClick={e => {
             e.preventDefault();
-            props.handleSetEvent(event);
-          }}
-        >
+            props.handleSetEvent(event);}}>
           {/* Event Image */}
           <a href='../events/:id'>
             <img
@@ -25,11 +24,7 @@ const Reel = props => {
           {/* Min/Max Price. If returned from API */}
           {event.priceRanges && <p>${event.priceRanges[0].min}</p>}
           {/* Date YYYY/MM/DD */}
-          <p>{event.dates.start.localDate}</p>
-
-          {event._embedded.attractions.map(artist => (
-            <p key={artist.id}>{artist.name}</p>
-          ))}
+          <p>{moment(event.dates.start.localDate).format('MMM Do, YYYY')}</p>
 
           {event._embedded.venues.map(venue => (
             <p key={venue.id}>{venue.name}</p>
