@@ -5,7 +5,7 @@ const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhaGEiLCJwYXNz
 
 const BASE_URL = "http://localhost:3001"
 const api = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
   headers: {
       'Authorization': `Bearer ${TOKEN}`
   }
@@ -24,22 +24,22 @@ const loginUser = async (data) => {
   return resp.data;
 };
 
-/////////////// Events Attended ///////////////
+/////////////// Events Attending ///////////////
 
 // Add events attending
-const addEvent = async (userId, eventId) => {
+const addUserEvents = async (userId, eventId) => {
   const resp = await api.put(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
 
 // Delete events attending
-const deleteEvent = async (userId, eventId) => {
+const deleteUserEvents = async (userId, eventId) => {
   const resp = await api.delete(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
 
 // Get all events attending by one user
-const getEvents = async (userId) => {
+const getUserEvents = async (userId) => {
   const resp = await api.get(`/users/${userId}/events`);
   return resp.data;
 };
@@ -154,9 +154,9 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
-  addEvent,
-  deleteEvent,
-  getEvents,
+  addUserEvents,
+  deleteUserEvents,
+  getUserEvents,
   addLike,
   deleteLike,
   getLikes,
