@@ -118,6 +118,18 @@ userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   }
 });
 
+// Get all artists which user liked
+userRouter.get('/:user_id/artists', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const artists = await user.getArtists();
+    res.json({ artists })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Delete from LIKES table
 userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   try {
@@ -139,6 +151,18 @@ userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
     const newEvent = await Event.findByPk(req.params.event_id);
     await user.setEvents([...prevEvents, newEvent]);
     res.json({ ...user.get(), events: [...prevEvents, newEvent] })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
+// Get all events user is attending
+userRouter.get('/:user_id/events', restrict, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.user_id);
+    const events = await user.getEvents();
+    res.json({ events })
   } catch (e) {
     console.log(e);
     res.stats(500).send(e.message);

@@ -62,6 +62,18 @@ eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   }
 });
 
+// Get all artists that will perform at the event
+eventRouter.get('/:event_id/artists', restrict, async (req, res) => {
+  try {
+    const event = await Event.findByPk(req.params.event_id);
+    const artists = await event.getArtists();
+    res.json({ artists })
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Delete from PERFORMS table
 eventRouter.delete('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   try {
