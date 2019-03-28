@@ -4,6 +4,7 @@ const { hash, compare, encode, verify, restrict } = require('../auth');
 
 const userRouter = express.Router();
 
+//Get all users
 userRouter.get('/', async (req, res) => {
   try {
     const users = await User.findAll();
@@ -14,6 +15,7 @@ userRouter.get('/', async (req, res) => {
   }
 });
 
+// Register route
 userRouter.post('/', async (req, res) => {
   try {
     const { email, password, name, picture } = req.body;
@@ -68,6 +70,7 @@ userRouter.post('/', async (req, res) => {
   }
 });
 
+//Login route
 userRouter.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -101,6 +104,7 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
+// Add to LIKES table
 userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
@@ -114,6 +118,7 @@ userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   }
 });
 
+// Delete from LIKES table
 userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
@@ -126,6 +131,7 @@ userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => 
   }
 });
 
+// Add to ATTENDS table
 userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
@@ -139,6 +145,7 @@ userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
   }
 });
 
+// Delete from ATTENDS table
 userRouter.delete('/:user_id/events/:event_id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);

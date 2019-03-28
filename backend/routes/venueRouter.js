@@ -4,6 +4,7 @@ const { restrict } = require('../auth');
 
 const venueRouter = express.Router();
 
+// Get all venues
 venueRouter.get('/', restrict, async (req, res) => {
   try {
     const venues = await Venue.findAll();
@@ -14,6 +15,7 @@ venueRouter.get('/', restrict, async (req, res) => {
   }
 });
 
+// Add a venue
 venueRouter.post('/', restrict, async (req, res) => {
   try {
     const { title, picture } = req.body;
@@ -28,6 +30,7 @@ venueRouter.post('/', restrict, async (req, res) => {
   }
 });
 
+// Delete a venue
 venueRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;

@@ -4,6 +4,7 @@ const { restrict } = require('../auth');
 
 const artistRouter = express.Router();
 
+// Get all artists
 artistRouter.get('/', restrict, async (req, res) => {
   try {
     const artists = await Artist.findAll();
@@ -14,6 +15,7 @@ artistRouter.get('/', restrict, async (req, res) => {
   }
 });
 
+// Add an artist
 artistRouter.post('/', restrict, async (req, res) => {
   try {
     const { name, picture } = req.body;
@@ -28,6 +30,7 @@ artistRouter.post('/', restrict, async (req, res) => {
   }
 });
 
+// Delete an artist
 artistRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;
