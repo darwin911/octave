@@ -1,15 +1,37 @@
-import React from 'react';
-import ReviewForm from './ReviewForm'
-import Reel from './Reel'
+import React, { Component } from 'react';
+import ReviewForm from './ReviewForm';
+import Reel from './Reel';
 import moment from 'moment';
+import {
+  getVenueReviews,
+  getArtistReviews
+} from '../services/helper';
 
-const Events = props => {
-  console.log(moment('2019-04-21').format('MMM Do YYYY'))
-  const { currentEvent, events, handleSetEvent } = props;
-  console.log(currentEvent)
-  return (
-    <section>
-      <article>
+class Events extends Component {
+  constructor() {
+    super();
+    this.state = {
+      venueReviews: [],
+      artistReviews: []
+    }
+  }
+
+  async componentDidMount() {
+    const venueReviews = await getVenueReviews();
+    const artistReviews = await getArtistReviews();
+    this.setState({
+      venueReviews,
+      artistReviews
+    });
+  }
+
+  render() {
+    const { currentEvent, events, handleSetEvent } = this.props;
+    const { venueReviews, artistReviews } = this.state;
+    return (
+      <section>
+        <h2>{currentEvent && currentEvent.name}</h2>
+        <article>
         {currentEvent && (
           <>
             <img src={currentEvent.images.sort((a, b) => b.width - a.width)[4].url} alt={currentEvent.name} />
@@ -27,13 +49,23 @@ const Events = props => {
           </>
         )}
       </article>
-      <ReviewForm />
-      <Reel
-        className="events-reel"
-        handleSetEvent={handleSetEvent}
-        events={events} />
-    </section>
-  );
-};
+        
+        <div>{venueReviews.map(venueReview => (
+          <p key={venueReview.id}>{venueReview.content}, {venueReview.score}</p>))}
+        </div>
+
+        <div>{artistReviews.map(artistReview => (
+          <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>))}
+        </div>      
+        
+        <ReviewForm />
+        <Reel
+          className="events-reel"
+          handleSetEvent={handleSetEvent}
+          events={events} />
+      </section>
+    );
+  };
+}
 
 export default Events;

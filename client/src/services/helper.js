@@ -19,27 +19,17 @@ const loginUser = async data => {
   const resp = await api.post(`/users/login`, data);
   return resp.data;
 };
-// Create review
-const createReview = async (id, data) => {
-  const resp = await api.post(`/users/${id}/review`, data);
-  return resp.data;
-};
-// Delete review
-const deleteReview = async (user_id, review_id) => {
-  const resp = await api.delete(
-    `${BASE_URL}/users/${user_id}/review/${review_id}`
-  );
-  return resp.data;
-};
-// // Show all events
-// const allEvents = async () => {
-//   try {
-//     const resp = await axios.get(`${API_KEY}`);
-//     return resp.data._embedded;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+// Get all venue reviews
+const getVenueReviews = async () => {
+  const resp = await api.get(`/venue-reviews/`)
+  return resp.data.venueReviews;
+}
+// Get all artist reviews
+const getArtistReviews = async () => {
+  const resp = await api.get(`/artist-reviews/`)
+  return resp.data.artistReviews;
+}
+
 // Show all events
 const allEvents = async () => {
   const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`)
@@ -61,10 +51,9 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
-  createReview,
-  deleteReview,
+  getVenueReviews,
+  getArtistReviews,
   allEvents,
   userEvents,
   loadEvents,
 }
-

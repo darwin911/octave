@@ -43,51 +43,45 @@ const main = async () => {
     });
 
     const artist1 = await Artist.create({
-      name: 'Armin Van Buren'
+      name: 'Armin Van Buren',
+      picture: 'hello'
     });
     const artist2 = await Artist.create({
-      name: 'Maroon 5'
+      name: 'Maroon 5',
+      picture: 'hello'
     });
     const artist3 = await Artist.create({
-      name: 'Hardwell'
+      name: 'Hardwell',
+      picture: 'hello'
     });
     const artist4 = await Artist.create({
-      name: 'Alan Walker'
+      name: 'Alan Walker',
+      picture: 'hello'
     });
     const artist5 = await Artist.create({
-      name: 'Beyonce'
-    });
-
-    const event1 = await Event.create({
-      title: 'Burning Man'
-    });
-    const event2 = await Event.create({
-      title: 'Electric Daisy Carnival'
-    });
-    const event3 = await Event.create({
-      title: 'Ibiza'
-    });
-    const event4 = await Event.create({
-      title: 'Ultra Music Festival'
-    });
-    const event5 = await Event.create({
-      title: 'Coachella'
+      name: 'Beyonce',
+      picture: 'hello'
     });
 
     const venue1 = await Venue.create({
-      title: 'Barclays Center'
+      title: 'Barclays Center',
+      picture: 'hello'
     });
     const venue2 = await Venue.create({
-      title: 'Madison Square Garden'
+      title: 'Madison Square Garden',
+      picture: 'hello'
     });
     const venue3 = await Venue.create({
-      title: 'Radio City Music Hall'
+      title: 'Radio City Music Hall',
+      picture: 'hello'
     });
     const venue4 = await Venue.create({
-      title: 'Miami Marine Stadium'
+      title: 'Miami Marine Stadium',
+      picture: 'hello'
     });
     const venue5 = await Venue.create({
-      title: 'Met Life Stadium'
+      title: 'Met Life Stadium',
+      picture: 'hello'
     });
 
     const artistReview1 = await ArtistReview.create({
