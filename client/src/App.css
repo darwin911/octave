@@ -136,8 +136,8 @@ img {
   width: 150px;
 }
 
-@media screen and (min-width: 620px) {
-  main section {
-    grid-column: span 1;
+@media screen and (max-width: 414px) {
+  .events-reel {
+    display: none;
   }
 }
