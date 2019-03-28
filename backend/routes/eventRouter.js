@@ -4,6 +4,7 @@ const { restrict } = require('../auth');
 
 const eventRouter = express.Router();
 
+// Get all events
 eventRouter.get('/', restrict, async (req, res) => {
   try {
     const events = await Event.findAll();
@@ -14,10 +15,11 @@ eventRouter.get('/', restrict, async (req, res) => {
   }
 });
 
-eventRouter.post('/:id', restrict, async (req, res) => {
+// Add an event with a venue
+eventRouter.post('/:venue_id', restrict, async (req, res) => {
   try {
     const { title, picture } = req.body;
-    const venueId = req.params.id;
+    const venueId = req.params.venue_id;
     const event = await Event.create({
       title,
       picture
@@ -30,6 +32,7 @@ eventRouter.post('/:id', restrict, async (req, res) => {
   }
 });
 
+// Delete an event
 eventRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;
@@ -45,7 +48,7 @@ eventRouter.delete('/:id', restrict, async (req, res) => {
   }
 });
 
-
+// Add to PERFORMS table
 eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
@@ -59,6 +62,7 @@ eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   }
 });
 
+// Delete from PERFORMS table
 eventRouter.delete('/:event_id/artists/:artist_id', restrict, async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);

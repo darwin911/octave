@@ -4,6 +4,7 @@ const { restrict } = require('../auth');
 
 const artistReviewRouter = express.Router();
 
+// Get all artist reviews
 artistReviewRouter.get('/', async (req, res) => {
   try {
     const artistReviews = await ArtistReview.findAll();
@@ -14,13 +15,18 @@ artistReviewRouter.get('/', async (req, res) => {
   }
 });
 
-artistReviewRouter.post('/', restrict, async (req, res) => {
+// Add an artist review. first id is the artist id, second id is the user id
+artistReviewRouter.post('/:id/:user_id', restrict, async (req, res) => {
   try {
     const { content, score } = req.body;
+    const userId = req.params.user_id;
+    const id = req.params.id;
     const artistReview = await ArtistReview.create({
       content,
       score
     });
+    artistReview.setUser(userId);
+    artistReview.setArtist(id);
     res.json({ artistReview });
   } catch (e) {
     console.log(e);
@@ -28,6 +34,7 @@ artistReviewRouter.post('/', restrict, async (req, res) => {
   }
 });
 
+// Delete an artist review
 artistReviewRouter.delete('/:id', restrict, async (req, res) => {
   try {
     const { id } = req.params;
@@ -43,6 +50,7 @@ artistReviewRouter.delete('/:id', restrict, async (req, res) => {
   }
 });
 
+// Edit an artist review 
 artistReviewRouter.put('/:id', restrict, async (req, res, next) => {
   try {
     const { id } = req.params;

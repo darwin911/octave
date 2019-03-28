@@ -83,49 +83,6 @@ const main = async () => {
       title: 'Met Life Stadium',
       picture: 'hello'
     });
-
-    const artistReview1 = await ArtistReview.create({
-      content: 'Great performance!',
-      score: 9
-    });
-    const artistReview2 = await ArtistReview.create({
-      content:
-        'Horrible performance, they need more practice',
-      score: 2
-    });
-    const artistReview3 = await ArtistReview.create({
-      content: 'I love these guys!',
-      score: 8
-    });
-    const artistReview4 = await ArtistReview.create({
-      content: 'They were so-so this time...',
-      score: 6
-    });
-    const artistReview5 = await ArtistReview.create({
-      content: 'I will never forget how horrible they were!!',
-      score: 0
-    });
-    const venueReview1 = await VenueReview.create({
-      content: 'Great staff, and clean!',
-      score: 9
-    });
-    const venueReview2 = await VenueReview.create({
-      content:
-        'Dirty AF, hate this place',
-      score: 1
-    });
-    const venueReview3 = await VenueReview.create({
-      content: 'Need to fix speakers and they need more bathrooms!',
-      score: 4
-    });
-    const venueReview4 = await VenueReview.create({
-      content: 'Great place for a gathering! My fav place to go!',
-      score: 9
-    });
-    const venueReview5 = await VenueReview.create({
-      content: 'Love it! Has great parking and food selection!',
-      score: 10
-    });
   }
   catch(e){
     console.error(e);
