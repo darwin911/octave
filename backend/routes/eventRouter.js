@@ -15,6 +15,21 @@ eventRouter.get('/', restrict, async (req, res) => {
   }
 });
 
+// Get a specific event
+eventRouter.get('/:event_name', restrict, async (req, res) => {
+  try {
+    const event = await Event.findOne({
+      where: {
+        title: req.params.event_name
+      }
+    });
+    res.json({ event });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Add an event with a venue
 eventRouter.post('/:venue_id', restrict, async (req, res) => {
   try {
