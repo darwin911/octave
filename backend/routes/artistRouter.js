@@ -15,6 +15,21 @@ artistRouter.get('/', restrict, async (req, res) => {
   }
 });
 
+// Get a specific artist
+artistRouter.get('/:artist_name', restrict, async (req, res) => {
+  try {
+    const artist = await Artist.findOne({
+      where: {
+        name: req.params.artist_name
+      }
+    });
+    res.json({ artist });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Add an artist
 artistRouter.post('/', restrict, async (req, res) => {
   try {

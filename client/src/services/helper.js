@@ -23,6 +23,11 @@ const loginUser = async (data) => {
   const resp = await api.post(`/users/login`, data);
   return resp.data;
 };
+// Get specific user based on id
+const getUser = async (id) => {
+  const resp = await api.get(`/users/${id}`);
+  return resp.data;
+}
 
 /////////////// Events Attending ///////////////
 
@@ -69,6 +74,12 @@ const getLikes = async (userId) => {
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
+  return resp.data;
+}
+
+// Get an artist from database based on name
+const findArtist = async (artistName) => {
+  const resp = await api.get(`/artists/${artistName}`);
   return resp.data;
 }
 
@@ -160,6 +171,7 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
+  getUser,
   addUserEvent,
   deleteUserEvent,
   getUserEvents,
@@ -167,6 +179,7 @@ export {
   deleteLike,
   getLikes,
   findVenue,
+  findArtist,
   addVenue,
   addArtist,
   addEvent,

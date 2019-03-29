@@ -15,6 +15,21 @@ userRouter.get('/', async (req, res) => {
   }
 });
 
+//Get a specific user
+userRouter.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.json({ user });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Register route
 userRouter.post('/', async (req, res) => {
   try {
