@@ -71,6 +71,12 @@ const getLikes = async (userId) => {
 
 /////////// Add artist, venue, or events ////////
 
+// Get an event from database based on name
+const findEvent = async (eventTitle) => {
+  const resp = await api.get(`/events/${eventTitle}`);
+  return resp.data;
+}
+
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
@@ -184,6 +190,7 @@ export {
   getLikes,
   findVenue,
   findArtist,
+  findEvent,
   addVenue,
   addArtist,
   addEvent,
