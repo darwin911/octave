@@ -23,6 +23,11 @@ const loginUser = async (data) => {
   const resp = await api.post(`/users/login`, data);
   return resp.data;
 };
+// Get specific user based on id
+const getUser = async (id) => {
+  const resp = await api.get(`/users/${id}`);
+  return resp.data;
+}
 
 /////////////// Events Attending ///////////////
 
@@ -166,6 +171,7 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
+  getUser,
   addUserEvent,
   deleteUserEvent,
   getUserEvents,

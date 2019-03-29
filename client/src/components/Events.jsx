@@ -11,7 +11,10 @@ import {
   findArtist,
   getArtistReviews,
   addArtist,
-  addArtistReview
+  addArtistReview,
+  getUser,
+  addUserEvent,
+  addLike,
   } from '../services/helper';
 
 class Events extends Component {
@@ -24,12 +27,24 @@ class Events extends Component {
   }
 
   async componentDidMount() {
+    // When posting a review for venues, run these functions
     // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
     // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
     // const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, {content: 'yoyo', score: 2});
 
+    // When posting a review for artist, run these functions
+    // conditionally render so that you add artist if artist does not exist in database, if artist exists then lookartist and findartist to get id
     // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
     // const artistReview = await addArtistReview(artist.artist.id, this.props.user.id, {content: 'hi', score: 1})
+
+    // When attending an event, run these functions when clicking attending event button
+    // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
+    // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
+    // const eventAttend = await addUserEvent(this.props.user.id, event.event.id);
+
+    // When liking an artist, run these functions when clicking like button
+    // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
+    // const likeArtist = await addLike(this.props.user.id, artist.artist.id)
 
     const lookVenue = this.props.currentEvent._embedded.venues[0].name;
     const venue = await findVenue(lookVenue);
@@ -81,14 +96,14 @@ class Events extends Component {
       <h3>Venue Reviews</h3>
       {venueReviews.venueReviews &&
         <div>{venueReviews.venueReviews.map(venueReview => (
-          <p key={venueReview.id}>{venueReview.content}, {venueReview.score}</p>))}
+          <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
         </div>
       }
 
       <h3>Artist Reviews</h3>
       {artistReviews &&
       <div>{artistReviews.map(artistReview => (
-        <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>))}
+        <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
       </div>
       }
         <Reel
