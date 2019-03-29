@@ -72,6 +72,12 @@ const findVenue = async (venueTitle) => {
   return resp.data;
 }
 
+// Get an artist from database based on name
+const findArtist = async (artistName) => {
+  const resp = await api.get(`/artists/${artistName}`);
+  return resp.data;
+}
+
 // Add venue
 const addVenue = async (venue) => {
   const resp = await api.post(`/venues/`, venue);
@@ -167,6 +173,7 @@ export {
   deleteLike,
   getLikes,
   findVenue,
+  findArtist,
   addVenue,
   addArtist,
   addEvent,

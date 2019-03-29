@@ -7,7 +7,11 @@ import {
   addVenue,
   addEvent,
   findVenue,
-  getVenueReviews
+  getVenueReviews,
+  findArtist,
+  getArtistReviews,
+  addArtist,
+  addArtistReview
   } from '../services/helper';
 
 class Events extends Component {
@@ -23,8 +27,23 @@ class Events extends Component {
     // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
     // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
     // const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, {content: 'yoyo', score: 2});
+
+    // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
+    // const artistReview = await addArtistReview(artist.artist.id, this.props.user.id, {content: 'hi', score: 1})
+
     const lookVenue = this.props.currentEvent._embedded.venues[0].name;
     const venue = await findVenue(lookVenue);
+
+    const lookArtist = this.props.currentEvent._embedded.attractions[0].name;
+    const artist = await findArtist(lookArtist);
+    if (artist.artist) {
+      const artistReviews = await getArtistReviews(artist.artist.id);
+
+      this.setState({
+        artistReviews: artistReviews
+      })
+    }
+
     if (venue.venue) {
       const venueReviews = await getVenueReviews(venue.venue.id);
 
@@ -59,14 +78,16 @@ class Events extends Component {
         )}
       </article>
 
+      <h3>Venue Reviews</h3>
       {venueReviews.venueReviews &&
         <div>{venueReviews.venueReviews.map(venueReview => (
           <p key={venueReview.id}>{venueReview.content}, {venueReview.score}</p>))}
         </div>
       }
 
-      {artistReviews.artistReviews &&
-      <div>{artistReviews.artistReviews.map(artistReview => (
+      <h3>Artist Reviews</h3>
+      {artistReviews &&
+      <div>{artistReviews.map(artistReview => (
         <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>))}
       </div>
       }
