@@ -40,18 +40,19 @@ class Main extends Component {
               <Carousel />
               <HomeDetails />
             </> } />
-            
+
         <Route path='/home' render={() =>
         <Home
           events={this.state.events}
           handleSetEvent={this.handleSetEvent}/>} />
 
         <Route path='/events/:id' render={()=>
-        <Events 
+        <Events
+          user={this.props.user}
           events={this.state.events}
           handleSetEvent={this.handleSetEvent}
           currentEvent={this.state.currentEvent} />} />
-        
+
       </main>
     );
   }

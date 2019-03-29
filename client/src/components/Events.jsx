@@ -3,9 +3,12 @@ import ReviewForm from './ReviewForm';
 import Reel from './Reel';
 import moment from 'moment';
 import {
-  getVenueReviews,
-  getArtistReviews
-} from '../services/helper';
+  addVenueReview,
+  addVenue,
+  addEvent,
+  findVenue,
+  getVenueReviews
+  } from '../services/helper';
 
 class Events extends Component {
   constructor() {
@@ -17,12 +20,16 @@ class Events extends Component {
   }
 
   async componentDidMount() {
-    const venueReviews = await getVenueReviews();
-    const artistReviews = await getArtistReviews();
+    // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
+    // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
+    // const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, {content: 'yoyo', score: 2});
+    const lookVenue = this.props.currentEvent._embedded.venues[0].name;
+    const venue = await findVenue(lookVenue);
+    const venueReviews = await getVenueReviews(venue.venue.id);
+
     this.setState({
-      venueReviews,
-      artistReviews
-    });
+      venueReviews: venueReviews
+    })
   }
 
   render() {
@@ -49,16 +56,18 @@ class Events extends Component {
           </>
         )}
       </article>
-        
-        <div>{venueReviews.map(venueReview => (
+
+      {venueReviews.venueReviews &&
+        <div>{venueReviews.venueReviews.map(venueReview => (
           <p key={venueReview.id}>{venueReview.content}, {venueReview.score}</p>))}
         </div>
+      }
 
-        <div>{artistReviews.map(artistReview => (
-          <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>))}
-        </div>      
-        
-        <ReviewForm />
+      {artistReviews.artistReviews &&
+      <div>{artistReviews.artistReviews.map(artistReview => (
+        <p key={artistReview.id}>{artistReview.content}, {artistReview.score}</p>))}
+      </div>
+      }
         <Reel
           className="events-reel"
           handleSetEvent={handleSetEvent}

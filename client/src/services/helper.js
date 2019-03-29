@@ -27,13 +27,13 @@ const loginUser = async (data) => {
 /////////////// Events Attending ///////////////
 
 // Add events attending
-const addUserEvents = async (userId, eventId) => {
+const addUserEvent = async (userId, eventId) => {
   const resp = await api.put(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
 
 // Delete events attending
-const deleteUserEvents = async (userId, eventId) => {
+const deleteUserEvent = async (userId, eventId) => {
   const resp = await api.delete(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
@@ -65,6 +65,12 @@ const getLikes = async (userId) => {
 };
 
 /////////// Add artist, venue, or events ////////
+
+// Get a venue from database based on name
+const findVenue = async (venueTitle) => {
+  const resp = await api.get(`/venues/${venueTitle}`);
+  return resp.data;
+}
 
 // Add venue
 const addVenue = async (venue) => {
@@ -154,12 +160,13 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
-  addUserEvents,
-  deleteUserEvents,
+  addUserEvent,
+  deleteUserEvent,
   getUserEvents,
   addLike,
   deleteLike,
   getLikes,
+  findVenue,
   addVenue,
   addArtist,
   addEvent,

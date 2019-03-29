@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: {},
+      user: {id: 5},
       token: ""
     }
   }
@@ -20,6 +20,7 @@ class App extends Component {
           token={this.state.token}
           user={this.state.user}/>
         <Main
+          user={this.state.user}
           token={this.state.token} />
         <Footer />
       </div>
