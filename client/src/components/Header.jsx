@@ -13,10 +13,10 @@ const Header = props => {
        <p><Link to="/home">Home</Link></p>
 
        :
-        <div>
-        <p className="nav-link">Sign In</p>
-        <p className="nav-link">Create Account</p>
-        </div>
+        <>
+          <p className="nav-link">Sign In</p>
+          <p className="nav-link">Create Account</p>
+        </>
       }
      </nav>
    </header>

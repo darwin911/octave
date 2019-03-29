@@ -35,7 +35,7 @@ header {
 
 nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   margin-right: 1rem;
@@ -43,20 +43,16 @@ nav {
 }
 
 .nav-link {
-  margin: 0 0.25rem;
-  padding: 0;
-  font-weight: bold;
-}
-
-.nav-link:last-child {
   margin: 0;
-  padding: 0.25rem;
+  padding: 0;
   font-weight: bold;
 }
 
 .nav-link:last-child {
   color: #000000;
   background: #ffffff;
+  padding: 0.25rem;
+  font-weight: bold;
   border-radius: 20px;
 }
 
@@ -139,5 +135,16 @@ img {
 @media screen and (max-width: 414px) {
   .events-reel {
     display: none;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  nav {
+    justify-content: flex-end;
+  }
+  
+  .nav-link {
+    margin-right: 1rem;
+    font-weight: bold;
   }
 }
