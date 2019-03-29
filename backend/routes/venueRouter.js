@@ -15,6 +15,21 @@ venueRouter.get('/', restrict, async (req, res) => {
   }
 });
 
+// Get a specific venue
+venueRouter.get('/:venue_name', restrict, async (req, res) => {
+  try {
+    const venue = await Venue.findOne({
+      where: {
+        title: req.params.venue_name
+      }
+    });
+    res.json({ venue });
+  } catch (e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 // Add a venue
 venueRouter.post('/', restrict, async (req, res) => {
   try {

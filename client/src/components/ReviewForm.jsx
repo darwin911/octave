@@ -17,8 +17,8 @@ export class ReviewForm extends Component {
       [name]: value
     })
   }
-  async handleSubmit() {
-    // e.preventDefault()
+  async handleSubmit(e) {
+    e.preventDefault()
     const newReview = 'hello'
     this.setState(prevState => ({
       review: [...prevState.review, newReview]

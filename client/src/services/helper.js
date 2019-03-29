@@ -5,7 +5,7 @@ const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhaGEiLCJwYXNz
 
 const BASE_URL = "http://localhost:3001"
 const api = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
   headers: {
       'Authorization': `Bearer ${TOKEN}`
   }
@@ -24,22 +24,22 @@ const loginUser = async (data) => {
   return resp.data;
 };
 
-/////////////// Events Attended ///////////////
+/////////////// Events Attending ///////////////
 
 // Add events attending
-const addEvent = async (userId, eventId) => {
+const addUserEvent = async (userId, eventId) => {
   const resp = await api.put(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
 
 // Delete events attending
-const deleteEvent = async (userId, eventId) => {
+const deleteUserEvent = async (userId, eventId) => {
   const resp = await api.delete(`/users/${userId}/events/${eventId}`);
   return resp.data;
 };
 
 // Get all events attending by one user
-const getEvents = async (userId) => {
+const getUserEvents = async (userId) => {
   const resp = await api.get(`/users/${userId}/events`);
   return resp.data;
 };
@@ -65,6 +65,12 @@ const getLikes = async (userId) => {
 };
 
 /////////// Add artist, venue, or events ////////
+
+// Get a venue from database based on name
+const findVenue = async (venueTitle) => {
+  const resp = await api.get(`/venues/${venueTitle}`);
+  return resp.data;
+}
 
 // Add venue
 const addVenue = async (venue) => {
@@ -154,12 +160,13 @@ const loadEvents = async () => {
 export {
   createUser,
   loginUser,
-  addEvent,
-  deleteEvent,
-  getEvents,
+  addUserEvent,
+  deleteUserEvent,
+  getUserEvents,
   addLike,
   deleteLike,
   getLikes,
+  findVenue,
   addVenue,
   addArtist,
   addEvent,
