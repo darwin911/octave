@@ -25,11 +25,13 @@ class Events extends Component {
     // const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, {content: 'yoyo', score: 2});
     const lookVenue = this.props.currentEvent._embedded.venues[0].name;
     const venue = await findVenue(lookVenue);
-    const venueReviews = await getVenueReviews(venue.venue.id);
+    if (venue.venue) {
+      const venueReviews = await getVenueReviews(venue.venue.id);
 
-    this.setState({
-      venueReviews: venueReviews
-    })
+      this.setState({
+        venueReviews: venueReviews
+      })
+    }
   }
 
   render() {
