@@ -5,12 +5,12 @@ const Header = props => {
 
   return (
    <header>
-       <Link to="/"><h1 className="title">octave.</h1></Link>
+       <Link to="/home"><h1 className="title">octave.</h1></Link>
      <nav>
      {
        props.token
        ?
-       <p><Link to="/home"></Link></p>
+       <p><Link to="/home">Home</Link></p>
 
        :
         <div>
