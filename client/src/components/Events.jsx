@@ -27,11 +27,6 @@ class Events extends Component {
   }
 
   async componentDidMount() {
-    // When posting a review for venues, run these functions
-    // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
-    // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
-    // const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, {content: 'yoyo', score: 2});
-
     // When posting a review for artist, run these functions
     // conditionally render so that you add artist if artist does not exist in database, if artist exists then lookartist and findartist to get id
     // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
@@ -93,6 +88,9 @@ class Events extends Component {
         )}
       </article>
 
+      <ReviewForm
+        currentEvent={this.props.currentEvent}
+        user={this.props.user}/>
       <h3>Venue Reviews</h3>
       {venueReviews.venueReviews &&
         <div>{venueReviews.venueReviews.map(venueReview => (
