@@ -64,12 +64,12 @@ class Login extends Component {
       fbContent = (
         <FacebookLogin
           appId={process.env.REACT_APP_FACEBOOK_LOGIN_KEY}
-          autoLoad={true}
+          // autoLoad={true}
           fields="name,email,picture"
           onClick={this.componentClicked}
-          scope="public_profile,user_friends,user_actions.books"
           render={renderProps => (
             <button 
+              className="fb-btn"
               onClick={renderProps.onClick}>Login with Facebook</button>
           )}
           callback={this.responseFacebook} />
@@ -82,19 +82,27 @@ class Login extends Component {
         className="login-form">
 
           {fbContent}
-{/* 
-        <label htmlFor="name">Username</label>
-        <input
+ 
+         <input
           className="login-input"
           type="text"
-          name="username"
+          name="name"
+          placeholder="Name"
           onChange={this.handleChange}
-          value={this.state.username}
+          value={this.state.name}
           required />
-        <label htmlFor="password">Password</label>
+         <input
+          className="login-input"
+          type="email"
+          name="email"
+          placeholder="email"
+          onChange={this.handleChange}
+          value={this.state.email}
+          required />
         <input
           className="login-input"
           type="password"
+          placeholder="Password"
           name="password"
           onChange={this.handleChange}
           value={this.state.password}
@@ -102,7 +110,7 @@ class Login extends Component {
         <input
           type="submit"
           value="Sign In"
-          onSubmit={this.handleLogin} /> */}
+          onSubmit={this.handleLogin} />
       </form>
     )
   }

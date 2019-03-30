@@ -25,7 +25,6 @@ class Main extends Component {
     this.setState({
       events
     });
-    console.log(this.userData);
   }
 
   handleSetEvent(ev) {
