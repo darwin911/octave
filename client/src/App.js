@@ -11,7 +11,7 @@ class App extends Component {
       user: {
         name: 'Mike',
         picture:'',
-        id: 1,
+        id: 5,
       },
       token: ''
     };
@@ -23,7 +23,7 @@ class App extends Component {
         <Header
           token={this.state.token}
           user={this.state.user} />
-        <Main 
+        <Main
           token={this.state.token}
           user={this.state.user}/>
         <Footer />
