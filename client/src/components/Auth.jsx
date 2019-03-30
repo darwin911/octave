@@ -10,17 +10,15 @@ class Auth extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
-      password: '',
-      isLoggedIn: false,
       userId: '',
       name: '',
+      username: '',
       email: '',
+      password: '',
       picture: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
 
@@ -30,7 +28,7 @@ class Auth extends Component {
       [name]: value,
     })
   }
-  
+
   componentClicked = () => console.log('clicked')
 
   responseFacebook = (response) => {
@@ -45,21 +43,15 @@ class Auth extends Component {
 
   }
 
-  async handleLogin(e) {
-    e.preventDefault();
-    const userData = {
-      email: this.state.email,
-      password: this.state.password,
-    }
-    console.log(userData)
-    const resp = await loginUser(userData)
-
-    if (resp.token !== null) {
-      this.setState({ isLoggedIn: true })
-    } else {
-      this.setState({ isLoggedIn: false });
-    }
-    
+  clearForm() {
+    this.setState({
+      userId: '',
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+      picture: '',
+    })
   }
 
   async handleRegister(e) {
@@ -73,12 +65,11 @@ class Auth extends Component {
     this.props.history.push(`/home/`);
   }
 
-
   render() {
     // eslint-disable-next-line
     let fbContent;
 
-    (this.state.isLoggedIn) ?
+    (this.props.isLoggedIn) ?
       fbContent = (
         <div className="fb-login">
           <img src={this.state.picture} alt={this.state.name} />
@@ -94,74 +85,82 @@ class Auth extends Component {
           fields="name,email,picture"
           onClick={this.componentClicked}
           render={renderProps => (
-            <button
-              className="fb-btn"
+            <button className="fb-btn"
               onClick={renderProps.onClick}>Login with Facebook</button>
           )}
           callback={this.responseFacebook} />
       );
 
+    const userData = {
+      email: this.state.email,
+      password: this.state.password,
+    }
 
     return (
-      <section className="auth">
-        <form
-          onSubmit={this.handleLogin}
-          className="login-form">
-          <input
-            className="login-input"
-            type="email"
-            name="email"
-            placeholder="email"
-            onChange={this.handleChange}
-            value={this.state.email}
-            required />
-          <input
-            className="login-input"
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-            required />
-          <input
-            type="submit"
-            value="Sign In"
-            onSubmit={this.handleLogin} />
-        </form>
-        {fbContent}
-        <form
-          onSubmit={this.handleRegister}
-          className="register-form">
-          <input
-            className="register-input"
-            type="text"
-            name="name"
-            placeholder="Name"
-            onChange={this.handleChange}
-            value={this.state.name}
-            required />
-          <input
-            className="register-input"
-            type="email"
-            name="email"
-            placeholder="email"
-            onChange={this.handleChange}
-            value={this.state.email}
-            required />
-          <input
-            className="register-input"
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-            required />
-          <input
-            type="submit"
-            value="Sign Up"
-            onSubmit={this.handleRegister} />
-        </form>
-      </section>
+      <div className="carousel">
+        <section className="auth">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              this.props.handleLogin(userData)
+              this.clearForm()
+            }}
+            className="login-form">
+            <input
+              className="login-input"
+              type="email"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+              value={this.state.email}
+              required />
+            <input
+              className="login-input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={this.handleChange}
+              value={this.state.password}
+              required />
+            <input
+              type="submit"
+              value="Sign In" />
+          </form>
+          {fbContent}
+          <form
+            onSubmit={this.handleRegister}
+            className="register-form">
+            <input
+              className="register-input"
+              type="text"
+              name="name"
+              placeholder="Name"
+              onChange={this.handleChange}
+              value={this.state.name}
+              required />
+            <input
+              className="register-input"
+              type="email"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+              value={this.state.email}
+              required />
+            <input
+              className="register-input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={this.handleChange}
+              value={this.state.password}
+              required />
+            <input
+              type="submit"
+              value="Sign Up"
+              onSubmit={this.handleRegister} />
+          </form>
+        </section>
+      </div>
     )
   }
 }

@@ -11,6 +11,10 @@ a {
   color: blueviolet;
 }
 
+nav a, nav p {
+  cursor: pointer;
+}
+
 html {
   height: 100%;
 }

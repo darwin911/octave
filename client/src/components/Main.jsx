@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Carousel from './Carousel';
+import Auth from './Auth';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import HomeDetails from './HomeDetails';
@@ -14,9 +14,7 @@ class Main extends Component {
     this.state = {
       events: [],
       currentEvent: null,
-
     };
-
     this.handleSetEvent = this.handleSetEvent.bind(this);
   }
 
@@ -40,7 +38,8 @@ class Main extends Component {
       <main>
         <Route exact path='/' render={() =>
             <>
-              <Carousel />
+              <Auth 
+                handleLogin={this.props.handleLogin}/>
               <HomeDetails />
             </> } />
 

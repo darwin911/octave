@@ -8,12 +8,12 @@ const api = axios.create({
 });
 
 const updateToken = (token) => {
-  localStorage.setItem('authToken', token);
+  localStorage.setItem('token', token);
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
 const dropToken = () => {
-  localStorage.removeItem('authToken');
+  localStorage.removeItem('token');
   delete axios.defaults.headers.common["Authorization"];
 };
 

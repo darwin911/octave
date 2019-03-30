@@ -30,7 +30,7 @@ class UserProfile extends Component {
           <div>{userEvents.events.map(event => (
             <div key={event.id}>
               <p>{event.title}</p>
-              <img src={event.picture}/>
+              <img src={event.picture} alt="User Profile"/>
             </div>))}
           </div>
         }
@@ -39,7 +39,7 @@ class UserProfile extends Component {
           <div>{userLikes.artists.map(artist => (
             <div key={artist.id}>
               <p>{artist.name}</p>
-              <img src={artist.picture}/>
+              <img src={artist.picture} alt="user profile"/>
             </div>))}
           </div>
         }

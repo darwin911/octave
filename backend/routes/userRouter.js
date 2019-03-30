@@ -40,15 +40,12 @@ userRouter.post('/', async (req, res) => {
         email,
         password_digest: passwordDigest,
         name,
-        picture
       });
       const userData = {
-        email: user.email,
+        userId: user.id,
         name: user.name,
-        password_digest: user.password_digest,
+        email: user.email,
         picture: user.picture,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
       };
 
       const token = encode(userData);
@@ -98,10 +95,10 @@ userRouter.post('/login', async (req, res) => {
       const authenticated = await compare(password, user.password_digest);
       if (authenticated === true) {
         const userData = {
+          userId: user.id,
+          name: user.name,
           email: user.email,
-          password_digest: user.password_digest,
-          created_at: user.created_at,
-          updated_at: user.updated_at,
+          picture: user.picture,
         };
 
         const token = encode(userData);
