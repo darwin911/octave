@@ -14,9 +14,9 @@ class Main extends Component {
     this.state = {
       events: [],
       currentEvent: null,
-      
+
     };
-    
+
     this.handleSetEvent = this.handleSetEvent.bind(this);
   }
 
@@ -34,8 +34,8 @@ class Main extends Component {
     });
     this.props.history.push(`/events/${ev.id}`);
   }
-  
-  
+
+
   render() {
     return (
       <main>
@@ -52,10 +52,10 @@ class Main extends Component {
             handleSetEvent={this.handleSetEvent}/>} />
 
         <Route path='/userprof' 
-          render={() => 
+          render={() =>
           <UserProfile
-            userData={this.props.userData} />} />
-        
+            userData={this.props.user} />} />
+
         <Route path='/events/:id'
           render={props =>
           <Events {...props}
