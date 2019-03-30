@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 // import { Route } from 'react-router-dom';
-import { createUser } from '../services/helper';
+import { createUser, updateToken } from '../services/helper';
+import { withRouter } from 'react-router';
 
 
 class Login extends Component {
@@ -36,8 +37,9 @@ class Login extends Component {
       email: this.state.email,
       name: this.state.name,
       password: this.state.password,
-    })
-    console.log(newUser)
+    });
+    await updateToken(newUser.token);
+    this.props.history.push(`/home/`);
   }
 
   componentClicked = () => console.log('clicked')
@@ -74,7 +76,7 @@ class Login extends Component {
           fields="name,email,picture"
           onClick={this.componentClicked}
           render={renderProps => (
-            <button 
+            <button
               className="fb-btn"
               onClick={renderProps.onClick}>Login with Facebook</button>
           )}
@@ -123,4 +125,4 @@ class Login extends Component {
 }
 
 
-export default Login;
+export default withRouter(Login);

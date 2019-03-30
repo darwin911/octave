@@ -1,15 +1,21 @@
 import axios from 'axios';
 const API_KEY = process.env.REACT_APP_TM_KEY;
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhaGEiLCJwYXNzd29yZF9kaWdlc3QiOiIkMmIkMTAkUlk4TEpvSVpuMFBYZHFOSXBCdGhrLlhPZVhoWUo0bjRrWk1qSjNoRUdSOVhNL1gvOE9yaHUiLCJuYW1lIjoieWF5YSIsImlhdCI6MTU1MzYwMTI2Nn0.LhhLiqRGYWADb804RKJJGWRf7HRPrvrcQncWKnZAheU";
-
 
 const BASE_URL = "http://localhost:3001"
+
 const api = axios.create({
   baseURL: BASE_URL,
-  headers: {
-      'Authorization': `Bearer ${TOKEN}`
-  }
 });
+
+const updateToken = (token) => {
+  localStorage.setItem('authToken', token);
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
+
+const dropToken = () => {
+  localStorage.removeItem('authToken');
+  delete axios.defaults.headers.common["Authorization"];
+};
 
 ///////// User LOGIN and REGISTRATION //////////
 
@@ -179,6 +185,8 @@ const singleEvent = async (eventId) => {
 }
 
 export {
+  updateToken,
+  dropToken,
   createUser,
   loginUser,
   getUser,
