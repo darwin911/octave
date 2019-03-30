@@ -19,7 +19,6 @@ class Auth extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
   }
 
   handleChange(e) {
@@ -54,16 +53,16 @@ class Auth extends Component {
     })
   }
 
-  async handleRegister(e) {
-    e.preventDefault();
-    const newUser = await createUser({
-      email: this.state.email,
-      name: this.state.name,
-      password: this.state.password,
-    });
-    await updateToken(newUser.token);
-    this.props.history.push(`/home/`);
-  }
+  // async handleRegister(e) {
+  //   e.preventDefault();
+  //   const newUser = await createUser({
+  //     email: this.state.email,
+  //     name: this.state.name,
+  //     password: this.state.password,
+  //   });
+  //   await updateToken(newUser.token);
+  //   this.props.history.push(`/home/`);
+  // }
 
   render() {
     // eslint-disable-next-line
@@ -93,6 +92,7 @@ class Auth extends Component {
 
     const userData = {
       email: this.state.email,
+      name: this.state.name,
       password: this.state.password,
     }
 
@@ -122,13 +122,15 @@ class Auth extends Component {
               onChange={this.handleChange}
               value={this.state.password}
               required />
-            <input
-              type="submit"
-              value="Sign In" />
+            <button>Sign In</button>
           </form>
           {fbContent}
           <form
-            onSubmit={this.handleRegister}
+            onSubmit={(e) => {
+              e.preventDefault();
+              this.props.handleRegister(userData)
+              this.clearForm()
+            }}
             className="register-form">
             <input
               className="register-input"
@@ -154,10 +156,7 @@ class Auth extends Component {
               onChange={this.handleChange}
               value={this.state.password}
               required />
-            <input
-              type="submit"
-              value="Sign Up"
-              onSubmit={this.handleRegister} />
+            <button>Sign Up</button>
           </form>
         </section>
       </div>

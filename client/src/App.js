@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import { loginUser } from './services/helper';
+import { loginUser, createUser, updateToken } from './services/helper';
 import { withRouter } from 'react-router'
 import decode from 'jwt-decode'
 
@@ -18,6 +18,7 @@ class App extends Component {
       },
       isLoggedIn: false,
     };
+    this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -50,6 +51,20 @@ class App extends Component {
     this.props.history.push('/home')
   }
 
+  async handleRegister(userData) {
+    const newUser = await createUser({
+      email: userData.email,
+      name: userData.name,
+      password: userData.password,
+    });
+    this.handleLogin(userData)
+   
+    await updateToken(newUser.token);
+    if (newUser) {
+      this.props.history.push(`/home/`);
+    }
+  }
+
   handleLogout() {
     this.setState({
       user: {
@@ -73,6 +88,7 @@ class App extends Component {
         <Main
           isLoggedIn={isLoggedIn}
           handleLogin={this.handleLogin}
+          handleRegister={this.handleRegister}
           token={token}
           user={user}/>
         <Footer />

@@ -39,6 +39,7 @@ class Main extends Component {
         <Route exact path='/' render={() =>
             <>
               <Auth 
+                handleRegister={this.props.handleRegister}
                 handleLogin={this.props.handleLogin}/>
               <HomeDetails />
             </> } />
