@@ -8,20 +8,19 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: {id: 5},
-      token: ""
-    }
+      userData: {
+        name: 'Mike',
+        picture:''
+      },
+      token: ''
+    };
   }
 
   render() {
     return (
-      <div className="App">
-        <Header
-          token={this.state.token}
-          user={this.state.user}/>
-        <Main
-          user={this.state.user}
-          token={this.state.token} />
+      <div className='App'>
+        <Header token={this.state.token} user={this.state.user} />
+        <Main userData={this.state.userData} token={this.state.token} />
         <Footer />
       </div>
     );
