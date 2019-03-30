@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { dropToken } from '../services/helper';
 
 class Header extends Component{
   constructor() {
     super();
+
   }
 
   goToUserProfile(userId) {
@@ -12,16 +14,21 @@ class Header extends Component{
   }
 
   render() {
+    const token = localStorage.getItem('authToken')
     return (
      <header>
          <Link to="/home"><h1 className="title">octave.</h1></Link>
        <nav>
        {
-         this.props.token
+         token
          ?
           <>
             <p><Link to="/home">Home</Link></p>
-            <div onClick={() => this.goToUserProfile(this.props.user.id)}>{this.props.user.name}</div>
+            <p onClick={() => this.goToUserProfile(this.props.user.id)}>{this.props.user.name}</p>
+            <p onClick={() => {
+              dropToken();
+              this.props.history.push(`/`);
+            }}>Sign Out</p>
           </>
          :
           <>
