@@ -1,11 +1,10 @@
 import React from 'react';
-import Login from './Login';
+import Auth from './Auth';
 
 const Carousel = () => {
   return (
     <div className="carousel">
-      <Login />
-      
+      <Auth /> 
     </div>
   )
 };
