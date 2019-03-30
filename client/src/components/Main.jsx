@@ -51,10 +51,10 @@ class Main extends Component {
             events={this.state.events}
             handleSetEvent={this.handleSetEvent}/>} />
 
-        <Route path='/userprof' 
+        <Route path='/user/:id'
           render={() =>
           <UserProfile
-            userData={this.props.user} />} />
+            user={this.props.user} />} />
 
         <Route path='/events/:id'
           render={props =>
