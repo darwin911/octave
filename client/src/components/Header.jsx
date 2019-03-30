@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const Header = props => {
+class Header extends Component{
+  constructor() {
+    super();
+  }
 
-  return (
-   <header>
-       <Link to="/home"><h1 className="title">octave.</h1></Link>
-     <nav>
-     {
-       props.token
-       ?
-       <p><Link to="/home">Home</Link></p>
+  goToUserProfile(userId) {
+    this.props.history.push(`/user/${userId}`);
+  }
 
-       :
-        <>
-          <p className="nav-link">Sign In</p>
-          <p className="nav-link">Create Account</p>
-        </>
-      }
-     </nav>
-   </header>
-  )
-};
+  render() {
+    return (
+     <header>
+         <Link to="/home"><h1 className="title">octave.</h1></Link>
+       <nav>
+       {
+         this.props.token
+         ?
+          <>
+            <p><Link to="/home">Home</Link></p>
+            <div onClick={() => this.goToUserProfile(this.props.user.id)}>{this.props.user.name}</div>
+          </>
+         :
+          <>
+            <p className="nav-link">Sign In</p>
+            <p className="nav-link">Create Account</p>
+          </>
+        }
+       </nav>
+     </header>
+    )
+  }
+}
 
-export default Header;
+export default withRouter(Header);
