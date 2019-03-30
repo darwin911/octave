@@ -36,6 +36,7 @@ const User = sequelize.define('users', {
   },
   picture: {
     type: Sequelize.STRING,
+    defaultValue: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg"
   }
 });
 
