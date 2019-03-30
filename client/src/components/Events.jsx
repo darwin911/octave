@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { singleEvent,
+  findEvent,
   findVenue,
   getVenueReviews,
   addEvent,
@@ -10,7 +11,7 @@ import { singleEvent,
   addLike,
   findArtist,
   getArtistReviews } from '../services/helper';
-import ReviewForm from './ReviewForm';
+import VenueReviewForm from './VenueReviewForm';
 import ArtistReviewForm from './ArtistReviewForm';
 
 class Events extends Component {
@@ -73,15 +74,40 @@ class Events extends Component {
               {currentEvent._embedded.attractions.map(artist => (
                 <p key={artist.id}>{artist.name}</p>))}
               <button onClick={async () => {
-                const newArtist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
-                await addLike(this.props.user.id, newArtist.artist.id)
+                const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+                const artist = await findArtist(fetchArtist);
+
+                // will only add an artist to our database if artist does not exist
+                if (artist.artist) {
+                  await addLike(this.props.user.id, artist.artist.id);
+                } else {
+                  const newArtist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url});
+                  await addLike(this.props.user.id, newArtist.artist.id);
+                }
               }}>Follow</button>
             </>
           )}
           <button onClick={async () => {
-            const newVenue = await addVenue({title: currentEvent._embedded.venues[0].name, picture: currentEvent._embedded.venues[0].images[0].url});
-            const newEvent = await addEvent({title: currentEvent.name, picture: currentEvent.images[0].url}, newVenue.venue.id);
-            await addUserEvent(this.props.user.id, newEvent.event.id);
+            const fetchEvent = this.state.currentEvent.name;
+            const event = await findEvent(fetchEvent);
+
+            // first check to see if event exist in our database
+            if (event.event) {
+              await addUserEvent(this.props.user.id, event.event.id);
+            } else {
+              const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+              const venue = await findVenue(fetchVenue);
+
+              // if event does not exist, then checks to see if venue exists in our database
+              if (venue.venue) {
+                const newEvent = await addEvent({title: currentEvent.name, picture: currentEvent.images[0].url}, venue.venue.id);
+                await addUserEvent(this.props.user.id, newEvent.event.id);
+              } else {
+                const newVenue = await addVenue({title: currentEvent._embedded.venues[0].name, picture: currentEvent._embedded.venues[0].images[0].url});
+                const newEvent = await addEvent({title: currentEvent.name, picture: currentEvent.images[0].url}, newVenue.venue.id);
+                await addUserEvent(this.props.user.id, newEvent.event.id);
+              }
+            }
           }}>Attending</button>
         </article>
 
@@ -91,7 +117,7 @@ class Events extends Component {
             <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
           </div>
         }
-        <ReviewForm
+        <VenueReviewForm
           currentEvent={currentEvent}
           user={this.props.user} />
 

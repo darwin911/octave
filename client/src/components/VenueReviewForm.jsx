@@ -6,7 +6,7 @@ import {
   findVenue,
   } from '../services/helper';
 
-class ReviewForm extends Component {
+class VenueReviewForm extends Component {
 
   constructor() {
     super();
@@ -32,12 +32,11 @@ class ReviewForm extends Component {
       score: this.state.score
     }
 
-    const lookVenue = this.props.currentEvent._embedded.venues[0].name;
-    const venue = await findVenue(lookVenue);
+    const fetchVenue = this.props.currentEvent._embedded.venues[0].name;
+    const venue = await findVenue(fetchVenue);
 
     if (!venue.venue) {
       const newVenue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
-      const newEvent = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, newVenue.venue.id);
       const venueReview = await addVenueReview(newVenue.venue.id, this.props.user.id, review);
     } else {
       const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, review);
@@ -85,4 +84,4 @@ class ReviewForm extends Component {
   }
 }
 
-export default ReviewForm;
+export default VenueReviewForm;
