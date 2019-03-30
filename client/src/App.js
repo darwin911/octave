@@ -11,7 +11,7 @@ class App extends Component {
       user: {
         name: 'Mike',
         picture:'',
-        id: 5,
+        id: 2,
       },
       token: ''
     };
