@@ -71,9 +71,16 @@ const getLikes = async (userId) => {
 
 /////////// Add artist, venue, or events ////////
 
+// Get an event from database based on name
+const findEvent = async (eventTitle) => {
+  const resp = await api.get(`/events/${eventTitle}`);
+  return resp.data;
+}
+
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
+  console.log(resp.data);
   return resp.data;
 }
 
@@ -158,14 +165,17 @@ const getArtistReviews = async (artistId) => {
 // Show all events
 const allEvents = async () => {
   const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`)
-  // console.log(resp.data._embedded.events.map(e => e.images));
   return resp.data._embedded.events
 }
 
 const loadEvents = async () => {
   const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${API_KEY}`)
-  // console.log(resp.data._embedded.events.map(e => e.images));
   return resp.data._embedded.events
+}
+
+const singleEvent = async (eventId) => {
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`)
+  return resp.data
 }
 
 export {
@@ -180,6 +190,7 @@ export {
   getLikes,
   findVenue,
   findArtist,
+  findEvent,
   addVenue,
   addArtist,
   addEvent,
@@ -193,4 +204,5 @@ export {
   getArtistReviews,
   allEvents,
   loadEvents,
+  singleEvent,
 }

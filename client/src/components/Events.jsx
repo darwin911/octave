@@ -1,58 +1,35 @@
 import React, { Component } from 'react';
-import ReviewForm from './ReviewForm';
-import Reel from './Reel';
 import moment from 'moment';
-import {
-  addVenueReview,
-  addVenue,
-  addEvent,
+import { singleEvent,
   findVenue,
   getVenueReviews,
-  findArtist,
-  getArtistReviews,
-  addArtist,
-  addArtistReview,
-  getUser,
+  addEvent,
+  addVenue,
   addUserEvent,
+  addArtist,
   addLike,
-  } from '../services/helper';
+  findArtist,
+  getArtistReviews } from '../services/helper';
+import ReviewForm from './ReviewForm';
+import ArtistReviewForm from './ArtistReviewForm';
 
 class Events extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       venueReviews: [],
-      artistReviews: []
+      currentEvent: null,
     }
   }
 
   async componentDidMount() {
-    // When posting a review for artist, run these functions
-    // conditionally render so that you add artist if artist does not exist in database, if artist exists then lookartist and findartist to get id
-    // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
-    // const artistReview = await addArtistReview(artist.artist.id, this.props.user.id, {content: 'hi', score: 1})
+    const event = await singleEvent(this.props.match.params.id)
+    this.setState({
+      currentEvent: event
+    })
 
-    // When attending an event, run these functions when clicking attending event button
-    // const venue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
-    // const event = await addEvent({title: this.props.currentEvent.name, picture: this.props.currentEvent.images[0].url}, venue.venue.id);
-    // const eventAttend = await addUserEvent(this.props.user.id, event.event.id);
-
-    // When liking an artist, run these functions when clicking like button
-    // const artist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
-    // const likeArtist = await addLike(this.props.user.id, artist.artist.id)
-
-    const lookVenue = this.props.currentEvent._embedded.venues[0].name;
-    const venue = await findVenue(lookVenue);
-
-    const lookArtist = this.props.currentEvent._embedded.attractions[0].name;
-    const artist = await findArtist(lookArtist);
-    if (artist.artist) {
-      const artistReviews = await getArtistReviews(artist.artist.id);
-
-      this.setState({
-        artistReviews: artistReviews
-      })
-    }
+    const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+    const venue = await findVenue(fetchVenue);
 
     if (venue.venue) {
       const venueReviews = await getVenueReviews(venue.venue.id);
@@ -61,53 +38,72 @@ class Events extends Component {
         venueReviews: venueReviews
       })
     }
+
+    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+    const artist = await findArtist(fetchArtist);
+
+    if (artist.artist) {
+      const artistReviews = await getArtistReviews(artist.artist.id);
+
+      this.setState({
+        artistReviews: artistReviews
+      })
+    }
   }
 
   render() {
-    const { currentEvent, events, handleSetEvent } = this.props;
-    const { venueReviews, artistReviews } = this.state;
+    const { currentEvent, venueReviews, artistReviews } = this.state
+    // const { events, handleSetEvent } = this.props;
     return (
       <section>
         <h2>{currentEvent && currentEvent.name}</h2>
         <article>
-        {currentEvent && (
-          <>
-            <img src={currentEvent.images.sort((a, b) => b.width - a.width)[4].url} alt={currentEvent.name} />
-            <h3>{currentEvent && currentEvent.name}</h3>
-            {currentEvent._embedded.venues.map(venue => (
-              <p key={venue.id}>{venue.name}, {venue.city.name}, {venue.state.name}</p>))}
-            <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
-            {/* <p>{currentEvent.dates.start.localTime}</p> */}
-            {currentEvent.priceRanges &&
-              <p>Min: ${currentEvent.priceRanges[0].min}</p>}
-            {currentEvent.priceRanges &&
-              <p>Max: ${currentEvent.priceRanges[0].max}</p>}
-            {currentEvent._embedded.attractions.map(artist => (
-              <p key={artist.id}>{artist.name}</p>))}
-          </>
-        )}
-      </article>
+          {currentEvent && (
+            <>
+              <img src={currentEvent.images.sort((a, b) => b.width - a.width)[4].url} alt={currentEvent.name} />
+              <h3>{currentEvent && currentEvent.name}</h3>
+              {currentEvent._embedded.venues.map(venue => (
+                <p key={venue.id}>{venue.name}, {venue.city.name}, {venue.state.name}</p>))}
+              <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
+              {/* <p>{currentEvent.dates.start.localTime}</p> */}
+              {currentEvent.priceRanges &&
+                <p>Min: ${currentEvent.priceRanges[0].min}</p>}
+              {currentEvent.priceRanges &&
+                <p>Max: ${currentEvent.priceRanges[0].max}</p>}
+              {currentEvent._embedded.attractions.map(artist => (
+                <p key={artist.id}>{artist.name}</p>))}
+              <button onClick={async () => {
+                const newArtist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url})
+                await addLike(this.props.user.id, newArtist.artist.id)
+              }}>Follow</button>
+            </>
+          )}
+          <button onClick={async () => {
+            const newVenue = await addVenue({title: currentEvent._embedded.venues[0].name, picture: currentEvent._embedded.venues[0].images[0].url});
+            const newEvent = await addEvent({title: currentEvent.name, picture: currentEvent.images[0].url}, newVenue.venue.id);
+            await addUserEvent(this.props.user.id, newEvent.event.id);
+          }}>Attending</button>
+        </article>
 
-      <ReviewForm
-        currentEvent={this.props.currentEvent}
-        user={this.props.user}/>
-      <h3>Venue Reviews</h3>
-      {venueReviews.venueReviews &&
-        <div>{venueReviews.venueReviews.map(venueReview => (
-          <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
-        </div>
-      }
+        <h3>Venue Reviews</h3>
+        {venueReviews.venueReviews &&
+          <div>{venueReviews.venueReviews.map(venueReview => (
+            <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
+          </div>
+        }
+        <ReviewForm
+          currentEvent={currentEvent}
+          user={this.props.user} />
 
-      <h3>Artist Reviews</h3>
-      {artistReviews &&
-      <div>{artistReviews.map(artistReview => (
-        <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
-      </div>
-      }
-        <Reel
-          className="events-reel"
-          handleSetEvent={handleSetEvent}
-          events={events} />
+        <h3>Artist Reviews</h3>
+        {artistReviews &&
+          <div>{artistReviews.map(artistReview => (
+            <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
+          </div>
+        }
+        <ArtistReviewForm
+          currentEvent={currentEvent}
+          user={this.props.user} />
       </section>
     );
   };

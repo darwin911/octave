@@ -16,8 +16,8 @@ class Main extends Component {
       currentEvent: null,
       
     };
+    
     this.handleSetEvent = this.handleSetEvent.bind(this);
-
   }
 
   async componentDidMount() {
@@ -45,20 +45,24 @@ class Main extends Component {
               <HomeDetails />
             </> } />
 
-        <Route path='/home' render={() =>
-        <Home
-          events={this.state.events}
-          handleSetEvent={this.handleSetEvent}/>} />
-          
-        <Route path='/userprof' render={() => 
-        <UserProfile
-          userData={this.props.userData} />} />
-        <Route path='/events/:id' render={()=>
-        <Events
-          user={this.props.user}
-          events={this.state.events}
-          handleSetEvent={this.handleSetEvent}
-          currentEvent={this.state.currentEvent} />} />
+        <Route path='/home'
+          render={props =>
+          <Home {...props}
+            events={this.state.events}
+            handleSetEvent={this.handleSetEvent}/>} />
+
+        <Route path='/userprof' 
+          render={() => 
+          <UserProfile
+            userData={this.props.userData} />} />
+        
+        <Route path='/events/:id'
+          render={props =>
+          <Events {...props}
+            user={this.props.user}
+            events={this.state.events}
+            handleSetEvent={this.handleSetEvent}
+            currentEvent={this.state.currentEvent} />} />
 
       </main>
     );
