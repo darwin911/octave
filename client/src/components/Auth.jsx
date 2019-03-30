@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-// import { Route } from 'react-router-dom';
-import { createUser, updateToken, loginUser } from '../services/helper';
 import { withRouter } from 'react-router';
-
 
 class Auth extends Component {
   constructor(props) {
@@ -52,17 +49,6 @@ class Auth extends Component {
       picture: '',
     })
   }
-
-  // async handleRegister(e) {
-  //   e.preventDefault();
-  //   const newUser = await createUser({
-  //     email: this.state.email,
-  //     name: this.state.name,
-  //     password: this.state.password,
-  //   });
-  //   await updateToken(newUser.token);
-  //   this.props.history.push(`/home/`);
-  // }
 
   render() {
     // eslint-disable-next-line
@@ -163,6 +149,5 @@ class Auth extends Component {
     )
   }
 }
-
 
 export default withRouter(Auth);
