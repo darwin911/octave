@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+// import { Route } from 'react-router-dom';
+import { createUser } from '../services/helper';
 
 
 class Login extends Component {
@@ -17,21 +19,25 @@ class Login extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
 
   }
 
   handleChange(e) {
-    console.log(e.target)
     const { name, value } = e.target;
     this.setState({
       [name]: value,
     })
   }
 
-  handleLogin(e) {
+  async handleRegister(e) {
     e.preventDefault();
-    // *******************
+    const newUser = await createUser({
+      email: this.state.email,
+      name: this.state.name,
+      password: this.state.password,
+    })
+    console.log(newUser)
   }
 
   componentClicked = () => console.log('clicked')
@@ -78,11 +84,9 @@ class Login extends Component {
 
     return (
       <form
-        onSubmit={this.handleLogin}
+        onSubmit={this.handleRegister}
         className="login-form">
-
-          {fbContent}
- 
+        <div>
          <input
           className="login-input"
           type="text"
@@ -109,8 +113,10 @@ class Login extends Component {
           required />
         <input
           type="submit"
-          value="Sign In"
-          onSubmit={this.handleLogin} />
+          value="Sign Up"
+          onSubmit={this.handleRegister} />
+        </div>
+        {fbContent}
       </form>
     )
   }
