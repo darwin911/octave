@@ -21,8 +21,11 @@ class Events extends Component {
     super(props);
     this.state = {
       venueReviews: [],
+      artistReviews: [],
       currentEvent: null,
     }
+
+    this.handleClickVenue = this.handleClickVenue.bind(this);
   }
 
   async componentDidMount() {
@@ -32,23 +35,33 @@ class Events extends Component {
       currentEvent: event
     })
 
-    const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
-    const venue = await findVenue(fetchVenue);
+    if (this.state.currentEvent) {
+      const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+      const venue = await findVenue(fetchVenue);
 
-    if (venue.venue) {
-      const venueReviews = await getVenueReviews(venue.venue.id);
+      if (venue.venue) {
+        const venueReviews = await getVenueReviews(venue.venue.id);
 
-      this.setState({
-        venueReviews: venueReviews
-      })
+        this.setState({
+          venueReviews: venueReviews
+        })
+      }
+
+      const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+      const artist = await findArtist(fetchArtist);
+      if (artist.artist) {
+        const artistReviews = await getArtistReviews(artist.artist.id);
+        this.setState({ artistReviews })
+      }
     }
+  }
 
-    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
-    const artist = await findArtist(fetchArtist);
-    if (artist.artist) {
-      const artistReviews = await getArtistReviews(artist.artist.id);
-      this.setState({ artistReviews })
-    }
+  handleClickVenue(newVenueReview) {
+    this.setState(prevState => ({
+      venueReviews: {
+        venueReviews: [...prevState.venueReviews, newVenueReview]
+      }
+    }))
   }
 
   render() {
@@ -132,7 +145,9 @@ class Events extends Component {
           </div>
         }
         <VenueReviewForm
+          handleClickVenue={this.handleClickVenue}
           currentEvent={currentEvent}
+          venueReviews={venueReviews}
           user={this.props.user} />
 
         <h3>Artist Reviews</h3>
