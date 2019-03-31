@@ -134,6 +134,36 @@ main {
   border-radius: 50%;
 }
 
+.reel {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.reel h3 {
+  grid-column: span 2;
+  margin-bottom: 1rem;
+}
+
+.event {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 0.8rem;
+  background: #eee;
+}
+
+.event a {
+  grid-row: span 5;
+}
+
+.event p {
+  font-size: 0.8rem;
+}
+.event-img {
+  width: 170px;
+  border-radius: 2px;
+}
+
 main section {
   grid-column: span 3;
   text-align: center;
