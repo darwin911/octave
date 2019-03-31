@@ -42,13 +42,9 @@ class Events extends Component {
 
     const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
     const artist = await findArtist(fetchArtist);
-
     if (artist.artist) {
       const artistReviews = await getArtistReviews(artist.artist.id);
-
-      this.setState({
-        artistReviews: artistReviews
-      })
+      this.setState({ artistReviews})
     }
   }
 
@@ -66,7 +62,6 @@ class Events extends Component {
               {currentEvent._embedded.venues.map(venue => (
                 <p key={venue.id}>{venue.name}, {venue.city.name}, {venue.state.name}</p>))}
               <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
-              {/* <p>{currentEvent.dates.start.localTime}</p> */}
               {currentEvent.priceRanges &&
                 <p>Min: ${currentEvent.priceRanges[0].min}</p>}
               {currentEvent.priceRanges &&

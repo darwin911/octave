@@ -36,8 +36,10 @@ class ArtistReviewForm extends Component {
 
     if (!artist.artist) {
       const newArtist = await addArtist({name: this.state.currentEvent._embedded.attractions[0].name, picture: this.state.currentEvent._embedded.attractions[0].images[0].url});
+      // eslint-disable-next-line 
       const artistReview = await addArtistReview(newArtist.artist.id, this.props.user.id, review);
     } else {
+      // eslint-disable-next-line 
       const artistReview = await addArtistReview(artist.artist.id, this.props.user.id, review);
     }
 

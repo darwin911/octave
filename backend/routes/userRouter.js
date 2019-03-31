@@ -42,7 +42,7 @@ userRouter.post('/', async (req, res) => {
         name,
       });
       const userData = {
-        userId: user.id,
+        id: user.id,
         name: user.name,
         email: user.email,
         picture: user.picture,
@@ -95,7 +95,7 @@ userRouter.post('/login', async (req, res) => {
       const authenticated = await compare(password, user.password_digest);
       if (authenticated === true) {
         const userData = {
-          userId: user.id,
+          id: user.id,
           name: user.name,
           email: user.email,
           picture: user.picture,
@@ -117,7 +117,7 @@ userRouter.post('/login', async (req, res) => {
 });
 
 // Add to LIKES table
-userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
+userRouter.put('/:user_id/artists/:artist_id',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const prevArtists = await user.getArtists();
@@ -131,7 +131,7 @@ userRouter.put('/:user_id/artists/:artist_id', restrict, async (req, res) => {
 });
 
 // Get all artists which user liked
-userRouter.get('/:user_id/artists', restrict, async (req, res) => {
+userRouter.get('/:user_id/artists',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const artists = await user.getArtists();
@@ -143,7 +143,7 @@ userRouter.get('/:user_id/artists', restrict, async (req, res) => {
 });
 
 // Delete from LIKES table
-userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => {
+userRouter.delete('/:user_id/artists/:artist_id',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const deleteArtist = await Artist.findByPk(req.params.artist_id);
@@ -156,7 +156,7 @@ userRouter.delete('/:user_id/artists/:artist_id', restrict, async (req, res) => 
 });
 
 // Add to ATTENDS table
-userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
+userRouter.put('/:user_id/events/:event_id',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const prevEvents = await user.getEvents();
@@ -170,7 +170,7 @@ userRouter.put('/:user_id/events/:event_id', restrict, async (req, res) => {
 });
 
 // Get all events user is attending
-userRouter.get('/:user_id/events', restrict, async (req, res) => {
+userRouter.get('/:user_id/events',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const events = await user.getEvents();
@@ -182,7 +182,7 @@ userRouter.get('/:user_id/events', restrict, async (req, res) => {
 });
 
 // Delete from ATTENDS table
-userRouter.delete('/:user_id/events/:event_id', restrict, async (req, res) => {
+userRouter.delete('/:user_id/events/:event_id',  async (req, res) => {
   try {
     const user = await User.findByPk(req.params.user_id);
     const deleteEvent = await Event.findByPk(req.params.event_id);

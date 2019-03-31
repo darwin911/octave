@@ -18,9 +18,13 @@ class Header extends Component{
          this.props.isLoggedIn
          ?
           <>
-            <p><Link to="/home">Home</Link></p>
-            <p onClick={() => this.goToUserProfile(this.props.user.id)}>{this.props.user.name}</p>
-            <p onClick={() => {
+            <Link className="nav-link" to="/home">Home</Link>
+            <img className="profile-pic" src={this.props.user.picture} alt={this.props.user.name} />
+            <p className="nav-link" onClick={() => 
+              this.goToUserProfile(this.props.user.id)}>
+              {this.props.user.name}
+            </p>
+            <p className="nav-link" onClick={() => {
               dropToken();
               this.props.handleLogout();
               this.props.history.push(`/`);

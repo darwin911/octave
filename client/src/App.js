@@ -40,6 +40,7 @@ class App extends Component {
     const resp = await loginUser(userData)
     console.log(resp)
     localStorage.setItem('token', resp.token)
+    await updateToken(resp.token);
     if (resp.token !== null) {
       this.setState({
         user: resp.userData,
