@@ -55,14 +55,14 @@ class Events extends Component {
     const { currentEvent, venueReviews, artistReviews } = this.state
     // const { events, handleSetEvent } = this.props;
     return (
-      <section>
+      <section className="events">
         <h2>{currentEvent && currentEvent.name}</h2>
         <article className="selected-event">
           {currentEvent && (
             <>
               <img src={currentEvent.images.sort((a, b) => b.width - a.width)[4].url} alt={currentEvent.name} />
               <aside className="event-details">
-                <h3>{currentEvent._embedded.attractions.map(artist => artist.name + ' ')}</h3>
+                <h3>{currentEvent._embedded.attractions[0].name}</h3>
 
                 <button className="follow-btn" onClick={async () => {
                   const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
@@ -80,8 +80,6 @@ class Events extends Component {
                   <p key={venue.id}><span className="venue-name">{venue.name}</span>, {venue.city.name}, {venue.state.name}</p>))}
 
                 <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
-                {currentEvent.priceRanges &&
-                  <p className="buy-tickets">Buy Tickets - ${currentEvent.priceRanges[0].min} - ${currentEvent.priceRanges[0].max}</p>}
 
                 <button
                   className="attending-btn"
@@ -119,6 +117,9 @@ class Events extends Component {
                       }
                     }
                   }}>&#10004;</button><span>Attending</span>
+
+                {currentEvent.priceRanges &&
+                  <p className="buy-tickets">Buy Tickets - ${parseInt(currentEvent.priceRanges[0].min)} - ${parseInt(currentEvent.priceRanges[0].max)}</p>}
               </aside>
             </>
           )}
