@@ -24,7 +24,8 @@ class Events extends Component {
   }
 
   async componentDidMount() {
-    const event = await singleEvent(this.props.match.params.id)
+    const token = localStorage.getItem('token');
+    const event = await singleEvent(this.props.match.params.id, token)
     this.setState({
       currentEvent: event
     })

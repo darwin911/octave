@@ -173,18 +173,24 @@ const getArtistReviews = async (artistId) => {
 ///////////////// TICKETMASTER API //////////////////
 
 // Show all events
-const allEvents = async () => {
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`)
+const allEvents = async (token) => {
+  delete axios.defaults.headers.common["Authorization"];
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return resp.data._embedded.events
 }
 
-const loadEvents = async () => {
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${API_KEY}`)
+const loadEvents = async (token) => {
+  delete axios.defaults.headers.common["Authorization"];
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=30&apikey=${API_KEY}`);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return resp.data._embedded.events
 }
 
-const singleEvent = async (eventId) => {
-  const resp = await axios.get(`https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`)
+const singleEvent = async (eventId, token) => {
+  delete axios.defaults.headers.common["Authorization"];
+  const resp = await axios.get(`https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return resp.data
 }
 
