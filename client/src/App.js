@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 import Header from './components/Header';
 import Main from './components/Main';
@@ -32,14 +33,13 @@ class App extends Component {
         user,
         isLoggedIn: true
        })
+       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
        this.props.history.push('/home')
     }
   }
 
   async handleLogin(userData) {
     const resp = await loginUser(userData)
-    console.log(resp)
-    localStorage.setItem('token', resp.token)
     await updateToken(resp.token);
     if (resp.token !== null) {
       this.setState({
@@ -59,7 +59,7 @@ class App extends Component {
       password: userData.password,
     });
     this.handleLogin(userData)
-   
+
     await updateToken(newUser.token);
     if (newUser) {
       this.props.history.push(`/home/`);
