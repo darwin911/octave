@@ -63,15 +63,13 @@ class VenueReviewForm extends Component {
                 value={this.state.content}
                 id='content'
                 name='content'
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange} />
               <input
                 type='number'
                 value={this.state.score}
                 id='score'
                 name='score'
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange} />
               <button>Submit</button>
             </form>
           </>
