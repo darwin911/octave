@@ -157,14 +157,18 @@ main {
 }
 
 .event p {
+  text-align: left;
   font-size: 0.8rem;
+}
+.event p:first-child {
+  font-weight: bold;
 }
 .event-img {
   width: 170px;
   border-radius: 2px;
 }
 
-main section {
+.home-details {
   grid-column: span 3;
   text-align: center;
   display: flex;
@@ -173,12 +177,80 @@ main section {
   padding: 0 1rem;;
 }
 
-main section {
+.home-details {
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }
 
-main section:last-child {
+.home-details:last-child {
   border-bottom: none;
+}
+
+.selected-event {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected-event img {
+  width: 360px;
+}
+
+.event-details {
+  padding-left: 1.5rem;
+  text-align: left;
+  height: 100%;
+}
+
+.event-details h3 {
+  display: inline;
+}
+
+.venue-name {
+  text-decoration: underline;
+}
+
+.follow-btn {
+  display: inline-block;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  line-height: 13px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  border: 2px solid #666;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+.attending-btn {
+  display: inline-block;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  line-height: 13px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  border: 2px solid #666;
+  box-sizing: content-box;
+  cursor: pointer;
+  margin-right: 0.6rem;
+}
+
+.event-details p {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.buy-tickets {
+  color: white;
+  background: #666;
+  border-radius: 10px;
+  padding: 0.25rem;
+  text-align: center;
+  padding: 0.25rem 1rem;
+  margin: 0 auto;
 }
 
 
