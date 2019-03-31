@@ -29,27 +29,23 @@ class Events extends Component {
       currentEvent: event
     })
 
-    const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
-    const venue = await findVenue(fetchVenue);
+    // const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+    // const venue = await findVenue(fetchVenue);
 
-    if (venue.venue) {
-      const venueReviews = await getVenueReviews(venue.venue.id);
+    // if (venue.venue) {
+    //   const venueReviews = await getVenueReviews(venue.venue.id);
 
-      this.setState({
-        venueReviews: venueReviews
-      })
-    }
+    //   this.setState({
+    //     venueReviews: venueReviews
+    //   })
+    // }
 
-    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
-    const artist = await findArtist(fetchArtist);
-
-    if (artist.artist) {
-      const artistReviews = await getArtistReviews(artist.artist.id);
-
-      this.setState({
-        artistReviews: artistReviews
-      })
-    }
+    // const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+    // const artist = await findArtist(fetchArtist);
+    // if (artist.artist) {
+    //   const artistReviews = await getArtistReviews(artist.artist.id);
+    //   this.setState({ artistReviews})
+    // }
   }
 
   render() {
@@ -66,7 +62,6 @@ class Events extends Component {
               {currentEvent._embedded.venues.map(venue => (
                 <p key={venue.id}>{venue.name}, {venue.city.name}, {venue.state.name}</p>))}
               <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
-              {/* <p>{currentEvent.dates.start.localTime}</p> */}
               {currentEvent.priceRanges &&
                 <p>Min: ${currentEvent.priceRanges[0].min}</p>}
               {currentEvent.priceRanges &&
