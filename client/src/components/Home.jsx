@@ -13,7 +13,7 @@ class Home extends Component {
   render() {
 
     const sortedEvents =
-      this.props.events.slice()
+      [...this.props.events]
         .sort((ev1, ev2) => {
           const first = moment(ev1.dates.start.localDate).format("MM DD YYYY");
           const second = moment(ev2.dates.start.localDate).format("MM DD YYYY");
@@ -43,18 +43,7 @@ class Home extends Component {
         <Reel
           heading="Sorted"
           className="reel"
-          events={
-            [...this.props.events]
-              .sort((ev1, ev2) => {
-                const first = moment(ev1.dates.start.localDate).format("MM DD YYYY");
-                const second = moment(ev2.dates.start.localDate).format("MM DD YYYY");
-                if (first < second) {
-                  return -1;
-                } else {
-                  return 1;
-                }
-              })
-            }
+          events={sortedEvents}
           handleSetEvent={this.props.handleSetEvent} />
         <Reel
           heading="Upcoming Events In NYC 3"
