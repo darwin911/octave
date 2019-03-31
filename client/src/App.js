@@ -58,7 +58,7 @@ class App extends Component {
       password: userData.password,
     });
     this.handleLogin(userData)
-   
+
     await updateToken(newUser.token);
     if (newUser) {
       this.props.history.push(`/home/`);
