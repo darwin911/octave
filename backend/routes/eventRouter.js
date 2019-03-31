@@ -5,7 +5,7 @@ const { restrict } = require('../auth');
 const eventRouter = express.Router();
 
 // Get all events
-eventRouter.get('/', restrict, async (req, res) => {
+eventRouter.get('/',  async (req, res) => {
   try {
     const events = await Event.findAll();
     res.json({ events });
@@ -16,7 +16,7 @@ eventRouter.get('/', restrict, async (req, res) => {
 });
 
 // Get a specific event
-eventRouter.get('/:event_name', restrict, async (req, res) => {
+eventRouter.get('/:event_name',  async (req, res) => {
   try {
     const event = await Event.findOne({
       where: {
@@ -31,7 +31,7 @@ eventRouter.get('/:event_name', restrict, async (req, res) => {
 });
 
 // Add an event with a venue
-eventRouter.post('/:venue_id', restrict, async (req, res) => {
+eventRouter.post('/:venue_id',  async (req, res) => {
   try {
     const { title, picture } = req.body;
     const venueId = req.params.venue_id;
@@ -48,7 +48,7 @@ eventRouter.post('/:venue_id', restrict, async (req, res) => {
 });
 
 // Delete an event
-eventRouter.delete('/:id', restrict, async (req, res) => {
+eventRouter.delete('/:id',  async (req, res) => {
   try {
     const { id } = req.params;
     const event = await Event.destroy({
@@ -64,7 +64,7 @@ eventRouter.delete('/:id', restrict, async (req, res) => {
 });
 
 // Add to PERFORMS table
-eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
+eventRouter.put('/:event_id/artists/:artist_id',  async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
     const prevArtists = await event.getArtists();
@@ -78,7 +78,7 @@ eventRouter.put('/:event_id/artists/:artist_id', restrict, async (req, res) => {
 });
 
 // Get all artists that will perform at the event
-eventRouter.get('/:event_id/artists', restrict, async (req, res) => {
+eventRouter.get('/:event_id/artists',  async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
     const artists = await event.getArtists();
@@ -90,7 +90,7 @@ eventRouter.get('/:event_id/artists', restrict, async (req, res) => {
 });
 
 // Delete from PERFORMS table
-eventRouter.delete('/:event_id/artists/:artist_id', restrict, async (req, res) => {
+eventRouter.delete('/:event_id/artists/:artist_id',  async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.event_id);
     const deleteArtist = await Artist.findByPk(req.params.artist_id);
