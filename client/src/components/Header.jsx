@@ -22,7 +22,7 @@ class Header extends Component{
             <img className="profile-pic" src={this.props.user.picture} alt={this.props.user.name} />
             <p className="nav-link" onClick={() => 
               this.goToUserProfile(this.props.user.id)}>
-              {this.props.user.name}
+              Hi {this.props.user.name.split(' ')[0]}!
             </p>
             <p className="nav-link" onClick={() => {
               dropToken();
