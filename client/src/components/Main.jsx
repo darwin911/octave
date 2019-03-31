@@ -19,7 +19,8 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    const events = await allEvents();
+    const token = localStorage.getItem('token');
+    const events = await allEvents(token);
     this.setState({
       events
     });
@@ -38,7 +39,7 @@ class Main extends Component {
       <main>
         <Route exact path='/' render={() =>
             <>
-              <Auth 
+              <Auth
                 handleRegister={this.props.handleRegister}
                 handleLogin={this.props.handleLogin}/>
               <HomeDetails />
