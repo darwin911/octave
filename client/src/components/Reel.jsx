@@ -4,7 +4,7 @@ import moment from 'moment';
 const Reel = props => {
   return (
     <section className={props.className}>
-      <h3>Upcoming Events in NYC</h3>
+      <h3>{props.heading}</h3>
       {props.events.map(event => (
         <article
           key={event.id}
