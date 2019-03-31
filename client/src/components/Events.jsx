@@ -24,8 +24,6 @@ class Events extends Component {
       artistReviews: [],
       currentEvent: null,
     }
-
-    this.handleClickVenue = this.handleClickVenue.bind(this);
   }
 
   async componentDidMount() {
@@ -54,14 +52,6 @@ class Events extends Component {
         this.setState({ artistReviews })
       }
     }
-  }
-
-  handleClickVenue(newVenueReview) {
-    this.setState(prevState => ({
-      venueReviews: {
-        venueReviews: [...prevState.venueReviews, newVenueReview]
-      }
-    }))
   }
 
   render() {
@@ -145,9 +135,7 @@ class Events extends Component {
           </div>
         }
         <VenueReviewForm
-          handleClickVenue={this.handleClickVenue}
           currentEvent={currentEvent}
-          venueReviews={venueReviews}
           user={this.props.user} />
 
         <h3>Artist Reviews</h3>
