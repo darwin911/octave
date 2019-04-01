@@ -27,7 +27,7 @@ class Home extends Component {
     // console.log(dates.map(date => moment(date).format("MM DD YYYY")).sort())
 
     return (
-      <section>
+      <section className="home">
         <select className="filter" id="event-filter-select">
           <option value="most-recent">Most Recent</option>
         </select>
