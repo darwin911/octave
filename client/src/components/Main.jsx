@@ -38,31 +38,31 @@ class Main extends Component {
     return (
       <main>
         <Route exact path='/' render={() =>
-            <>
-              <Auth
-                handleRegister={this.props.handleRegister}
-                handleLogin={this.props.handleLogin}/>
-              <HomeDetails />
-            </> } />
+          <>
+            <Auth
+              handleRegister={this.props.handleRegister}
+              handleLogin={this.props.handleLogin} />
+            <HomeDetails />
+          </>} />
 
         <Route path='/home'
           render={props =>
-          <Home {...props}
-            events={this.state.events}
-            handleSetEvent={this.handleSetEvent}/>} />
+            <Home {...props}
+              events={this.state.events}
+              handleSetEvent={this.handleSetEvent} />} />
 
         <Route path='/user/:id'
           render={() =>
-          <UserProfile
-            user={this.props.user} />} />
+            <UserProfile
+              user={this.props.user} />} />
 
         <Route path='/events/:id'
           render={props =>
-          <Events {...props}
-            user={this.props.user}
-            events={this.state.events}
-            handleSetEvent={this.handleSetEvent}
-            currentEvent={this.state.currentEvent} />} />
+            <Events {...props}
+              user={this.props.user}
+              events={this.state.events}
+              handleSetEvent={this.handleSetEvent}
+              currentEvent={this.state.currentEvent} />} />
 
       </main>
     );
