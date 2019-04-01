@@ -11,7 +11,8 @@ import {
   addArtist,
   addLike,
   findArtist,
-  getArtistReviews
+  getArtistReviews,
+  getUser,
 } from '../services/helper';
 import VenueReviewForm from './VenueReviewForm';
 import ArtistReviewForm from './ArtistReviewForm';
@@ -20,9 +21,26 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      usernamesVenue: null,
+      usernamesArtist: null,
       venueReviews: [],
       artistReviews: [],
       currentEvent: null,
+    }
+  }
+
+  checkUsernames(userArray, id) {
+    if (userArray) {
+      return userArray[id].user.name;
+    }
+  }
+
+  async getUsers(arrayOfReviews) {
+    if (arrayOfReviews) {
+      const usernames = arrayOfReviews.map(async (review) => {
+        const user = await getUser(review.userId);
+        return user});
+      return await Promise.all(usernames);
     }
   }
 
@@ -52,6 +70,16 @@ class Events extends Component {
         this.setState({ artistReviews })
       }
     }
+    const usernamesVenue = await this.getUsers(this.state.venueReviews.venueReviews);
+    this.setState({
+      usernamesVenue
+    })
+
+    const usernamesArtist = await this.getUsers(this.state.artistReviews);
+    this.setState({
+      usernamesArtist
+    })
+
   }
 
   render() {
@@ -128,10 +156,11 @@ class Events extends Component {
           )}
         </article>
 
+
         <h3>Venue Reviews</h3>
         {venueReviews.venueReviews &&
-          <div>{venueReviews.venueReviews.map(venueReview => (
-            <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
+          <div>{venueReviews.venueReviews.map((venueReview, id) => (
+            <p key={venueReview.id}>{this.checkUsernames(this.state.usernamesVenue, id)}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
           </div>
         }
         <VenueReviewForm
@@ -140,8 +169,8 @@ class Events extends Component {
 
         <h3>Artist Reviews</h3>
         {artistReviews &&
-          <div>{artistReviews.map(artistReview => (
-            <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
+          <div>{artistReviews.map((artistReview, id) => (
+            <p key={artistReview.id}>{this.checkUsernames(this.state.usernamesArtist, id)}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
           </div>
         }
         <ArtistReviewForm
