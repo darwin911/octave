@@ -39,7 +39,6 @@ class Events extends Component {
 
       if (venue.venue) {
         const venueReviews = await getVenueReviews(venue.venue.id);
-
         this.setState({
           venueReviews: venueReviews
         })
@@ -128,25 +127,38 @@ class Events extends Component {
           )}
         </article>
 
-        <h3>Venue Reviews</h3>
-        {venueReviews.venueReviews &&
-          <div>{venueReviews.venueReviews.map(venueReview => (
-            <p key={venueReview.id}>{venueReview.userId}, {moment(venueReview.createdAt).format('MMM Do, YYYY')}, {venueReview.content}, {venueReview.score}</p>))}
-          </div>
-        }
-        <VenueReviewForm
-          currentEvent={currentEvent}
-          user={this.props.user} />
+        <section className="reviews">
+          <h4>{currentEvent && currentEvent.name} Reviews</h4>
+          <div className="venue-review">
 
-        <h3>Artist Reviews</h3>
-        {artistReviews &&
-          <div>{artistReviews.map(artistReview => (
-            <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
+            {venueReviews.venueReviews && venueReviews.venueReviews.map(review => (
+              <>
+                <p key={review.id}>
+                  <span>UserId: {review.userId},</span> {moment(review.createdAt).format('MMM dddd, YYYY')}
+                </p>
+                <p className="venue-review-content"> "{review.content}" Stars: {review.score}</p>
+              </>
+            ))}
+
+            <VenueReviewForm
+              currentEvent={currentEvent}
+              user={this.props.user} />
           </div>
-        }
-        <ArtistReviewForm
-          currentEvent={currentEvent}
-          user={this.props.user} />
+
+          <div className="artist-review">
+            <h3>Artist Reviews</h3>
+
+            {artistReviews &&
+              <div>{artistReviews.map(artistReview => (
+                <p key={artistReview.id}>{artistReview.userId}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
+              </div>
+            }
+            <ArtistReviewForm
+              currentEvent={currentEvent}
+              user={this.props.user} />
+          </div>
+        </section>
+
       </section>
     );
   };

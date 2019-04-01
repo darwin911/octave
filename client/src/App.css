@@ -213,7 +213,7 @@ main {
 }
 
 .events {
-  max-width: 800px;
+  max-width: 95%;
   margin: 0 auto;
 }
 
@@ -298,6 +298,29 @@ main {
   max-width: 250px;
 }
 
+.reviews {
+  padding: 0 1.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.reviews h4 {
+  margin-bottom: .25rem;
+}
+
+.reviews span {
+  font-weight: bolder;
+}
+
+.venue-review {
+  margin-bottom: 1.5rem;
+}
+
+.venue-review-content {
+  font-size: 15px;
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+}
 
 footer {
   display: flex;
@@ -353,7 +376,7 @@ img {
   }
   
   .selected-event img {
-    width: 360px;
+    width: 500px;
     border-radius: 3px;
   }
 
