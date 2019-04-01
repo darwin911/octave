@@ -175,7 +175,7 @@ const getArtistReviews = async (artistId) => {
 // Show all events
 const allEvents = async (token) => {
   delete axios.defaults.headers.common["Authorization"];
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`);
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=70&apikey=${API_KEY}`);
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return resp.data._embedded.events
 }

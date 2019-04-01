@@ -33,8 +33,8 @@ class Header extends Component {
                 </>
                 :
                 <>
-                  <p className="nav-link">Sign In</p>
-                  <p className="nav-link">Create Account</p>
+                  <p className="nav-link" onClick={this.props.toggleToLogin} >Sign In</p>
+                  <p className="nav-link" onClick={this.props.toggleToRegister} >Create Account</p>
                 </>
             }
           </nav>
