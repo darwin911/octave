@@ -85,32 +85,37 @@ class Auth extends Component {
     return (
       <div className="carousel">
         <section className="auth">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              this.props.handleLogin(userData)
-              this.clearForm()
-            }}
-            className="login-form">
-            <input
-              className="login-input"
-              type="email"
-              name="email"
-              placeholder="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-              required />
-            <input
-              className="login-input"
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={this.handleChange}
-              value={this.state.password}
-              required />
-            <button>Sign In</button>
-          </form>
-          {fbContent}
+        { this.props.loginForm &&
+          <div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                this.props.handleLogin(userData)
+                this.clearForm()
+              }}
+              className="login-form">
+              <input
+                className="login-input"
+                type="email"
+                name="email"
+                placeholder="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+                required />
+              <input
+                className="login-input"
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={this.handleChange}
+                value={this.state.password}
+                required />
+              <button>Sign In</button>
+            </form>
+            {fbContent}
+          </div>
+        }
+        { !this.props.loginForm &&
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -144,6 +149,7 @@ class Auth extends Component {
               required />
             <button>Sign Up</button>
           </form>
+        }
         </section>
       </div>
     )
