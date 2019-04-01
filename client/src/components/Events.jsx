@@ -21,6 +21,7 @@ class Events extends Component {
     super(props);
     this.state = {
       venueReviews: [],
+      artistReviews: [],
       currentEvent: null,
     }
   }
@@ -33,8 +34,6 @@ class Events extends Component {
     })
 
     if (this.state.currentEvent) {
-
-      
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
       const venue = await findVenue(fetchVenue);
 
@@ -45,15 +44,12 @@ class Events extends Component {
         })
       }
 
-
       const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
       const artist = await findArtist(fetchArtist);
       if (artist.artist) {
         const artistReviews = await getArtistReviews(artist.artist.id);
         this.setState({ artistReviews })
       }
-
-
     }
   }
 
