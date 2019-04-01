@@ -79,7 +79,7 @@ class Events extends Component {
                 }}>+</button>
 
                 {currentEvent._embedded.venues.map(venue => (
-                  <p key={venue.id}><span className="venue-name">{venue.name}</span>, {venue.city.name}, {venue.state.name}</p>))}
+                  <p key={venue.id}><span className="venue-name">{venue.name}</span>, {venue.city.name}, {venue.state.stateCode}</p>))}
 
                 <p>{moment(currentEvent.dates.start.localDate).format('MMM Do, YYYY')}</p>
 
@@ -121,7 +121,7 @@ class Events extends Component {
                   }}>&#10004;</button><span>Attending</span>
 
                 {currentEvent.priceRanges &&
-                  <p className="buy-tickets">Buy Tickets - ${parseInt(currentEvent.priceRanges[0].min)} - ${parseInt(currentEvent.priceRanges[0].max)}</p>}
+                  <p className="buy-tickets"><a href={currentEvent.url} target="_blank" rel="noopener noreferrer">Buy Tickets - ${parseInt(currentEvent.priceRanges[0].min)} - ${parseInt(currentEvent.priceRanges[0].max)}</a></p>}
               </aside>
             </>
           )}
