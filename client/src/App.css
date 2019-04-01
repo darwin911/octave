@@ -175,6 +175,11 @@ main {
   margin: 0 2rem;
 }
 
+.events-attending img {
+  clip-path: circle();
+  width: 500px;
+}
+
 .filter {
   left: 20%;
   position: relative;
