@@ -25,6 +25,8 @@ class UserProfile extends Component {
     return (
       <div>
         <h1 className='profile-title'>Welcome {this.props.user.name}</h1>
+      <div className='profile-container'>
+        
         <h2 className='profile-header'>Events Attending</h2>
         {userEvents.events &&
           <div>{userEvents.events.map(event => (
@@ -43,6 +45,7 @@ class UserProfile extends Component {
             </div>))}
           </div>
         }
+      </div>
       </div>
     );
   }
