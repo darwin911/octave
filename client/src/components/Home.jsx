@@ -33,7 +33,7 @@ class Home extends Component {
         </select>
         <Reel
           heading="Upcoming"
-          className="reel"
+          className="reel purple"
           events={sortedEvents.slice(0, 10)}
           handleSetEvent={this.props.handleSetEvent} />
         <Reel

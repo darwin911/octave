@@ -397,6 +397,13 @@ img {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
   }
+
+  .reel:nth-of-type(1) {
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem 3rem;
+  }
   
   .reel h3 {
     text-align: right;
@@ -459,4 +466,10 @@ img {
   .reel {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+}
+
+.purple {
+  color: white;
+
+  background: linear-gradient(-60deg, #0074D9 0%, #39CCCC 80%);
 }
