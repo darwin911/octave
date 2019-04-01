@@ -23,10 +23,10 @@ class UserProfile extends Component {
   render() {
     const { userLikes, userEvents } = this.state;
     return (
-      <>
-        <h1 className='profile-title'>Welcome {this.props.user.name}!</h1>
+      <div className="profile-page">
+        <h2 className='profile-title'>Welcome {this.props.user.name}!</h2>
 
-        <h2 className='profile-header'>Events Attending</h2>
+        <h3 className='profile-header'>Events Attending</h3>
 
         <section className="events-attending">
           {userEvents.events &&
@@ -48,7 +48,7 @@ class UserProfile extends Component {
               </div>))}
             </div>}
         </section>
-      </>
+      </div>
     );
   }
 }
