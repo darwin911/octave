@@ -29,11 +29,6 @@ class Home extends Component {
 
     return (
       <section>
-        <nav className="home-nav">
-          <p>Artists</p>
-          <p>Events</p>
-          <input type="text" name="search" id="search" placeholder="&#128269;" />
-        </nav>
         <select className="filter" id="event-filter-select">
           <option value="" selected>Sort By</option>
           <option value="most-recent">Most Recent</option>
