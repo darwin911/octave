@@ -156,7 +156,7 @@ class Events extends Component {
         </article>
         
         <section className="reviews">
-          <h4>{currentEvent && currentEvent.name} Reviews</h4>
+          <h4>{currentEvent && currentEvent._embedded.venues[0].name} Reviews</h4>
           <div className="venue-review">
 
             {venueReviews.venueReviews && venueReviews.venueReviews.map((review, id) => (
