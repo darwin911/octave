@@ -317,6 +317,7 @@ main {
   box-sizing: content-box;
   cursor: pointer;
   margin-left: 0.4rem;
+  transition: background 150ms ease, color 150ms ease;
 }
 
 .attending-btn {
@@ -332,6 +333,12 @@ main {
   box-sizing: content-box;
   cursor: pointer;
   margin: 0.5rem 0.6rem 1rem 0;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.follow-btn:hover, .attending-btn:hover {
+  color: white;
+  background: #0074D9;
 }
 
 .event-details p {

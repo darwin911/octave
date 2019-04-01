@@ -39,7 +39,8 @@ class Events extends Component {
     if (arrayOfReviews) {
       const usernames = arrayOfReviews.map(async (review) => {
         const user = await getUser(review.userId);
-        return user});
+        return user
+      });
       return await Promise.all(usernames);
     }
   }
@@ -154,7 +155,7 @@ class Events extends Component {
             </>
           )}
         </article>
-        
+
         <section className="reviews">
           <h4>{currentEvent && currentEvent._embedded.venues[0].name} Reviews</h4>
           <div className="venue-review">
@@ -174,13 +175,17 @@ class Events extends Component {
           </div>
 
           <div className="artist-review">
-            <h3>Artist Reviews</h3>
+            <h4>{currentEvent && currentEvent._embedded.attractions[0].name} Reviews</h4>
 
-            {artistReviews &&
-              <div>{artistReviews.map((artistReview, id) => (
-                <p key={artistReview.id}>{this.checkUsernames(this.state.usernamesArtist, id)}, {moment(artistReview.createdAt).format('MMM Do, YYYY')}, {artistReview.content}, {artistReview.score}</p>))}
-              </div>
-            }
+            {artistReviews && artistReviews.map((review, id) => (
+              <>
+                <p key={review.id}>
+                  <span>{this.checkUsernames(this.state.usernamesArtist, id)},</span> {moment(review.createdAt).format('MMM Do, YYYY')}
+                </p>
+                <p className="venue-review-content"> "{review.content}" Stars: {review.score}</p>
+              </>
+            ))}
+
             <ArtistReviewForm
               currentEvent={currentEvent}
               user={this.props.user} />
