@@ -211,6 +211,32 @@ main {
 .home-details:last-child {
   border-bottom: none;
 }
+.profile-details {
+  grid-column: span 3;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 1rem;;
+}
+
+
+.profile-img {
+  width: 170px;
+  border-radius: 2px;
+}
+.profile-title {
+  text-align: center;
+}
+.profile-header {
+  padding: 15px 15px;
+}
+.profile-img {
+  border: 2px solid black;
+  width: 170px;
+  height: 97px;
+  border-radius: 50px;
+}
 
 .events {
   max-width: 97%;
