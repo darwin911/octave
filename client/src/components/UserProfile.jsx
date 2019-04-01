@@ -24,9 +24,9 @@ class UserProfile extends Component {
     const { userLikes, userEvents } = this.state;
     return (
       <div className="profile-page">
-        <h2 className='profile-title'>Welcome {this.props.user.name}!</h2>
+        <h1 className='profile-title'>Welcome {this.props.user.name}!</h1>
 
-        <h3 className='profile-header'>Events Attending</h3>
+        <h2 className='profile-header'>Events Attending</h2>
 
         <section className="events-attending">
           {userEvents.events &&
