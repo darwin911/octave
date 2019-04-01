@@ -34,7 +34,7 @@ const Reel = props => {
 
             {event._embedded.venues.map(venue => (
               <p key={venue.id}>
-                {venue.city.name}, {venue.state.name}
+                {venue.city.name}, {venue.state.stateCode}
               </p>
             ))}
           </div>
