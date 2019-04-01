@@ -12,7 +12,7 @@ class ArtistReviewForm extends Component {
     this.state = {
       isReview: false,
       content:'',
-      score: 0,
+      score: 3,
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -61,15 +61,15 @@ class ArtistReviewForm extends Component {
                 value={this.state.content}
                 id='content'
                 name='content'
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange} />
               <input
                 type='number'
                 value={this.state.score}
                 id='score'
+                min="1"
+                max="5"
                 name='score'
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange} />
               <button>Submit</button>
             </form>
           </>

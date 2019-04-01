@@ -13,7 +13,7 @@ class VenueReviewForm extends Component {
     this.state = {
       isReview: false,
       content:'',
-      score: 0,
+      score: 3,
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -69,6 +69,8 @@ class VenueReviewForm extends Component {
                 value={this.state.score}
                 id='score'
                 name='score'
+                min="1"
+                max="5"
                 onChange={this.handleChange} />
               <button>Submit</button>
             </form>
