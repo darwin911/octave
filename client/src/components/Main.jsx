@@ -41,7 +41,8 @@ class Main extends Component {
           <>
             <Auth
               handleRegister={this.props.handleRegister}
-              handleLogin={this.props.handleLogin} />
+              handleLogin={this.props.handleLogin}
+              loginForm={this.props.loginForm} />
             <HomeDetails />
           </>} />
 

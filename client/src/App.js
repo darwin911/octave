@@ -18,10 +18,13 @@ class App extends Component {
         id: '',
       },
       isLoggedIn: false,
+      loginForm: true,
     };
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.toggleToLogin = this.toggleToLogin.bind(this);
+    this.toggleToRegister = this.toggleToRegister.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +39,18 @@ class App extends Component {
        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
        this.props.history.push('/home')
     }
+  }
+
+  toggleToLogin() {
+    this.setState({
+      loginForm: true
+    })
+  }
+
+  toggleToRegister() {
+    this.setState({
+      loginForm: false
+    })
   }
 
   async handleLogin(userData) {
@@ -78,20 +93,23 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, token, user } = this.state
+    const { isLoggedIn, token, user, loginForm } = this.state
     return (
       <div className='App'>
         <Header
           handleLogout={this.handleLogout}
           isLoggedIn={isLoggedIn}
           token={this.state.token}
-          user={this.state.user} />
+          user={this.state.user}
+          toggleToLogin={this.toggleToLogin}
+          toggleToRegister={this.toggleToRegister} />
         <Main
           isLoggedIn={isLoggedIn}
           handleLogin={this.handleLogin}
           handleRegister={this.handleRegister}
           token={token}
-          user={user}/>
+          user={user}
+          loginForm={loginForm}/>
         <Footer />
       </div>
     );
