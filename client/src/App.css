@@ -175,10 +175,9 @@ main {
   margin: 0 2rem;
 }
 
-.events-attending img {
-  clip-path: circle();
-  width: 500px;
-}
+
+
+
 
 .filter {
   left: 20%;
@@ -233,6 +232,7 @@ main {
 .home-details:last-child {
   border-bottom: none;
 }
+
 .profile-details {
   grid-column: span 3;
   display: flex;
@@ -240,27 +240,34 @@ main {
   justify-content: space-evenly;
   padding: 0 1rem;;
 }
+
 .profile-info {
   padding: 5px 0px 25px 0px;
 }
+
 .profile-img {
+  clip-path: circle();
   width: 170px;
   border-radius: 2px;
 }
+
 .profile-title {
   text-align: center;
   padding: 20px;
 }
+
 .profile-header {
   font-size: 30px;
   padding: 15px 15px;
 }
+
 .profile-img {
   border: 2px solid black;
   width: 170px;
   height: 97px;
   border-radius: 50px;
 }
+
 .events {
   max-width: 97%;
   margin: 0 auto;
