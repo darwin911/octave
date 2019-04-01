@@ -23,28 +23,21 @@ class Home extends Component {
             return 1;
           }
         })
-    console.table(sortedEvents.map(ev => ev.dates.start.localDate))
-
+    // console.table(sortedEvents.map(ev => ev.dates.start.localDate))
     // console.log(dates.map(date => moment(date).format("MM DD YYYY")).sort())
 
     return (
       <section>
         <select className="filter" id="event-filter-select">
-          <option value="" selected>Sort By</option>
           <option value="most-recent">Most Recent</option>
         </select>
         <Reel
-          heading="Sorted"
+          heading="Upcoming"
           className="reel"
-          events={sortedEvents}
+          events={sortedEvents.slice(0, 10)}
           handleSetEvent={this.props.handleSetEvent} />
         <Reel
-          heading="Upcoming Events In NYC"
-          className="reel"
-          events={this.props.events}
-          handleSetEvent={this.props.handleSetEvent} />
-        <Reel
-          heading="Upcoming Events In NYC 3"
+          heading="All Events In NYC"
           className="reel"
           events={this.props.events}
           handleSetEvent={this.props.handleSetEvent} />

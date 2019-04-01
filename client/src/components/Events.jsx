@@ -162,7 +162,7 @@ class Events extends Component {
             {venueReviews.venueReviews && venueReviews.venueReviews.map((review, id) => (
               <>
                 <p key={review.id}>
-                  <span>UserName: {this.checkUsernames(this.state.usernamesVenue, id)},</span> {moment(review.createdAt).format('MMM dddd, YYYY')}
+                  <span>{this.checkUsernames(this.state.usernamesVenue, id)},</span> {moment(review.createdAt).format('MMM dddd, YYYY')}
                 </p>
                 <p className="venue-review-content"> "{review.content}" Stars: {review.score}</p>
               </>

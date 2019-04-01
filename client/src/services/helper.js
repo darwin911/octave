@@ -1,4 +1,6 @@
 import axios from 'axios';
+import moment from 'moment';
+
 const API_KEY = process.env.REACT_APP_TM_KEY;
 
 const BASE_URL = "http://localhost:3001"
@@ -173,9 +175,14 @@ const getArtistReviews = async (artistId) => {
 ///////////////// TICKETMASTER API //////////////////
 
 // Show all events
+
+const time = moment().add(3, 'months').calendar()
+const threeMonthsFromNow = moment(time).format("YYYY-MM-DD")
+console.log(threeMonthsFromNow)
+
 const allEvents = async (token) => {
   delete axios.defaults.headers.common["Authorization"];
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&size=10&apikey=${API_KEY}`);
+  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&endDateTime=${threeMonthsFromNow}T00:00:00Z&size=70&apikey=${API_KEY}`);
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return resp.data._embedded.events
 }
