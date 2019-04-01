@@ -1,6 +1,7 @@
 # **Octave**
 
 ## Link to deployed project
+http://octave-bananas.surge.sh/
 
 ## Project Description
 A fullstack app using React, Node, and Express where users can see and select events after registering and logging in. Users can view all events happening in their area (NYC). Users can select events to attend.
@@ -8,8 +9,14 @@ A fullstack app using React, Node, and Express where users can see and select ev
 ## Feature List
 - App registration
 - App login
+- App signout
+- User authentication
 - User can see list of events and relevant data
+- User can like artists
 - User can track events
+- User can write a review for the artist
+- User can write a review for the venue
+- Users can see all reviews for each venue and artist
 
 ## API Endpoint Documentations
 //Get all users
@@ -137,3 +144,16 @@ A fullstack app using React, Node, and Express where users can see and select ev
 ![Components](https://files.slack.com/files-pri/T0351JZQ0-FH0Q35TL1/img_20190325_163758.jpg)
 
 ## Code Snippet
+```
+const fetchArtist = this.props.currentEvent._embedded.attractions[0].name;
+const artist = await findArtist(fetchArtist);
+
+if (!artist.artist) {
+  const newArtist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url});
+  // eslint-disable-next-line
+  const artistReview = await addArtistReview(newArtist.artist.id, this.props.user.id, review);
+} else {
+  // eslint-disable-next-line
+  const artistReview = await addArtistReview(artist.artist.id, this.props.user.id, review);
+}
+```
