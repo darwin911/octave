@@ -108,7 +108,7 @@ class Auth extends Component {
               onChange={this.handleChange}
               value={this.state.password}
               required />
-            <button>Sign In</button>
+            <button className="sign-in-btn">Sign In</button>
           </form>
           {fbContent}
           <form
@@ -142,7 +142,7 @@ class Auth extends Component {
               onChange={this.handleChange}
               value={this.state.password}
               required />
-            <button>Sign Up</button>
+            <button className="sign-up-btn">Sign Up</button>
           </form>
         </section>
       </div>
