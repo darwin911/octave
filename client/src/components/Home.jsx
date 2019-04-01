@@ -23,8 +23,6 @@ class Home extends Component {
             return 1;
           }
         })
-    // console.table(sortedEvents.map(ev => ev.dates.start.localDate))
-    // console.log(dates.map(date => moment(date).format("MM DD YYYY")).sort())
 
     return (
       <section className="home">
