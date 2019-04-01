@@ -30,6 +30,8 @@ class Home extends Component {
       <section className="home">
         <select className="filter" id="event-filter-select">
           <option value="most-recent">Most Recent</option>
+          <option value="lowest-price">Price: Lowest First</option>
+          <option value="highest-price">Price: Highest First</option>
         </select>
         <Reel
           heading="Upcoming"
