@@ -27,10 +27,10 @@ class VenueReviewForm extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const review = {
+    const review = ({
       content: this.state.content,
       score: this.state.score
-    }
+    })
 
     const fetchVenue = this.props.currentEvent._embedded.venues[0].name;
     const venue = await findVenue(fetchVenue);

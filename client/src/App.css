@@ -220,7 +220,34 @@ main {
 .home-details:last-child {
   border-bottom: none;
 }
-
+.profile-details {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 1rem;;
+}
+.profile-info {
+  padding: 5px 0px 25px 0px;
+}
+.profile-img {
+  width: 170px;
+  border-radius: 2px;
+}
+.profile-title {
+  text-align: center;
+  padding: 20px;
+}
+.profile-header {
+  font-size: 30px;
+  padding: 15px 15px;
+}
+.profile-img {
+  border: 2px solid black;
+  width: 170px;
+  height: 97px;
+  border-radius: 50px;
+}
 .events {
   max-width: 97%;
   margin: 0 auto;
@@ -371,6 +398,13 @@ img {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
   }
+
+  .reel:nth-of-type(1) {
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem 3rem;
+  }
   
   .reel h3 {
     text-align: right;
@@ -433,4 +467,10 @@ img {
   .reel {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+}
+
+.purple {
+  color: white;
+
+  background: linear-gradient(-60deg, #0074D9 0%, #39CCCC 80%);
 }
