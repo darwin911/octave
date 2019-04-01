@@ -164,12 +164,20 @@ main {
   margin: 0 2rem;
 }
 
+.filter {
+  left: 20%;
+  position: relative;
+  width: auto;
+  margin: 1rem auto;
+}
+
 .reel {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 0.7rem;
 }
 
 .reel h3 {
+  text-align: center;
   margin-bottom: 1rem;
 }
 
@@ -347,12 +355,6 @@ img {
   width: 150px;
 }
 
-@media screen and (max-width: 414px) {
-  .events-reel {
-    display: none;
-  }
-}
-
 @media screen and (min-width: 415px) {
   nav {
     justify-content: flex-end;
@@ -362,14 +364,14 @@ img {
     margin-right: 1rem;
     font-weight: bold;
   }
-
+  
   .reel {
     margin: 0 auto 2rem;
     max-width: 90%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
   }
-
+  
   .reel h3 {
     text-align: right;
     grid-column: span 1;
@@ -377,11 +379,11 @@ img {
     width: 100%;
     margin: 0;
   }
-
+  
   .event:nth-child(2) {
     grid-column: 1;
   }
-
+  
   .events {
     background: radial-gradient(circle at top right, rgba(0, 0, 0, 0.015), rgba(0, 0, 0, 0.035));
   }
@@ -395,22 +397,40 @@ img {
     width: 500px;
     border-radius: 3px;
   }
-
+  
   .event-details {
     text-align: left;
     margin: 0 auto;
     padding: 0 1rem; 
   }
-
+  
   .buy-tickets {
     margin-left: 0;
   }
-
+  
   .event p {
     font-size: 0.7rem;
   }
-
+  
   .reel div {
     padding: 0 0.25rem;
+  }
+}
+
+@media screen and (min-width: 740px) {
+  .reel {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .reel {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .reel {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
