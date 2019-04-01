@@ -23,27 +23,31 @@ class UserProfile extends Component {
   render() {
     const { userLikes, userEvents } = this.state;
     return (
-      <div>
-        <h1>Welcome {this.props.user.id}</h1>
-        <h2>Events Attending</h2>
-        {userEvents.events &&
-          <div>{userEvents.events.map(event => (
-            <div key={event.id}>
-              <p>{event.title}</p>
-              <img src={event.picture} alt="User Profile"/>
-            </div>))}
-          </div>
-        }
-        <h2>Artists Following</h2>
-        {userLikes.artists &&
-          <div>{userLikes.artists.map(artist => (
-            <div key={artist.id}>
-              <p>{artist.name}</p>
-              <img src={artist.picture} alt="user profile"/>
-            </div>))}
-          </div>
-        }
-      </div>
+      <>
+        <h1>Welcome {this.props.user.name}!</h1>
+
+        <section className="events-attending">
+          <h2>Events Attending</h2>
+          {userEvents.events &&
+            <div>{userEvents.events.map(event => (
+              <div key={event.id}>
+                <p>{event.title}</p>
+                <img src={event.picture} alt="User Profile" />
+              </div>))}
+            </div>}
+        </section>
+
+        <section className="artists-following">
+          <h2>Artists Following</h2>
+          {userLikes.artists &&
+            <div>{userLikes.artists.map(artist => (
+              <div key={artist.id}>
+                <p>{artist.name}</p>
+                <img src={artist.picture} alt="user profile" />
+              </div>))}
+            </div>}
+        </section>
+      </>
     );
   }
 }
