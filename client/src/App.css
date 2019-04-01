@@ -23,7 +23,7 @@ html {
 .App {
   color: #ffffff;
   display: grid;
-  grid-template-rows: 80px 1fr 90px; 
+  grid-template-rows: 80px auto 1fr 90px; 
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
 }
@@ -166,6 +166,7 @@ main {
 
 .reel {
   display: grid;
+  grid-gap: 1rem;
 }
 
 .reel h3 {
@@ -338,6 +339,7 @@ footer p {
 }
 
 img {
+  /* min-width: 25px; */
   max-width: 100%;
 }
 
@@ -363,12 +365,21 @@ img {
 
   .reel {
     margin: 0 auto 2rem;
-    max-width: 95%;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    max-width: 90%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
   }
 
   .reel h3 {
-    grid-column: span 5;
+    text-align: right;
+    grid-column: span 1;
+    align-self: end;
+    width: 100%;
+    margin: 0;
+  }
+
+  .event:nth-child(2) {
+    grid-column: 1;
   }
 
   .events {
@@ -396,7 +407,7 @@ img {
   }
 
   .event p {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
   }
 
   .reel div {

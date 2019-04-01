@@ -29,21 +29,19 @@ class Home extends Component {
 
     return (
       <section>
-        <nav className="home-nav">
-          <p>Artists</p>
-          <p>Events</p>
-          <input type="text" name="search" id="search" placeholder="&#128269;" />
-        </nav>
-        <h1>Home</h1>
-        <Reel
-          heading="Upcoming Events In NYC"
-          className="reel"
-          events={this.props.events}
-          handleSetEvent={this.props.handleSetEvent} />
+        <select className="filter" id="event-filter-select">
+          <option value="" selected>Sort By</option>
+          <option value="most-recent">Most Recent</option>
+        </select>
         <Reel
           heading="Sorted"
           className="reel"
           events={sortedEvents}
+          handleSetEvent={this.props.handleSetEvent} />
+        <Reel
+          heading="Upcoming Events In NYC"
+          className="reel"
+          events={this.props.events}
           handleSetEvent={this.props.handleSetEvent} />
         <Reel
           heading="Upcoming Events In NYC 3"
