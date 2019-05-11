@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { dropToken } from '../services/helper';
+import octave from '../assets/octave.png';
 
 class Header extends Component {
 
@@ -13,7 +14,9 @@ class Header extends Component {
     return (
       <>
         <header>
-          <Link to="/home"><h1 className="title">octave.</h1></Link>
+          <Link to="/home"><img className="title" src={octave} alt="Octave"/></Link>
+          <a href="#" className="header-artists">ARTISTS</a>
+          <a href="#" className="header-events">EVENTS</a>
           <nav>
             {
               this.props.isLoggedIn
@@ -39,11 +42,6 @@ class Header extends Component {
             }
           </nav>
         </header>
-        <nav className="home-nav">
-          <p>Artists</p>
-          <p>Events</p>
-          <input type="text" name="search" id="search" placeholder="&#128269;" />
-        </nav>
       </>
     )
   }

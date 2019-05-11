@@ -5,7 +5,7 @@ if (process.env.DATABASE_URL) {
   console.log('called');
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgresql',
-    loggin: true,
+    login: true,
     operatorsAliases: false,
     define: {
       underscored: true,

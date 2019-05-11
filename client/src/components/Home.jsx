@@ -26,18 +26,13 @@ class Home extends Component {
 
     return (
       <section className="home">
-        <select className="filter" id="event-filter-select">
-          <option value="most-recent">Most Recent</option>
-          <option value="lowest-price">Price: Lowest First</option>
-          <option value="highest-price">Price: Highest First</option>
-        </select>
         <Reel
-          heading="Upcoming"
-          className="reel purple"
+          heading="UPCOMING EVENTS"
+          className="reel"
           events={sortedEvents.slice(0, 10)}
           handleSetEvent={this.props.handleSetEvent} />
         <Reel
-          heading="All Events In NYC"
+          heading="EVENTS IN NYC"
           className="reel"
           events={this.props.events}
           handleSetEvent={this.props.handleSetEvent} />
