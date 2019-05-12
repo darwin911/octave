@@ -188,34 +188,21 @@ main {
 }
 
 .event {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: auto;
   font-size: 0.8rem;
-}
+  cursor: pointer;
 
-.event a {
-  // grid-row: span 5;
-}
-
-.event p {
-  text-align: left;
-  font-size: 15px;
-}
-.event p:first-child {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.event-img-container {
-  object-fit: cover;
+  p {
+    text-align: left;
+    font-size: 15px;
+    &:first-child {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
 }
 
 .event-img {
   width: 100%;
-  border-radius: 2px;
-  object-fit: cover;
 }
 
 .home-details {

@@ -225,13 +225,8 @@ main {
 }
 
 .event {
-  width: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-  grid-auto-rows: auto;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .event p {
@@ -244,16 +239,8 @@ main {
   font-weight: bold;
 }
 
-.event-img-container {
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 .event-img {
   width: 100%;
-  border-radius: 2px;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .home-details {

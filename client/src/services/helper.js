@@ -5,7 +5,6 @@ const API_KEY = process.env.REACT_APP_TM_KEY;
 
 // const BASE_URL = "http://localhost:3001"
 const BASE_URL = "https://banana-cobbler-97207.herokuapp.com/"
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRhcndpbiBTbWl0aCIsImVtYWlsIjoiZGFyd2luOTExQGdtYWlsLmNvbSIsInBpY3R1cmUiOiJodHRwczovL3BuZ2ltYWdlLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAxOC8wNS9kZWZhdWx0LXByb2ZpbGUtcGljLXBuZy04LnBuZyIsImlhdCI6MTU1Mzk5NTU4N30.PalaZHxDYc_-fBzV-NoEa1tFIKmHuHimJq7Ouhz8crw"
 
 const api = axios.create({
   baseURL: BASE_URL,
