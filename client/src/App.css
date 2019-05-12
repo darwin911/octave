@@ -434,6 +434,10 @@ main {
 }
 
 footer {
+  -ms-grid-row: 4;
+      grid-row-start: 4;
+  bottom: 0;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
