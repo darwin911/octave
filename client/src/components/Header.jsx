@@ -15,8 +15,8 @@ class Header extends Component {
       <>
         <header>
           <Link to="/home"><img className="title" src={octave} alt="Octave"/></Link>
-          <a href="#" className="header-artists">ARTISTS</a>
-          <a href="#" className="header-events">EVENTS</a>
+          <button className="header-link">ARTISTS</button>
+          <button href="#" className="header-link">EVENTS</button>
           <nav>
             {
               this.props.isLoggedIn

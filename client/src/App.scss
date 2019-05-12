@@ -52,11 +52,13 @@ header a:first-child {
   width: 154px;
 }
 
-.header-artists, .header-events {
+.header-link {
   font-weight: 700;
   margin-left: 4rem;
   color: #1d2126;
   font-size: 1.2rem;
+  background: transparent;
+  border: none;
   display: none;
 }
 
@@ -500,7 +502,7 @@ img {
     border-right: 2px solid rgba(0, 0, 0, 0.25);
   }
 
-  .header-artists, .header-events {
+  .header-link {
     display: block;
   }
 }

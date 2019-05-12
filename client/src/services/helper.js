@@ -92,7 +92,6 @@ const findEvent = async (eventTitle) => {
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
-  console.log(resp.data);
   return resp.data;
 }
 
@@ -175,10 +174,10 @@ const getArtistReviews = async (artistId) => {
 ///////////////// TICKETMASTER API //////////////////
 
 // Show all events
+let now = moment();
+const time = now.add(3, 'months');
 
-const time = moment().add(3, 'months').calendar()
 const threeMonthsFromNow = moment(time).format("YYYY-MM-DD")
-console.log(threeMonthsFromNow)
 
 const allEvents = async (token) => {
   delete axios.defaults.headers.common["Authorization"];

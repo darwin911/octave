@@ -51,9 +51,7 @@ class Events extends Component {
   async componentDidMount() {
     const token = localStorage.getItem("token");
     const event = await singleEvent(this.props.match.params.id, token);
-    this.setState({
-      currentEvent: event
-    });
+    this.setState({ currentEvent: event });
 
     if (this.state.currentEvent) {
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
@@ -61,9 +59,7 @@ class Events extends Component {
 
       if (venue.venue) {
         const venueReviews = await getVenueReviews(venue.venue.id);
-        this.setState({
-          venueReviews: venueReviews
-        });
+        this.setState({ venueReviews: venueReviews });
       }
 
       const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
@@ -76,77 +72,65 @@ class Events extends Component {
     const usernamesVenue = await this.getUsers(
       this.state.venueReviews.venueReviews
     );
-    this.setState({
-      usernamesVenue
-    });
+    this.setState({ usernamesVenue });
 
     const usernamesArtist = await this.getUsers(this.state.artistReviews);
-    this.setState({
-      usernamesArtist
-    });
+    this.setState({ usernamesArtist });
   }
 
   async handleAddLike() {
-      const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
-      const artist = await findArtist(fetchArtist);
-      // will only add an artist to our database if artist does not exist
-      if (artist.artist) {
-        await addLike(this.props.user.id, artist.artist.id);
-      } else {
-        const newArtist = await addArtist({
-          name: this.props.currentEvent._embedded.attractions[0].name,
-          picture: this.props.currentEvent._embedded.attractions[0].images[0].url
-        });
-        await addLike(this.props.user.id, newArtist.artist.id);
-      }
+    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+    const artist = await findArtist(fetchArtist);
+    // will only add an artist to our database if artist does not exist
+    if (artist.artist) {
+      await addLike(this.props.user.id, artist.artist.id);
+    } else {
+      const newArtist = await addArtist({
+        name: this.props.currentEvent._embedded.attractions[0].name,
+        picture: this.props.currentEvent._embedded.attractions[0].images[0].url
+      });
+      await addLike(this.props.user.id, newArtist.artist.id);
+    }
   }
 
   async handleAttendEvent() {
-      const fetchEvent = this.state.currentEvent.name;
-      const event = await findEvent(fetchEvent);
-      // first check to see if event exist in our database
-      if (event.event) {
-        await addUserEvent(this.props.user.id, event.event.id);
+    const fetchEvent = this.state.currentEvent.name;
+    const event = await findEvent(fetchEvent);
+    // first check to see if event exist in our database
+    if (event.event) {
+      await addUserEvent(this.props.user.id, event.event.id);
+    } else {
+      const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+      const venue = await findVenue(fetchVenue);
+      // if event does not exist, then checks to see if venue exists in our database
+      if (venue.venue) {
+        const newEvent = await addEvent(
+          {
+            title: this.state.currentEvent.name,
+            picture: this.state.currentEvent.images[0].url
+          },
+          venue.venue.id
+        );
+        await addUserEvent(this.props.user.id, newEvent.event.id);
       } else {
-        const fetchVenue = this.state.currentEvent._embedded
-          .venues[0].name;
-        const venue = await findVenue(fetchVenue);
-        // if event does not exist, then checks to see if venue exists in our database
-        if (venue.venue) {
-          const newEvent = await addEvent(
-            {
-              title: this.state.currentEvent.name,
-              picture: this.state.currentEvent.images[0].url
-            },
-            venue.venue.id
-          );
-          await addUserEvent(
-            this.props.user.id,
-            newEvent.event.id
-          );
-        } else {
-          const newVenue = await addVenue({
-            title: this.state.currentEvent._embedded.venues[0].name,
-            picture: this.state.currentEvent._embedded.venues[0].images[0].url
-          });
-          const newEvent = await addEvent(
-            {
-              title: this.state.currentEvent.name,
-              picture: this.state.currentEvent.images[0].url
-            },
-            newVenue.venue.id
-          );
-          await addUserEvent(
-            this.props.user.id,
-            newEvent.event.id
-          );
-        }
+        const newVenue = await addVenue({
+          title: this.state.currentEvent._embedded.venues[0].name,
+          picture: this.state.currentEvent._embedded.venues[0].images[0].url
+        });
+        const newEvent = await addEvent(
+          {
+            title: this.state.currentEvent.name,
+            picture: this.state.currentEvent.images[0].url
+          },
+          newVenue.venue.id
+        );
+        await addUserEvent(this.props.user.id, newEvent.event.id);
+      }
     }
   }
 
   render() {
-    const { currentEvent, venueReviews, artistReviews } = this.state;
-
+    const { currentEvent, venueReviews, artistReviews, usernamesVenue, usernamesArtist } = this.state;
     return (
       <section className="events">
         <h2>{currentEvent && currentEvent.name}</h2>
@@ -162,9 +146,9 @@ class Events extends Component {
               <aside className="event-details">
                 <h3>{currentEvent._embedded.attractions[0].name}</h3>
 
-                <button
-                  className="follow-btn"
-                  onClick={this.handleAddLike}>+</button>
+                <button className="follow-btn" onClick={this.handleAddLike}>
+                  +
+                </button>
 
                 {currentEvent._embedded.venues.map(venue => (
                   <p key={venue.id}>
@@ -181,7 +165,10 @@ class Events extends Component {
 
                 <button
                   className="attending-btn"
-                  onClick={this.handleAttendEvent}>&#10004;</button>
+                  onClick={this.handleAttendEvent}
+                >
+                  &#10004;
+                </button>
                 <span>Attending</span>
 
                 {currentEvent.priceRanges && (
@@ -211,7 +198,7 @@ class Events extends Component {
                 <>
                   <p key={review.id}>
                     <span>
-                      {this.checkUsernames(this.state.usernamesVenue, id)},
+                      {this.checkUsernames(usernamesVenue, id)},
                     </span>{" "}
                     {moment(review.createdAt).format("MMM dddd, YYYY")}
                   </p>
@@ -239,7 +226,7 @@ class Events extends Component {
                 <>
                   <p key={review.id}>
                     <span>
-                      {this.checkUsernames(this.state.usernamesArtist, id)},
+                      {this.checkUsernames(usernamesArtist, id)},
                     </span>{" "}
                     {moment(review.createdAt).format("MMM Do, YYYY")}
                   </p>
