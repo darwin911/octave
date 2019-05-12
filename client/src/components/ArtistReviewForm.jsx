@@ -52,7 +52,7 @@ class ArtistReviewForm extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.isReview ? (
           <>
             <form onSubmit={this.handleSubmit}>
@@ -75,12 +75,12 @@ class ArtistReviewForm extends Component {
           </>
         ) : (
           <>
-            <button onClick={() => this.setState({ isReview: true })}>
+            <button className="review-btn" onClick={() => this.setState({ isReview: true })}>
               Write a review
             </button>
           </>
         )}
-      </div>
+      </>
     );
   }
 }

@@ -130,10 +130,15 @@ class Events extends Component {
   }
 
   render() {
-    const { currentEvent, venueReviews, artistReviews, usernamesVenue, usernamesArtist } = this.state;
+    const {
+      currentEvent,
+      venueReviews,
+      artistReviews,
+      usernamesVenue,
+      usernamesArtist
+    } = this.state;
     return (
       <section className="events">
-        <h2>{currentEvent && currentEvent.name}</h2>
         <article className="selected-event">
           {currentEvent && (
             <>
@@ -144,33 +149,33 @@ class Events extends Component {
                 alt={currentEvent.name}
               />
               <aside className="event-details">
-                <h3>{currentEvent._embedded.attractions[0].name}</h3>
-
+                <p className="event-date">
+                  {moment(currentEvent.dates.start.localDate).format(
+                    "dddd, MMM Do, YYYY"
+                  )}
+                </p>
+                <h2 className="event-name">
+                  {currentEvent.name !== currentEvent._embedded.attractions[0].name && currentEvent.name}
+                </h2>
+                <h3 className="event-artist">
+                  {currentEvent._embedded.attractions[0].name}
+                </h3>
                 <button className="follow-btn" onClick={this.handleAddLike}>
                   +
                 </button>
-
                 {currentEvent._embedded.venues.map(venue => (
-                  <p key={venue.id}>
+                  <p key={venue.id} className="venue-location">
                     <span className="venue-name">{venue.name}</span>,{" "}
                     {venue.city.name}, {venue.state.stateCode}
                   </p>
                 ))}
-
-                <p>
-                  {moment(currentEvent.dates.start.localDate).format(
-                    "MMM Do, YYYY"
-                  )}
-                </p>
-
                 <button
                   className="attending-btn"
                   onClick={this.handleAttendEvent}
                 >
                   &#10004;
-                </button>
+                </button>{" "}
                 <span>Attending</span>
-
                 {currentEvent.priceRanges && (
                   <p className="buy-tickets">
                     <a
@@ -192,27 +197,29 @@ class Events extends Component {
           <h4>
             {currentEvent && currentEvent._embedded.venues[0].name} Reviews
           </h4>
+          <VenueReviewForm currentEvent={currentEvent} user={this.props.user} />
+
+          {currentEvent &&
+            currentEvent._embedded.venues.map(venue => (
+              <p key={venue.id} className="venue-name">
+                {venue.city.name}, {venue.state.stateCode}
+              </p>
+            ))}
+
           <div className="venue-review">
             {venueReviews.venueReviews &&
               venueReviews.venueReviews.map((review, id) => (
-                <>
-                  <p key={review.id}>
-                    <span>
-                      {this.checkUsernames(usernamesVenue, id)},
-                    </span>{" "}
-                    {moment(review.createdAt).format("MMM dddd, YYYY")}
+                <div key={review.id}>
+                  <p>
+                    <span>{this.checkUsernames(usernamesVenue, id)},</span>{" "}
+                    {moment(review.createdAt).format("MMM Do, YYYY")}
                   </p>
                   <p className="venue-review-content">
                     {" "}
                     "{review.content}" Stars: {review.score}
                   </p>
-                </>
+                </div>
               ))}
-
-            <VenueReviewForm
-              currentEvent={currentEvent}
-              user={this.props.user}
-            />
           </div>
 
           <div className="artist-review">
@@ -220,27 +227,25 @@ class Events extends Component {
               {currentEvent && currentEvent._embedded.attractions[0].name}{" "}
               Reviews
             </h4>
-
+            
+            <ArtistReviewForm
+              currentEvent={currentEvent}
+              user={this.props.user}
+            />
             {artistReviews &&
               artistReviews.map((review, id) => (
-                <>
-                  <p key={review.id}>
-                    <span>
-                      {this.checkUsernames(usernamesArtist, id)},
-                    </span>{" "}
+                <div key={review.id}>
+                  <p>
+                    <span>{this.checkUsernames(usernamesArtist, id)},</span>{" "}
                     {moment(review.createdAt).format("MMM Do, YYYY")}
                   </p>
                   <p className="venue-review-content">
                     {" "}
                     "{review.content}" Stars: {review.score}
                   </p>
-                </>
+                </div>
               ))}
 
-            <ArtistReviewForm
-              currentEvent={currentEvent}
-              user={this.props.user}
-            />
           </div>
         </section>
       </section>

@@ -22,7 +22,7 @@ const Reel = props => {
           {/* Event Image */}
           <img
             className="event-img"
-            src={event.images.sort((a, b) => b.width - a.width)[4].url}
+            src={event.images.sort((a, b) => b.width - a.width)[7].url}
             alt={event.name}
           />
           {/* Event Name */}
