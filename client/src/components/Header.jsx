@@ -22,7 +22,6 @@ class Header extends Component {
               this.props.isLoggedIn
                 ?
                 <>
-                  <Link className="nav-link" to="/home">Home</Link>
                   <img className="profile-pic" src={this.props.user.picture} alt={this.props.user.name} />
                   <p className="nav-link" onClick={() => this.goToUserProfile(this.props.user.id)}>
                     Hi {this.props.user.name.split(' ')[0]}!
