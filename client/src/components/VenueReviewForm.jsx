@@ -8,8 +8,8 @@ import {
 
 class VenueReviewForm extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isReview: false,
       content:'',
@@ -34,7 +34,8 @@ class VenueReviewForm extends Component {
 
     const fetchVenue = this.props.currentEvent._embedded.venues[0].name;
     const venue = await findVenue(fetchVenue);
-
+    console.log(venue)
+    debugger;
     if (!venue.venue) {
       const newVenue = await addVenue({title: this.props.currentEvent._embedded.venues[0].name, picture: this.props.currentEvent._embedded.venues[0].images[0].url});
       // eslint-disable-next-line

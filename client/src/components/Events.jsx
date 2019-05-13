@@ -16,6 +16,7 @@ import {
 } from "../services/helper";
 import VenueReviewForm from "./VenueReviewForm";
 import ArtistReviewForm from "./ArtistReviewForm";
+import EventDetails from "./EventDetails";
 
 class Events extends Component {
   constructor(props) {
@@ -150,7 +151,14 @@ class Events extends Component {
                 }
                 alt={currentEvent.name}
               />
-              <aside className="event-details">
+
+              <EventDetails 
+                currentEvent={currentEvent}
+                handleAddLike={this.handleAddLike}
+                handleAttendEvent={this.handleAttendEvent}
+              />
+
+              {/* <aside className="event-details">
                 <p className="event-date">
                   {moment(currentEvent.dates.start.localDate).format(
                     "dddd, MMM Do, YYYY"
@@ -190,7 +198,7 @@ class Events extends Component {
                     </a>
                   </p>
                 )}
-              </aside>
+              </aside> */}
             </>
           )}
         </article>
