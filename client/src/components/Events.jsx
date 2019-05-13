@@ -60,7 +60,7 @@ class Events extends Component {
 
       if (venue.venue) {
         const venueReviews = await getVenueReviews(venue.venue.id);
-        this.setState({ venueReviews: venueReviews });
+        this.setState({ venueReviews });
       }
 
       const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
@@ -71,7 +71,7 @@ class Events extends Component {
       }
     }
     const usernamesVenue = await this.getUsers(
-      this.state.venueReviews.venueReviews
+      this.state.venueReviews
     );
     this.setState({ usernamesVenue });
 
@@ -209,8 +209,8 @@ class Events extends Component {
             ))}
 
           <div className="venue-review">
-            {venueReviews.venueReviews &&
-              venueReviews.venueReviews.map((review, id) => (
+            {venueReviews &&
+              venueReviews.map((review, id) => (
                 <div key={review.id}>
                   <p>
                     <span>{this.checkUsernames(usernamesVenue, id)},</span>{" "}

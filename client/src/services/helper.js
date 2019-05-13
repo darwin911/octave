@@ -142,7 +142,7 @@ const editVenueReview = async (venueReviewId, venueReview) => {
 // Get all venue reviews for one venue
 const getVenueReviews = async (venueId) => {
   const resp = await api.get(`/venue-reviews/${venueId}`)
-  return resp.data;
+  return resp.data.venueReviews;
 }
 
 //////////////// Artist Reviews ////////////////
