@@ -140,6 +140,7 @@ class Events extends Component {
     } = this.state;
     return (
       <section className="events">
+
         <article className="selected-event">
           {currentEvent && (
             <>
@@ -194,7 +195,7 @@ class Events extends Component {
           )}
         </article>
 
-        <section className="reviews">
+        <aside className="reviews">
           <h4>
             {currentEvent && currentEvent._embedded.venues[0].name} Reviews
           </h4>
@@ -248,7 +249,8 @@ class Events extends Component {
               ))}
 
           </div>
-        </section>
+        </aside>
+
       </section>
     );
   }

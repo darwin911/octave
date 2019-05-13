@@ -4,7 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import { loginUser, createUser, updateToken } from './services/helper';
+import { loginUser, createUser, updateToken, allEvents } from './services/helper';
 import { withRouter } from 'react-router'
 import decode from 'jwt-decode'
 
@@ -19,6 +19,7 @@ class App extends Component {
       },
       isLoggedIn: false,
       loginForm: true,
+      events: [],
     };
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -27,9 +28,12 @@ class App extends Component {
     this.toggleToRegister = this.toggleToRegister.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const token = localStorage.getItem('token')
 
+    const events = await allEvents(token);
+    this.setState({ events });
+    // debugger;
     if (token) {
       const user = decode(token)
       this.setState({
@@ -37,7 +41,7 @@ class App extends Component {
         isLoggedIn: true
        })
        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-       this.props.history.push('/home')
+      //  this.props.history.push('/home')
     }
   }
 
@@ -93,7 +97,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, token, user, loginForm } = this.state
+    const { isLoggedIn, token, user, loginForm, events } = this.state
     return (
       <div className='App'>
         <Header
@@ -104,6 +108,7 @@ class App extends Component {
           toggleToLogin={this.toggleToLogin}
           toggleToRegister={this.toggleToRegister} />
         <Main
+          events={events}
           isLoggedIn={isLoggedIn}
           handleLogin={this.handleLogin}
           handleRegister={this.handleRegister}

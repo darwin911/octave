@@ -5,25 +5,14 @@ import { withRouter } from "react-router";
 import HomeDetails from "./HomeDetails";
 import Home from "./Home";
 import Events from "./Events";
-import { allEvents } from "../services/helper";
+import { } from "../services/helper";
 import UserProfile from "./UserProfile";
 
 class Main extends Component {
-  constructor() {
-    super();
-    this.state = {
-      events: [],
-      currentEvent: null
-    };
-    this.handleSetEvent = this.handleSetEvent.bind(this);
-  }
+  constructor(props) {
+    super(props);
 
-  async componentDidMount() {
-    const token = localStorage.getItem("token");
-    const events = await allEvents(token);
-    this.setState({
-      events
-    });
+    this.handleSetEvent = this.handleSetEvent.bind(this);
   }
 
   handleSetEvent(currentEvent) {
@@ -54,7 +43,8 @@ class Main extends Component {
           render={props => (
             <Home
               {...props}
-              events={this.state.events}
+              events={this.props.events}
+              currentEvent={this.props.currentEvent}
               handleSetEvent={this.handleSetEvent}
             />
           )}
@@ -71,9 +61,9 @@ class Main extends Component {
             <Events
               {...props}
               user={this.props.user}
-              events={this.state.events}
+              events={this.props.events}
               handleSetEvent={this.handleSetEvent}
-              currentEvent={this.state.currentEvent}
+              currentEvent={this.props.currentEvent}
             />
           )}
         />
