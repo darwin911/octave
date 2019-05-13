@@ -55,7 +55,6 @@ class Events extends Component {
     this.setState({ currentEvent: event });
 
     if (this.state.currentEvent) {
-      
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
       const venue = await findVenue(fetchVenue);
 
@@ -71,9 +70,7 @@ class Events extends Component {
         this.setState({ artistReviews });
       }
     }
-    const usernamesVenue = await this.getUsers(
-      this.state.venueReviews
-    );
+    const usernamesVenue = await this.getUsers(this.state.venueReviews);
     this.setState({ usernamesVenue });
 
     const usernamesArtist = await this.getUsers(this.state.artistReviews);
@@ -141,67 +138,12 @@ class Events extends Component {
     } = this.state;
     return (
       <section className="events">
-
-        <article className="selected-event">
-          {currentEvent && (
-            <>
-              <img
-                src={
-                  currentEvent.images.sort((a, b) => b.width - a.width)[4].url
-                }
-                alt={currentEvent.name}
-              />
-
-              <EventDetails 
-                currentEvent={currentEvent}
-                handleAddLike={this.handleAddLike}
-                handleAttendEvent={this.handleAttendEvent}
-              />
-
-              {/* <aside className="event-details">
-                <p className="event-date">
-                  {moment(currentEvent.dates.start.localDate).format(
-                    "dddd, MMM Do, YYYY"
-                  )}
-                </p>
-                <h2 className="event-name">
-                  {currentEvent.name !== currentEvent._embedded.attractions[0].name && currentEvent.name}
-                </h2>
-                <h3 className="event-artist">
-                  {currentEvent._embedded.attractions[0].name}
-                </h3>
-                <button className="follow-btn" onClick={this.handleAddLike}>
-                  +
-                </button>
-                {currentEvent._embedded.venues.map(venue => (
-                  <p key={venue.id} className="venue-location">
-                    <span className="venue-name">{venue.name}</span>,{" "}
-                    {venue.city.name}, {venue.state.stateCode}
-                  </p>
-                ))}
-                <button
-                  className="attending-btn"
-                  onClick={this.handleAttendEvent}
-                >
-                  &#10004;
-                </button>{" "}
-                <span>Attending</span>
-                {currentEvent.priceRanges && (
-                  <p className="buy-tickets">
-                    <a
-                      href={currentEvent.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Buy Tickets - ${parseInt(currentEvent.priceRanges[0].min)}{" "}
-                      - ${parseInt(currentEvent.priceRanges[0].max)}
-                    </a>
-                  </p>
-                )}
-              </aside> */}
-            </>
-          )}
-        </article>
+        {currentEvent && (
+          <EventDetails
+            currentEvent={currentEvent}
+            handleAddLike={this.handleAddLike}
+            handleAttendEvent={this.handleAttendEvent} />
+        )}
 
         <aside className="reviews">
           <h4>
@@ -237,7 +179,7 @@ class Events extends Component {
               {currentEvent && currentEvent._embedded.attractions[0].name}{" "}
               Reviews
             </h4>
-            
+
             <ArtistReviewForm
               currentEvent={currentEvent}
               user={this.props.user}
@@ -255,10 +197,8 @@ class Events extends Component {
                   </p>
                 </div>
               ))}
-
           </div>
         </aside>
-
       </section>
     );
   }
