@@ -26,11 +26,9 @@ class Main extends Component {
     });
   }
 
-  handleSetEvent(ev) {
-    this.setState({
-      currentEvent: ev
-    });
-    this.props.history.push(`/events/${ev.id}`);
+  handleSetEvent(currentEvent) {
+    this.setState({ currentEvent });
+    this.props.history.push(`/events/${currentEvent.id}`);
   }
 
   render() {

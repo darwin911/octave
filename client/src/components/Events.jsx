@@ -54,6 +54,7 @@ class Events extends Component {
     this.setState({ currentEvent: event });
 
     if (this.state.currentEvent) {
+      
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
       const venue = await findVenue(fetchVenue);
 
