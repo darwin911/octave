@@ -92,19 +92,19 @@ const findEvent = async (eventTitle) => {
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
-  return resp.data;
+  return resp.data.venue;
 }
 
 // Get an artist from database based on name
 const findArtist = async (artistName) => {
   const resp = await api.get(`/artists/${artistName}`);
-  return resp.data;
+  return resp.data.artist;
 }
 
 // Add venue
 const addVenue = async (venue) => {
   const resp = await api.post(`/venues/`, venue);
-  return resp.data;
+  return resp.data.venue;
 };
 
 // Add artist
@@ -116,7 +116,7 @@ const addArtist = async (artist) => {
 // Add event
 const addEvent = async (event, venueId) => {
   const resp = await api.post(`/events/${venueId}`, event);
-  return resp.data;
+  return resp.data.event;
 };
 
 //////////////// Venue Reviews ////////////////

@@ -64,14 +64,15 @@ class Events extends Component {
 
     const venue = await findVenue(venueName);
 
-    if (venue.venue) {
-      const venueReviews = await getVenueReviews(venue.venue.id);
+    if (venue) {
+      const venueReviews = await getVenueReviews(venue.id);
       this.setState({ venueReviews });
     }
 
     const artist = await findArtist(artistName);
-    if (artist.artist) {
-      const artistReviews = await getArtistReviews(artist.artist.id);
+    
+    if (artist) {
+      const artistReviews = await getArtistReviews(artist.id);
       this.setState({ artistReviews });
     }
 
@@ -89,11 +90,11 @@ class Events extends Component {
       picture: this.state.currentEvent._embedded.attractions[0].images[0].url
     }
     // will only add an artist to our database if artist does not exist
-    if (artist.artist) {
-      await addLike(this.props.user.id, artist.artist.id);
+    if (artist) {
+      await addLike(this.props.user.id, artist.id);
     } else {
       const newArtist = await addArtist(artistData);
-      await addLike(this.props.user.id, newArtist.artist.id);
+      await addLike(this.props.user.id, newArtist.id);
     }
   }
 
@@ -112,22 +113,20 @@ class Events extends Component {
         picture: this.state.currentEvent.images[0].url
       }
       // if event does not exist, then checks to see if venue exists in our database
-      if (venue.venue) {
-        const newEvent = await addEvent(venueData, venue.venue.id);
-        await addUserEvent(this.props.user.id, newEvent.event.id)
+      if (venue) {
+        const newEvent = await addEvent(venueData, venue.id);
+        await addUserEvent(this.props.user.id, newEvent.id)
       } else {
         const eventData = {
           title: eventName,
           picture: this.state.currentEvent.images[0].url
         }
         const newVenue =  await addVenue(venueData);
-        const newEvent = await addEvent(eventData, newVenue.venue.id);
-        await addUserEvent(this.props.user.id, newEvent.event.id);
+        const newEvent = await addEvent(eventData, newVenue.id);
+        await addUserEvent(this.props.user.id, newEvent.id);
       }
     }
   }
-
-  
 
   render() {
     const {
