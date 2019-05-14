@@ -147,21 +147,17 @@ class Events extends Component {
             handleAttendEvent={this.handleAttendEvent}
           />
         )}
-
         <aside className="reviews">
           {currentEvent && (
             <h4>{currentEvent._embedded.venues[0].name} Reviews</h4>
           )}
-
           <VenueReviewForm currentEvent={currentEvent} user={this.props.user} />
-
           {currentEvent &&
             currentEvent._embedded.venues.map(venue => (
               <p key={venue.id} className="venue-name">
                 {venue.city.name}, {venue.state.stateCode}
               </p>
             ))}
-
           <div className="venue-review">
             {venueReviews &&
               venueReviews.map((review, id) => (
@@ -174,17 +170,14 @@ class Events extends Component {
                 />
               ))}
           </div>
-
           <div className="artist-review">
             {currentEvent && (
               <h4>{currentEvent._embedded.attractions[0].name} Reviews</h4>
             )}
-
             <ArtistReviewForm
               currentEvent={currentEvent}
               user={this.props.user}
             />
-
             {artistReviews &&
               artistReviews.map((review, id) => (
                 <ArtistReview
