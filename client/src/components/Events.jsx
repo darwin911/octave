@@ -141,55 +141,60 @@ class Events extends Component {
     return (
       <section className="events">
         {currentEvent && (
-          <EventDetails
-            currentEvent={currentEvent}
-            handleAddLike={this.handleAddLike}
-            handleAttendEvent={this.handleAttendEvent}
-          />
-        )}
-        <aside className="reviews">
-          {currentEvent && (
-            <h4>{currentEvent._embedded.venues[0].name} Reviews</h4>
-          )}
-          <VenueReviewForm currentEvent={currentEvent} user={this.props.user} />
-          {currentEvent &&
-            currentEvent._embedded.venues.map(venue => (
-              <p key={venue.id} className="venue-name">
-                {venue.city.name}, {venue.state.stateCode}
-              </p>
-            ))}
-          <div className="venue-review">
-            {venueReviews &&
-              venueReviews.map((review, id) => (
-                <VenueReview
-                  key={id}
-                  id={id}
-                  review={review}
-                  usernamesVenue={usernamesVenue}
-                  checkUsernames={this.checkUsernames}
-                />
-              ))}
-          </div>
-          <div className="artist-review">
-            {currentEvent && (
-              <h4>{currentEvent._embedded.attractions[0].name} Reviews</h4>
-            )}
-            <ArtistReviewForm
+          <>
+            <EventDetails
               currentEvent={currentEvent}
-              user={this.props.user}
+              handleAddLike={this.handleAddLike}
+              handleAttendEvent={this.handleAttendEvent}
             />
-            {artistReviews &&
-              artistReviews.map((review, id) => (
-                <ArtistReview
-                  key={id}
-                  id={id}
-                  review={review}
-                  checkUsernames={this.checkUsernames}
-                  usernamesArtist={usernamesArtist}
-                />
+
+            <aside className="reviews">
+              <h4>{currentEvent._embedded.venues[0].name} Reviews</h4>
+
+              <VenueReviewForm
+                currentEvent={currentEvent}
+                user={this.props.user}
+              />
+
+              {currentEvent._embedded.venues.map(venue => (
+                <p key={venue.id} className="venue-name">
+                  {venue.city.name}, {venue.state.stateCode}
+                </p>
               ))}
-          </div>
-        </aside>
+
+              <div className="venue-review">
+                {venueReviews &&
+                  venueReviews.map((review, id) => (
+                    <VenueReview
+                      key={id}
+                      id={id}
+                      review={review}
+                      usernamesVenue={usernamesVenue}
+                      checkUsernames={this.checkUsernames}
+                    />
+                  ))}
+              </div>
+              <div className="artist-review">
+                <h4>{currentEvent._embedded.attractions[0].name} Reviews</h4>
+
+                <ArtistReviewForm
+                  currentEvent={currentEvent}
+                  user={this.props.user}
+                />
+                {artistReviews &&
+                  artistReviews.map((review, id) => (
+                    <ArtistReview
+                      key={id}
+                      id={id}
+                      review={review}
+                      checkUsernames={this.checkUsernames}
+                      usernamesArtist={usernamesArtist}
+                    />
+                  ))}
+              </div>
+            </aside>
+          </>
+        )}
       </section>
     );
   }
