@@ -55,76 +55,85 @@ class Events extends Component {
     const token = localStorage.getItem("token");
     const event = await singleEvent(this.props.match.params.id, token);
     this.setState({ currentEvent: event });
+    this.fetchReviews();
+  }
 
-    if (this.state.currentEvent) {
-      const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
-      const venue = await findVenue(fetchVenue);
+  async fetchReviews() {
+    const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
+    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
 
-      if (venue.venue) {
-        const venueReviews = await getVenueReviews(venue.venue.id);
-        this.setState({ venueReviews });
-      }
+    const venue = await findVenue(fetchVenue);
 
-      const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
-      const artist = await findArtist(fetchArtist);
-      if (artist.artist) {
-        const artistReviews = await getArtistReviews(artist.artist.id);
-        this.setState({ artistReviews });
-      }
+    if (venue.venue) {
+      const venueReviews = await getVenueReviews(venue.venue.id);
+      this.setState({ venueReviews });
     }
-    const usernamesVenue = await this.getUsers(this.state.venueReviews);
-    this.setState({ usernamesVenue });
 
+    const artist = await findArtist(fetchArtist);
+    if (artist.artist) {
+      const artistReviews = await getArtistReviews(artist.artist.id);
+      this.setState({ artistReviews });
+    }
+
+    const usernamesVenue = await this.getUsers(this.state.venueReviews);
     const usernamesArtist = await this.getUsers(this.state.artistReviews);
-    this.setState({ usernamesArtist });
+
+    this.setState({ usernamesVenue, usernamesArtist });
   }
 
   async handleAddLike() {
     const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
     const artist = await findArtist(fetchArtist);
+    const artistData = {
+      name: this.state.currentEvent._embedded.attractions[0].name,
+      picture: this.state.currentEvent._embedded.attractions[0].images[0].url
+    }
     // will only add an artist to our database if artist does not exist
     if (artist.artist) {
       await addLike(this.props.user.id, artist.artist.id);
     } else {
-      const newArtist = await addArtist({
-        name: this.props.currentEvent._embedded.attractions[0].name,
-        picture: this.props.currentEvent._embedded.attractions[0].images[0].url
-      });
+      const newArtist = await addArtist(artistData);
       await addLike(this.props.user.id, newArtist.artist.id);
     }
   }
 
   async handleAttendEvent() {
-    const fetchEvent = this.state.currentEvent.name;
-    const event = await findEvent(fetchEvent);
+    debugger;
+    const eventName = this.state.currentEvent.name;
+    const event = await findEvent(eventName);
     // first check to see if event exist in our database
     if (event.event) {
       await addUserEvent(this.props.user.id, event.event.id);
     } else {
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
       const venue = await findVenue(fetchVenue);
+
+
       // if event does not exist, then checks to see if venue exists in our database
       if (venue.venue) {
-        const newEvent = await addEvent(
-          {
-            title: this.state.currentEvent.name,
-            picture: this.state.currentEvent.images[0].url
-          },
-          venue.venue.id
-        );
-        await addUserEvent(this.props.user.id, newEvent.event.id);
+        console.log('pants: venue.venue')
+        const venueData = {
+          title: this.state.currentEvent.name,
+          picture: this.state.currentEvent.images[0].url
+        }
+        const newEvent = await addEvent(venueData, venue.venue.id);
+        await addUserEvent(this.props.user.id, newEvent.event.id)
+        console.log(`added event: ${newEvent.event.id} to user id: ${this.props.user.id}`);
       } else {
-        const newVenue = await addVenue({
+        const venueData = {
           title: this.state.currentEvent._embedded.venues[0].name,
           picture: this.state.currentEvent._embedded.venues[0].images[0].url
-        });
-        const newEvent = await addEvent(
-          {
-            title: this.state.currentEvent.name,
-            picture: this.state.currentEvent.images[0].url
-          },
-          newVenue.venue.id
-        );
+        }
+
+        const eventData = {
+          title: this.state.currentEvent.name,
+          picture: this.state.currentEvent.images[0].url
+        }
+        console.log('lol');
+        debugger;
+        
+        const newVenue =  await addVenue(venueData);
+        const newEvent = await addEvent(eventData, newVenue.venue.id);
         await addUserEvent(this.props.user.id, newEvent.event.id);
       }
     }
