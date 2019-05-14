@@ -59,17 +59,17 @@ class Events extends Component {
   }
 
   async fetchReviews() {
-    const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
-    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
+    const venueName = this.state.currentEvent._embedded.venues[0].name;
+    const artistName = this.state.currentEvent._embedded.attractions[0].name;
 
-    const venue = await findVenue(fetchVenue);
+    const venue = await findVenue(venueName);
 
     if (venue.venue) {
       const venueReviews = await getVenueReviews(venue.venue.id);
       this.setState({ venueReviews });
     }
 
-    const artist = await findArtist(fetchArtist);
+    const artist = await findArtist(artistName);
     if (artist.artist) {
       const artistReviews = await getArtistReviews(artist.artist.id);
       this.setState({ artistReviews });
@@ -82,10 +82,10 @@ class Events extends Component {
   }
 
   async handleAddLike() {
-    const fetchArtist = this.state.currentEvent._embedded.attractions[0].name;
-    const artist = await findArtist(fetchArtist);
+    const artistName = this.state.currentEvent._embedded.attractions[0].name;
+    const artist = await findArtist(artistName);
     const artistData = {
-      name: this.state.currentEvent._embedded.attractions[0].name,
+      name: artistName,
       picture: this.state.currentEvent._embedded.attractions[0].images[0].url
     }
     // will only add an artist to our database if artist does not exist
@@ -104,33 +104,30 @@ class Events extends Component {
     if (event.event) {
       await addUserEvent(this.props.user.id, event.event.id);
     } else {
-      const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
-      const venue = await findVenue(fetchVenue);
+      const venueName = this.state.currentEvent._embedded.venues[0].name;
+      const venue = await findVenue(venueName);
 
       const venueData = {
-        title: this.state.currentEvent.name,
+        title: venueName,
         picture: this.state.currentEvent.images[0].url
       }
-
       // if event does not exist, then checks to see if venue exists in our database
       if (venue.venue) {
-        console.log('pants: venue.venue')
         const newEvent = await addEvent(venueData, venue.venue.id);
         await addUserEvent(this.props.user.id, newEvent.event.id)
-        console.log(`added event: ${newEvent.event.id} to user id: ${this.props.user.id}`);
       } else {
-
         const eventData = {
-          title: this.state.currentEvent.name,
+          title: eventName,
           picture: this.state.currentEvent.images[0].url
         }
-        
         const newVenue =  await addVenue(venueData);
         const newEvent = await addEvent(eventData, newVenue.venue.id);
         await addUserEvent(this.props.user.id, newEvent.event.id);
       }
     }
   }
+
+  
 
   render() {
     const {
