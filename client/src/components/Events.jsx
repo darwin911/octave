@@ -98,7 +98,6 @@ class Events extends Component {
   }
 
   async handleAttendEvent() {
-    debugger;
     const eventName = this.state.currentEvent.name;
     const event = await findEvent(eventName);
     // first check to see if event exist in our database
@@ -108,29 +107,23 @@ class Events extends Component {
       const fetchVenue = this.state.currentEvent._embedded.venues[0].name;
       const venue = await findVenue(fetchVenue);
 
+      const venueData = {
+        title: this.state.currentEvent.name,
+        picture: this.state.currentEvent.images[0].url
+      }
 
       // if event does not exist, then checks to see if venue exists in our database
       if (venue.venue) {
         console.log('pants: venue.venue')
-        const venueData = {
-          title: this.state.currentEvent.name,
-          picture: this.state.currentEvent.images[0].url
-        }
         const newEvent = await addEvent(venueData, venue.venue.id);
         await addUserEvent(this.props.user.id, newEvent.event.id)
         console.log(`added event: ${newEvent.event.id} to user id: ${this.props.user.id}`);
       } else {
-        const venueData = {
-          title: this.state.currentEvent._embedded.venues[0].name,
-          picture: this.state.currentEvent._embedded.venues[0].images[0].url
-        }
 
         const eventData = {
           title: this.state.currentEvent.name,
           picture: this.state.currentEvent.images[0].url
         }
-        console.log('lol');
-        debugger;
         
         const newVenue =  await addVenue(venueData);
         const newEvent = await addEvent(eventData, newVenue.venue.id);
