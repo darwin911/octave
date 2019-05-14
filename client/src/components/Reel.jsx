@@ -4,12 +4,14 @@ import moment from "moment";
 const Reel = props => {
   return (
     <section className={props.className}>
-      <h3>{props.heading}</h3>
-      <select className="filter" id="event-filter-select">
-        <option value="most-recent">Sort By</option>
-        <option value="lowest-price">Lowest Price</option>
-        <option value="highest-price">Highest Price</option>
-      </select>
+      <header>
+        <h3>{props.heading}</h3>
+        <select className="filter" id="event-filter-select">
+          <option value="most-recent">Sort By</option>
+          <option value="lowest-price">Lowest Price</option>
+          <option value="highest-price">Highest Price</option>
+        </select>
+      </header>
       {props.events.map(event => (
         <article
           key={event.id}
@@ -22,7 +24,7 @@ const Reel = props => {
           {/* Event Image */}
           <img
             className="event-img"
-            src={event.images.sort((a, b) => b.width - a.width)[7].url}
+            src={event.images.sort((a, b) => b.width - a.width)[5].url}
             alt={event.name}
           />
           {/* Event Name */}

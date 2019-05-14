@@ -31,18 +31,13 @@ html {
   grid-template-rows: 60px auto 1fr 70px; 
   font-family: 'sofia-pro','Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
-}
-
-header {
-  display: flex;
-  color: #1d2126;
-  align-items: center;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.5);
-  padding: 0 5vw;
-}
-
-header a:first-child {
-  width: auto;
+  & > header {
+    display: flex;
+    color: #1d2126;
+    align-items: center;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+    padding: 0 5vw;
+  }
 }
 
 .profile-pic {
@@ -183,11 +178,21 @@ main {
   grid-column-gap: 9vw;
   grid-row-gap: 2.5rem;
   padding: 1.75rem 0.75rem;
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-column: 1 / -1;
+    select {
+      align-self: flex-end;
+    }
+  }
 }
 
-.reel h3 {
-  text-align: center;
-  margin-bottom: 1rem;
+@media screen and (min-width: 360px) {
+  .reel header {
+    flex-direction: row;
+  }
 }
 
 .event {
