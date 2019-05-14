@@ -149,9 +149,10 @@ class Events extends Component {
         )}
 
         <aside className="reviews">
-          <h4>
-            {currentEvent && currentEvent._embedded.venues[0].name} Reviews
-          </h4>
+          {currentEvent && (
+            <h4>{currentEvent._embedded.venues[0].name} Reviews</h4>
+          )}
+
           <VenueReviewForm currentEvent={currentEvent} user={this.props.user} />
 
           {currentEvent &&
@@ -175,24 +176,24 @@ class Events extends Component {
           </div>
 
           <div className="artist-review">
-            <h4>
-              {currentEvent && currentEvent._embedded.attractions[0].name}{" "}
-              Reviews
-            </h4>
+            {currentEvent && (
+              <h4>{currentEvent._embedded.attractions[0].name} Reviews</h4>
+            )}
 
             <ArtistReviewForm
               currentEvent={currentEvent}
               user={this.props.user}
             />
-            
+
             {artistReviews &&
               artistReviews.map((review, id) => (
                 <ArtistReview
-                key={id}
-                id={id} 
-                review={review}
-                checkUsernames={this.checkUsernames}
-                usernamesArtist={usernamesArtist} />
+                  key={id}
+                  id={id}
+                  review={review}
+                  checkUsernames={this.checkUsernames}
+                  usernamesArtist={usernamesArtist}
+                />
               ))}
           </div>
         </aside>
