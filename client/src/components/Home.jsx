@@ -3,12 +3,6 @@ import Reel from './Reel';
 import moment from 'moment';
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      events: []
-    }
-  }
 
   render() {
 

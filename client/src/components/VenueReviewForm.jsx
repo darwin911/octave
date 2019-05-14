@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   addVenueReview,
   addVenue,
-  // addEvent,
   findVenue,
   } from '../services/helper';
 
@@ -32,12 +31,12 @@ class VenueReviewForm extends Component {
       score: this.state.score
     })
 
-    const fetchVenue = this.props.currentEvent._embedded.venues[0].name;
-    const venue = await findVenue(fetchVenue);
+    const venueName = this.props.currentEvent._embedded.venues[0].name;
+    const venue = await findVenue(venueName);
 
     if (!venue.venue) {
       const newVenue = await addVenue({
-        title: this.props.currentEvent._embedded.venues[0].name,
+        title: venueName,
         picture: this.props.currentEvent._embedded.venues[0].images[0].url
       });
       // eslint-disable-next-line

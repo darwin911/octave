@@ -35,8 +35,9 @@ class ArtistReviewForm extends Component {
     const artist = await findArtist(artistName);
 
     if (!artist) {
-      const newArtist = await addArtist({name: this.props.currentEvent._embedded.attractions[0].name, picture: this.props.currentEvent._embedded.attractions[0].images[0].url});
-      debugger;
+      const newArtist = await addArtist({
+        name: this.props.currentEvent._embedded.attractions[0].name,
+        picture: this.props.currentEvent._embedded.attractions[0].images[0].url});
       // eslint-disable-next-line
       const artistReview = await addArtistReview(newArtist.id, this.props.user.id, review);
     } else {

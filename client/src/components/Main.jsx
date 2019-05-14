@@ -21,6 +21,7 @@ class Main extends Component {
   }
 
   render() {
+    const { handleRegister, handleLogin, loginForm, currentEvent, events, user } = this.props;
     return (
       <main>
         <Route
@@ -29,9 +30,9 @@ class Main extends Component {
           render={() => (
             <>
               <Auth
-                handleRegister={this.props.handleRegister}
-                handleLogin={this.props.handleLogin}
-                loginForm={this.props.loginForm}
+                handleRegister={handleRegister}
+                handleLogin={handleLogin}
+                loginForm={loginForm}
               />
               <HomeDetails />
             </>
@@ -43,8 +44,8 @@ class Main extends Component {
           render={props => (
             <Home
               {...props}
-              events={this.props.events}
-              currentEvent={this.props.currentEvent}
+              events={events}
+              currentEvent={currentEvent}
               handleSetEvent={this.handleSetEvent}
             />
           )}
@@ -52,7 +53,7 @@ class Main extends Component {
 
         <Route
           path="/user/:id"
-          render={() => <UserProfile user={this.props.user} />}
+          render={() => <UserProfile user={user} />}
         />
 
         <Route
@@ -60,10 +61,10 @@ class Main extends Component {
           render={props => (
             <Events
               {...props}
-              user={this.props.user}
-              events={this.props.events}
+              user={user}
+              events={events}
               handleSetEvent={this.handleSetEvent}
-              currentEvent={this.props.currentEvent}
+              currentEvent={currentEvent}
             />
           )}
         />

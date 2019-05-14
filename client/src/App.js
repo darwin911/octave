@@ -20,6 +20,7 @@ class App extends Component {
       isLoggedIn: false,
       loginForm: true,
       events: [],
+      currentEvent: null,
     };
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -33,7 +34,6 @@ class App extends Component {
 
     const events = await allEvents(token);
     this.setState({ events });
-    // debugger;
     if (token) {
       const user = decode(token)
       this.setState({
@@ -46,15 +46,11 @@ class App extends Component {
   }
 
   toggleToLogin() {
-    this.setState({
-      loginForm: true
-    })
+    this.setState({ loginForm: true })
   }
 
   toggleToRegister() {
-    this.setState({
-      loginForm: false
-    })
+    this.setState({ loginForm: false })
   }
 
   async handleLogin(userData) {
@@ -103,8 +99,8 @@ class App extends Component {
         <Header
           handleLogout={this.handleLogout}
           isLoggedIn={isLoggedIn}
-          token={this.state.token}
-          user={this.state.user}
+          token={token}
+          user={user}
           toggleToLogin={this.toggleToLogin}
           toggleToRegister={this.toggleToRegister} />
         <Main
