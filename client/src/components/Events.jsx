@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import moment from "moment";
 import {
   singleEvent,
   findEvent,
@@ -17,6 +16,8 @@ import {
 import VenueReviewForm from "./VenueReviewForm";
 import ArtistReviewForm from "./ArtistReviewForm";
 import EventDetails from "./EventDetails";
+import VenueReview from "./VenueReview";
+import ArtistReview from "./ArtistReview";
 
 class Events extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class Events extends Component {
 
     this.handleAddLike = this.handleAddLike.bind(this);
     this.handleAttendEvent = this.handleAttendEvent.bind(this);
+    this.checkUsernames = this.checkUsernames.bind(this);
   }
 
   checkUsernames(userArray, id) {
@@ -142,7 +144,8 @@ class Events extends Component {
           <EventDetails
             currentEvent={currentEvent}
             handleAddLike={this.handleAddLike}
-            handleAttendEvent={this.handleAttendEvent} />
+            handleAttendEvent={this.handleAttendEvent}
+          />
         )}
 
         <aside className="reviews">
@@ -161,16 +164,13 @@ class Events extends Component {
           <div className="venue-review">
             {venueReviews &&
               venueReviews.map((review, id) => (
-                <div key={review.id}>
-                  <p>
-                    <span>{this.checkUsernames(usernamesVenue, id)},</span>{" "}
-                    {moment(review.createdAt).format("MMM Do, YYYY")}
-                  </p>
-                  <p className="venue-review-content">
-                    {" "}
-                    "{review.content}" Stars: {review.score}
-                  </p>
-                </div>
+                <VenueReview
+                  key={id}
+                  id={id}
+                  review={review}
+                  usernamesVenue={usernamesVenue}
+                  checkUsernames={this.checkUsernames}
+                />
               ))}
           </div>
 
@@ -184,18 +184,15 @@ class Events extends Component {
               currentEvent={currentEvent}
               user={this.props.user}
             />
+            
             {artistReviews &&
               artistReviews.map((review, id) => (
-                <div key={review.id}>
-                  <p>
-                    <span>{this.checkUsernames(usernamesArtist, id)},</span>{" "}
-                    {moment(review.createdAt).format("MMM Do, YYYY")}
-                  </p>
-                  <p className="venue-review-content">
-                    {" "}
-                    "{review.content}" Stars: {review.score}
-                  </p>
-                </div>
+                <ArtistReview
+                key={id}
+                id={id} 
+                review={review}
+                checkUsernames={this.checkUsernames}
+                usernamesArtist={usernamesArtist} />
               ))}
           </div>
         </aside>
