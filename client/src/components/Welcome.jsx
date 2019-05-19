@@ -35,6 +35,7 @@ class Welcome extends Component {
   }
 
   render() {
+    const { handleLogin, handleRegister, loginForm } = this.props;
 
     const userData = {
       email: this.state.email,
@@ -46,11 +47,11 @@ class Welcome extends Component {
       <div className="carousel">
         <section className="auth">
           <h3>Welcome back!</h3>
-          <div>
+          {loginForm ? (
             <form
               onSubmit={e => {
                 e.preventDefault();
-                this.props.handleLogin(userData);
+                handleLogin(userData);
                 this.clearForm();
               }}
               className="login-form"
@@ -75,45 +76,45 @@ class Welcome extends Component {
               />
               <button className="sign-in-btn">Sign In</button>
             </form>
-          </div>
-
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.props.handleRegister(userData);
-              this.clearForm();
-            }}
-            className="register-form"
-          >
-            <label htmlFor="name">Name</label>
-            <input
-              className="register-input"
-              type="text"
-              name="name"
-              onChange={this.handleChange}
-              value={this.state.name}
-              required
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              className="register-input"
-              type="email"
-              name="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-              required
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              className="register-input"
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-              value={this.state.password}
-              required
-            />
-            <button className="sign-up-btn">Create Account</button>
-          </form>
+          ) : (
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                handleRegister(userData);
+                this.clearForm();
+              }}
+              className="register-form"
+            >
+              <label htmlFor="name">Name</label>
+              <input
+                className="register-input"
+                type="text"
+                name="name"
+                onChange={this.handleChange}
+                value={this.state.name}
+                required
+              />
+              <label htmlFor="email">Email</label>
+              <input
+                className="register-input"
+                type="email"
+                name="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+                required
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                className="register-input"
+                type="password"
+                name="password"
+                onChange={this.handleChange}
+                value={this.state.password}
+                required
+              />
+              <button className="sign-up-btn">Create Account</button>
+            </form>
+          )}
         </section>
       </div>
     );
