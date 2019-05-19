@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
-class Auth extends Component {
+class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +23,6 @@ class Auth extends Component {
     });
   }
 
-  componentClicked = () => console.log("clicked");
-
-  responseFacebook = response => {
-    console.log(response);
-    this.setState({
-      isLoggedIn: true,
-      userId: response.userID,
-      name: response.name,
-      email: response.email,
-      picture: response.picture.data.url
-    });
-  };
-
   clearForm() {
     this.setState({
       userId: "",
@@ -49,16 +35,6 @@ class Auth extends Component {
   }
 
   render() {
-    // eslint-disable-next-line
-    let fbContent;
-
-    fbContent = (
-      <div className="fb-login">
-        <img src={this.state.picture} alt={this.state.name} />
-        <p>Email: {this.state.email}</p>
-        <Link to="/home">Continue as {this.state.name}</Link>
-      </div>
-    );
 
     const userData = {
       email: this.state.email,
@@ -144,4 +120,4 @@ class Auth extends Component {
   }
 }
 
-export default withRouter(Auth);
+export default withRouter(Welcome);

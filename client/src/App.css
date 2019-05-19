@@ -88,10 +88,20 @@ nav {
   font-weight: bold;
 }
 
-.nav-link:last-child {
-  color: #1d2126;
-  background: #ffffff;
-  font-weight: bold;
+.nav-signin, .nav-register {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.nav-register {
+  background: var(--greyish-brown);
+  color: white;
+  text-transform: uppercase;
+  border-radius: 15px;
+  line-height: 1.3;
+  padding: 0.4rem 1rem;
 }
 
 main {
