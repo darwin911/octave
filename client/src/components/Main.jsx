@@ -21,7 +21,8 @@ class Main extends Component {
       venueReviews,
       artistReviews,
       usernamesVenue,
-      usernamesArtist
+      usernamesArtist,
+      isLoggedIn,
     } = this.props;
     return (
       <main>
@@ -31,6 +32,7 @@ class Main extends Component {
           render={() => (
             <>
               <Welcome
+                isLoggedIn={isLoggedIn}
                 handleRegister={handleRegister}
                 handleLogin={handleLogin}
                 loginForm={loginForm}

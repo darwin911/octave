@@ -35,7 +35,7 @@ class Welcome extends Component {
   }
 
   render() {
-    const { handleLogin, handleRegister, loginForm } = this.props;
+    const { handleLogin, handleRegister, loginForm, isLoggedIn } = this.props;
 
     const userData = {
       email: this.state.email,
@@ -45,8 +45,9 @@ class Welcome extends Component {
 
     return (
       <div className="carousel">
-        <section className="auth">
-          <h3>{loginForm ? "Welcome back!" : "Welcome to Octave!"}</h3>
+        {
+          !isLoggedIn && <section className="auth">
+        <h3>{loginForm ? "Welcome back!" : "Welcome to Octave!"}</h3>
           {loginForm ? (
             <form
               onSubmit={e => {
@@ -116,6 +117,7 @@ class Welcome extends Component {
             </form>
           )}
         </section>
+      }
       </div>
     );
   }
