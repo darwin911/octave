@@ -173,6 +173,11 @@ main {
   padding: 0.5rem;
 }
 
+.sign-up-btn {
+  background: var(--greyish-brown);
+  color: white;
+}
+
 .filter {
   grid-column-start: 1;
   max-width: 150px;

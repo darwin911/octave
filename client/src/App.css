@@ -209,6 +209,11 @@ main {
   padding: 0.5rem;
 }
 
+.sign-up-btn {
+  background: var(--greyish-brown);
+  color: white;
+}
+
 .filter {
   -ms-grid-column: 1;
       grid-column-start: 1;

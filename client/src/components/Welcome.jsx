@@ -46,7 +46,7 @@ class Welcome extends Component {
     return (
       <div className="carousel">
         <section className="auth">
-          <h3>Welcome back!</h3>
+          <h3>{loginForm ? "Welcome back!" : "Welcome to Octave!"}</h3>
           {loginForm ? (
             <form
               onSubmit={e => {
