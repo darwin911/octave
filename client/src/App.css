@@ -1,3 +1,4 @@
+/* @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900'); */
 @import url("https://use.typekit.net/xwq0mnh.css");
 :root {
   --greyish-brown: #464646;
@@ -85,22 +86,13 @@ nav {
 .nav-link {
   margin-left: 0.45rem;
   padding: 0;
-  font-size: 15px;
   font-weight: bold;
 }
 
-.nav-signin, .nav-register {
-  border: none;
-  color: inherit;
-  font-family: inherit;
-}
-
-.nav-register {
-  background: var(--greyish-brown);
-  color: white;
-  text-transform: uppercase;
-  border-radius: 18px;
-  padding: 0.4rem 1rem;
+.nav-link:last-child {
+  color: #1d2126;
+  background: #ffffff;
+  font-weight: bold;
 }
 
 main {
@@ -109,7 +101,6 @@ main {
   display: grid;
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
-  grid-row: span 2;
 }
 
 .carousel {
@@ -134,13 +125,12 @@ main {
 }
 
 .auth {
-  width: 360px;
-  max-width: 95%;
+  width: 300px;
   height: auto;
   min-height: 100px;
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
   max-width: 90%;
-  padding: 2rem 3.25rem;
+  padding: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -148,15 +138,6 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-radius: 2px;
-}
-
-.auth h3 {
-  margin-bottom: 1.5rem;
-}
-
-.auth label {
-  font-weight: normal;
 }
 
 .login-form, .register-form {
@@ -174,11 +155,12 @@ main {
 }
 
 .login-input, .register-input {
-  border: 1px solid #979797;
+  background: #ccc;
+  color: #222;
   padding: 0.25rem;
-  line-height: 2;
-  margin-bottom: 0.75rem;
-  border-radius: 5px;
+  border: none;
+  margin-bottom: 0.25rem;
+  border-radius: 3px;
 }
 
 .fb-login {
@@ -206,19 +188,14 @@ main {
 }
 
 .sign-in-btn, .sign-up-btn {
-  width: 100%;
+  width: 70px;
   font-weight: bold;
   margin: 0 auto;
-  border: 1px solid #464646;
-  color: var(--greyish-brown);
-  border-radius: 18px;
-  padding: 0.5rem;
-  font-size: 16px;
-}
-
-.sign-up-btn {
-  background: var(--greyish-brown);
-  color: white;
+  border: none;
+  background: #aaa;
+  color: #000;
+  border-radius: 5px;
+  padding: 0.35rem;
 }
 
 .filter {

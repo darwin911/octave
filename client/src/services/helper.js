@@ -3,8 +3,8 @@ import moment from 'moment';
 
 const API_KEY = process.env.REACT_APP_TM_KEY;
 
-const BASE_URL = "http://localhost:3001"
-// const BASE_URL = "https://banana-cobbler-97207.herokuapp.com/"
+// const BASE_URL = "http://localhost:3001"
+const BASE_URL = "https://banana-cobbler-97207.herokuapp.com/"
 
 const api = axios.create({
   baseURL: BASE_URL,
