@@ -34,7 +34,7 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
           &#10004;
         </button>{" "}
         <span>Attending</span>
-        {currentEvent.priceRanges && (
+        {currentEvent.priceRanges ? (
           <p className="buy-tickets">
             <a
               href={currentEvent.url}
@@ -45,6 +45,8 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
               {parseInt(currentEvent.priceRanges[0].max)}
             </a>
           </p>
+        ) : (
+          <button className="buy-tickets" disabled>Sold Out</button>
         )}
       </aside>
     </article>

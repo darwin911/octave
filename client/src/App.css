@@ -479,11 +479,17 @@ main {
   transition: -webkit-box-shadow 200ms ease-in-out;
   transition: box-shadow 200ms ease-in-out;
   transition: box-shadow 200ms ease-in-out, -webkit-box-shadow 200ms ease-in-out;
+  font-size: inherit;
 }
 
 .buy-tickets:hover {
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
           box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+button.buy-tickets, button.buy-tickets:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .reviews {

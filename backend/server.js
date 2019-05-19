@@ -26,7 +26,7 @@ app.use('/artist-reviews', artistReviewRouter);
 app.use('/venue-reviews', venueReviewRouter);
 
 app.get('/', async(req, res) => {
-  res.json({ msg: 'Welcome to class'})
+  res.json({ msg: 'GET route works just fine! WDI-Bananas – 2019'})
 })
 
 app.listen(PORT, () => {
