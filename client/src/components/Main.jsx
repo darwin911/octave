@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Auth from "./Auth";
+import Welcome from "./Welcome";
 import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import HomeDetails from "./HomeDetails";
@@ -21,7 +21,8 @@ class Main extends Component {
       venueReviews,
       artistReviews,
       usernamesVenue,
-      usernamesArtist
+      usernamesArtist,
+      isLoggedIn,
     } = this.props;
     return (
       <main>
@@ -30,7 +31,8 @@ class Main extends Component {
           path="/"
           render={() => (
             <>
-              <Auth
+              <Welcome
+                isLoggedIn={isLoggedIn}
                 handleRegister={handleRegister}
                 handleLogin={handleLogin}
                 loginForm={loginForm}
