@@ -1,4 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900'); */
 @import url("https://use.typekit.net/xwq0mnh.css");
 
 :root {
@@ -72,19 +71,29 @@ nav {
 .nav-link {
   margin-left: 0.45rem;
   padding: 0;
+  font-size: 15px;
   font-weight: bold;
 }
 
-.nav-link:last-child {
-  color: #1d2126;
-  background: #ffffff;
-  font-weight: bold;
+.nav-signin, .nav-register {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+.nav-register {
+  background: var(--greyish-brown);
+  color: white;
+  text-transform: uppercase;
+  border-radius: 18px;
+  padding: 0.4rem 1rem;
 }
 
 main {
   color: #000000;
   display: grid;
   grid-template-columns: 1fr;
+  grid-row: span 2;
 }
 
 .carousel {
@@ -100,14 +109,22 @@ main {
 }
 
 .auth {
-  width: 300px;
+  width: 360px;
+  max-width: 95%;
   height: auto;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.95);
+  background: white;
   max-width: 90%;
-  padding: 1rem;
+  padding: 2rem 3.25rem;
   display: flex;
   flex-direction: column;
+  border-radius: 2px;
+  h3 {
+    margin-bottom: 1.5rem;
+  }
+  label {
+    font-weight: normal;
+  }
 }
 
 .login-form, .register-form {
@@ -120,12 +137,11 @@ main {
 }
 
 .login-input, .register-input {
-  background: #ccc;
-  color: #222;
+  border: 1px solid #979797;
   padding: 0.25rem;
-  border: none;
-  margin-bottom: 0.25rem;
-  border-radius: 3px;
+  line-height: 2;
+  margin-bottom: 0.75rem;
+  border-radius: 5px;
 }
 
 .fb-login {
@@ -153,14 +169,19 @@ main {
 }
 
 .sign-in-btn, .sign-up-btn {
-  width: 70px;
+  width: 100%;
   font-weight: bold;
   margin: 0 auto;
-  border: none;
-  background: #aaa;
-  color: #000;
-  border-radius: 5px;
-  padding: 0.35rem;
+  border: 1px solid #464646;
+  color: var(--greyish-brown);
+  border-radius: 18px;
+  padding: 0.5rem;
+  font-size: 16px;
+}
+
+.sign-up-btn {
+  background: var(--greyish-brown);
+  color: white;
 }
 
 .filter {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-// import { Route } from 'react-router-dom';
 import { createUser, updateToken } from '../services/helper';
 import { withRouter } from 'react-router';
 
@@ -118,7 +117,6 @@ class Login extends Component {
           value="Sign Up"
           onSubmit={this.handleRegister} />
         </div>
-        {fbContent}
       </form>
     )
   }
