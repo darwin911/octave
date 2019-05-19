@@ -45,79 +45,79 @@ class Welcome extends Component {
 
     return (
       <div className="carousel">
-        {
-          !isLoggedIn && <section className="auth">
-        <h3>{loginForm ? "Welcome back!" : "Welcome to Octave!"}</h3>
-          {loginForm ? (
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                handleLogin(userData);
-                this.clearForm();
-              }}
-              className="login-form"
-            >
-              <label htmlFor="email">Email</label>
-              <input
-                className="login-input"
-                type="email"
-                name="email"
-                onChange={this.handleChange}
-                value={this.state.email}
-                required
-              />
-              <label htmlFor="password">Password</label>
-              <input
-                className="login-input"
-                type="password"
-                name="password"
-                onChange={this.handleChange}
-                value={this.state.password}
-                required
-              />
-              <button className="sign-in-btn">Sign In</button>
-            </form>
-          ) : (
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                handleRegister(userData);
-                this.clearForm();
-              }}
-              className="register-form"
-            >
-              <label htmlFor="name">Name</label>
-              <input
-                className="register-input"
-                type="text"
-                name="name"
-                onChange={this.handleChange}
-                value={this.state.name}
-                required
-              />
-              <label htmlFor="email">Email</label>
-              <input
-                className="register-input"
-                type="email"
-                name="email"
-                onChange={this.handleChange}
-                value={this.state.email}
-                required
-              />
-              <label htmlFor="password">Password</label>
-              <input
-                className="register-input"
-                type="password"
-                name="password"
-                onChange={this.handleChange}
-                value={this.state.password}
-                required
-              />
-              <button className="sign-up-btn">Create Account</button>
-            </form>
-          )}
-        </section>
-      }
+        {!isLoggedIn && (
+          <section className="auth">
+            <h3>{loginForm ? "Welcome back!" : "Welcome to Octave!"}</h3>
+            {loginForm ? (
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleLogin(userData);
+                  this.clearForm();
+                }}
+                className="login-form"
+              >
+                <label htmlFor="email">Email</label>
+                <input
+                  className="login-input"
+                  type="email"
+                  name="email"
+                  onChange={this.handleChange}
+                  value={this.state.email}
+                  required
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  className="login-input"
+                  type="password"
+                  name="password"
+                  onChange={this.handleChange}
+                  value={this.state.password}
+                  required
+                />
+                <button className="sign-in-btn">Sign In</button>
+              </form>
+            ) : (
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleRegister(userData);
+                  this.clearForm();
+                }}
+                className="register-form"
+              >
+                <label htmlFor="name">Name</label>
+                <input
+                  className="register-input"
+                  type="text"
+                  name="name"
+                  onChange={this.handleChange}
+                  value={this.state.name}
+                  required
+                />
+                <label htmlFor="email">Email</label>
+                <input
+                  className="register-input"
+                  type="email"
+                  name="email"
+                  onChange={this.handleChange}
+                  value={this.state.email}
+                  required
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  className="register-input"
+                  type="password"
+                  name="password"
+                  onChange={this.handleChange}
+                  value={this.state.password}
+                  required
+                />
+                <button className="sign-up-btn">Create Account</button>
+              </form>
+            )}
+          </section>
+        )}
       </div>
     );
   }
