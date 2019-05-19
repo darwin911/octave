@@ -4,7 +4,6 @@ import ArtistReviewForm from "./ArtistReviewForm";
 import EventDetails from "./EventDetails";
 import VenueReview from "./VenueReview";
 import ArtistReview from "./ArtistReview";
-import ReactDisqusComments from "react-disqus-comments";
 
 class Events extends Component {
   render() {
@@ -69,14 +68,6 @@ class Events extends Component {
                     />
                   ))}
               </div>
-              <ReactDisqusComments
-                shortname="https-octave-bananas-surge-sh"
-                identifier="something-unique-12345"
-                title="Example Thread"
-                url="https://octave-bananas.surge.sh"
-                category_id="123456"
-                onNewComment={(arg) => console.log('new comment', arg)}
-              />
             </aside>
           </>
         )}
