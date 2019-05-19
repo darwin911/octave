@@ -5,7 +5,6 @@ import { withRouter } from "react-router";
 import HomeDetails from "./HomeDetails";
 import Home from "./Home";
 import Events from "./Events";
-import {} from "../services/helper";
 import UserProfile from "./UserProfile";
 
 class Main extends Component {

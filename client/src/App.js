@@ -156,12 +156,17 @@ class App extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem("token");
-
+    
     const events = await allEvents(token);
-
+    
     this.check(events);
-
+    
+    if (this.state.events) {
+      console.log('testing if events')
+    }
     this.setState({ events });
+
+
     if (token) {
       const user = decode(token);
       this.setState({

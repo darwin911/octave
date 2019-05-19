@@ -28,7 +28,7 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "pg": "^7.9.0",
-    "sequelize": "^5.1.1"
+    "sequelize": "^5.8.6"
   },
   "devDependencies": {
     "eslint": "^5.15.3",
