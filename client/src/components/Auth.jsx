@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { withRouter } from 'react-router';
 
 class Auth extends Component {
@@ -54,27 +53,12 @@ class Auth extends Component {
     // eslint-disable-next-line
     let fbContent;
 
-    (this.props.isLoggedIn) ?
-      fbContent = (
-        <div className="fb-login">
-          <img src={this.state.picture} alt={this.state.name} />
-          <p>Email: {this.state.email}</p>
-          <Link to="/home">Continue as {this.state.name}</Link>
-        </div>
-      )
-      :
-      fbContent = (
-        <FacebookLogin
-          appId={process.env.REACT_APP_FACEBOOK_LOGIN_KEY}
-          // autoLoad={true}
-          fields="name,email,picture"
-          onClick={this.componentClicked}
-          render={renderProps => (
-            <button className="fb-btn"
-              onClick={renderProps.onClick}>Login with Facebook</button>
-          )}
-          callback={this.responseFacebook} />
-      );
+    fbContent = (
+      <div className="fb-login">
+        <img src={this.state.picture} alt={this.state.name} />
+        <p>Email: {this.state.email}</p>
+        <Link to="/home">Continue as {this.state.name}</Link>
+      </div>)
 
     const userData = {
       email: this.state.email,
