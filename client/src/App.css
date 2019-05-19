@@ -100,6 +100,7 @@ main {
   display: grid;
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
+  grid-row: span 2;
 }
 
 .carousel {
