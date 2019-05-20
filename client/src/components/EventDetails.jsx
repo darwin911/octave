@@ -46,7 +46,7 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
             </a>
           </p>
         ) : (
-          <button className="buy-tickets" disabled>Sold Out</button>
+          <button className="buy-tickets sold-out" disabled>Sold Out</button>
         )}
       </aside>
     </article>

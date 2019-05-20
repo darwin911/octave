@@ -27,7 +27,7 @@ const Reel = ({className, heading, events, handleSetEvent}) => {
           <div>
             <p>{event.name}</p>
             <p>{moment(event.dates.start.localDate).format("MMM Do, YYYY")}</p>
-            {event.priceRanges && <p>${event.priceRanges[0].min}</p>}
+            <p>{event.priceRanges ? "$" + event.priceRanges[0].min : "SOLD OUT"}</p>
             {event._embedded.venues.map(venue => (
               <p key={venue.id}>{venue.name}</p>
             ))}

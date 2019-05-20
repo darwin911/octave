@@ -2,6 +2,7 @@
 
 :root {
   --greyish-brown: #464646;
+  --spinner-dimensions: 100px;
 }
 
 *, *::before, *::after {
@@ -79,6 +80,7 @@ nav {
   border: none;
   color: inherit;
   font-family: inherit;
+  background: none;
 }
 
 .nav-register {
@@ -93,6 +95,7 @@ main {
   color: #000000;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   grid-row: span 2;
 }
 
@@ -177,6 +180,15 @@ main {
   border-radius: 18px;
   padding: 0.5rem;
   font-size: 16px;
+}
+
+.sign-in-btn {
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+  &:hover {
+    background: var(--greyish-brown);
+    color: white;
+  }
 }
 
 .sign-up-btn {
@@ -399,8 +411,71 @@ main {
   }
 }
 
+.sold-out {
+  opacity: 0.7;
+  cursor: default;
+}
+
 button.buy-tickets, button.buy-tickets:hover {
   box-shadow: none;
+}
+
+.spinner {
+  position: relative;
+  top: 50%;
+  margin: 0 auto;
+  transform: translateY(-50%);
+  width: var(--spinner-dimensions);
+  height: var(--spinner-dimensions);
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 50%;
+  }
+}
+
+.spinner.spinner-3 {
+  
+  @keyframes scale2 {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    
+    50% {
+      transform: scale(0.7);
+      opacity: 1;
+    }
+    
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+  
+  &:before {
+    width: var(--spinner-dimensions);
+    height: var(--spinner-dimensions);
+    border-color: var(--greyish-brown);
+    top: 0px;
+    left: 0px;
+    animation: scale2 1s linear 0s infinite;
+  }
+  
+  &:after {
+    width: var(--spinner-dimensions);
+    height: var(--spinner-dimensions);
+    border-color: rgb(53, 147, 255);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: scale2 1s linear 0.5s infinite;
+  }
 }
 
 .reviews {

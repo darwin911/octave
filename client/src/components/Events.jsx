@@ -16,7 +16,7 @@ class Events extends Component {
     } = this.props;
     return (
       <section className="events">
-        {currentEvent && (
+        {currentEvent ? (
           <>
             <EventDetails
               currentEvent={currentEvent}
@@ -70,6 +70,9 @@ class Events extends Component {
               </div>
             </aside>
           </>
+        ) : (
+          // <p>Loading...</p>
+          <div className="spinner spinner-3" />
         )}
       </section>
     );
