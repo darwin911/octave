@@ -42,31 +42,20 @@ class App extends Component {
       venueReviews: [],
       artistReviews: []
     };
-    this.handleRegister = this.handleRegister.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.toggleToLogin = this.toggleToLogin.bind(this);
-    this.toggleToRegister = this.toggleToRegister.bind(this);
-
-    this.handleAddLike = this.handleAddLike.bind(this);
-    this.handleAttendEvent = this.handleAttendEvent.bind(this);
-    this.checkUsernames = this.checkUsernames.bind(this);
-
-    this.handleSetEvent = this.handleSetEvent.bind(this);
   }
 
-  checkUsernames(userArray, id) {
+  checkUsernames = (userArray, id) => {
     if (userArray) {
       return userArray[id].user.name;
     }
-  }
+  };
 
-  handleSetEvent(currentEvent) {
+  handleSetEvent = currentEvent => {
     this.setState({ currentEvent });
     this.props.history.push(`/events/${currentEvent.id}`);
-  }
+  };
 
-  async handleAddLike() {
+  handleAddLike = async () => {
     const artistName = this.props.currentEvent._embedded.attractions[0].name;
     const artist = await findArtist(artistName);
     const artistData = {
@@ -80,9 +69,9 @@ class App extends Component {
       const newArtist = await addArtist(artistData);
       await addLike(this.props.user.id, newArtist.id);
     }
-  }
+  };
 
-  async handleAttendEvent() {
+  handleAttendEvent = async () => {
     const eventName = this.props.currentEvent.name;
     const event = await findEvent(eventName);
     // first check to see if event exist in our database
@@ -110,9 +99,9 @@ class App extends Component {
         await addUserEvent(this.props.user.id, newEvent.id);
       }
     }
-  }
+  };
 
-  async getUsers(arrayOfReviews) {
+  getUsers = async arrayOfReviews => {
     if (arrayOfReviews) {
       const usernames = arrayOfReviews.map(async review => {
         const user = await getUser(review.userId);
@@ -120,9 +109,9 @@ class App extends Component {
       });
       return await Promise.all(usernames);
     }
-  }
+  };
 
-  async fetchReviews() {
+  fetchReviews = async () => {
     const venueName = this.state.currentEvent._embedded.venues[0].name;
     const artistName = this.state.currentEvent._embedded.attractions[0].name;
 
@@ -144,28 +133,27 @@ class App extends Component {
     const usernamesArtist = await this.getUsers(this.state.artistReviews);
 
     this.setState({ usernamesVenue, usernamesArtist });
-  }
+  };
 
-  async check(events) {
+  check = async events => {
     if (this.props.location.pathname.includes("/events")) {
       const eventId = this.props.location.pathname.split("/")[2];
       const currentEvent = events.filter(ev => ev.id === eventId)[0];
       this.setState({ currentEvent });
     }
-  }
+  };
 
   async componentDidMount() {
     const token = localStorage.getItem("token");
-    
+
     const events = await allEvents(token);
-    
+
     this.check(events);
-    
+
     if (this.state.events) {
-      console.log('testing if events')
+      console.log("testing if events");
     }
     this.setState({ events });
-
 
     if (token) {
       const user = decode(token);
@@ -179,15 +167,15 @@ class App extends Component {
     // this.fetchReviews();
   }
 
-  toggleToLogin() {
+  toggleToLogin = () => {
     this.setState({ loginForm: true });
-  }
+  };
 
-  toggleToRegister() {
+  toggleToRegister = () => {
     this.setState({ loginForm: false });
-  }
+  };
 
-  async handleLogin(userData) {
+  handleLogin = async userData => {
     const resp = await loginUser(userData);
     await updateToken(resp.token);
     if (resp.token !== null) {
@@ -199,9 +187,9 @@ class App extends Component {
       this.setState({ isLoggedIn: false });
     }
     this.props.history.push("/home");
-  }
+  };
 
-  async handleRegister(userData) {
+  handleRegister = async userData => {
     const newUser = await createUser({
       email: userData.email,
       name: userData.name,
@@ -213,9 +201,9 @@ class App extends Component {
     if (newUser) {
       this.props.history.push(`/home/`);
     }
-  }
+  };
 
-  handleLogout() {
+  handleLogout = () => {
     this.setState({
       user: {
         name: "",
@@ -224,7 +212,7 @@ class App extends Component {
       },
       isLoggedIn: false
     });
-  }
+  };
 
   render() {
     const {
@@ -236,7 +224,7 @@ class App extends Component {
       artistReviews,
       venueReviews,
       usernamesVenue,
-      usernamesArtist,
+      usernamesArtist
     } = this.state;
     return (
       <div className="App">
