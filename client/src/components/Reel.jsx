@@ -1,31 +1,37 @@
 import React from "react";
 import moment from "moment";
 
-const Reel = ({className, heading, events, handleSetEvent}) => {
+const Reel = props => {
   return (
-    <section className={className}>
+    <section className={props.className}>
       <header>
-        <h3>{heading}</h3>
+        <h3>{props.heading}</h3>
         <select className="filter" id="event-filter-select">
           <option value="most-recent">Sort By</option>
           <option value="lowest-price">Lowest Price</option>
           <option value="highest-price">Highest Price</option>
         </select>
       </header>
-      {events.map(event => (
+      {props.events.map(event => (
         <article
           key={event.id}
           className="event"
-          onClick={() => handleSetEvent(event)}
+          onClick={e => {
+            e.preventDefault();
+            props.handleSetEvent(event);
+          }}
         >
+          {/* Event Image */}
           <img
             className="event-img"
             src={event.images.sort((a, b) => b.width - a.width)[5].url}
             alt={event.name}
           />
-
+          {/* Event Name */}
           <div>
             <p>{event.name}</p>
+            {/* Min/Max Price. If returned from API */}
+            {/* Date YYYY/MM/DD */}
             <p>{moment(event.dates.start.localDate).format("MMM Do, YYYY")}</p>
             <p>{event.priceRanges ? "$" + event.priceRanges[0].min : "SOLD OUT"}</p>
             {event._embedded.venues.map(venue => (

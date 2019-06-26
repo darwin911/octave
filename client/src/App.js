@@ -9,17 +9,17 @@ import {
   createUser,
   updateToken,
   allEvents,
-  addEvent,
-  addVenue,
-  addUserEvent,
-  addArtist,
-  addLike,
-  findVenue,
-  findEvent,
   findArtist,
+  addLike,
+  addArtist,
+  findEvent,
+  addUserEvent,
+  findVenue,
+  addVenue,
+  addEvent,
+  getUser,
   getVenueReviews,
-  getArtistReviews,
-  getUser
+  getArtistReviews
 } from "./services/helper";
 import { withRouter } from "react-router";
 import decode from "jwt-decode";
@@ -36,11 +36,7 @@ class App extends Component {
       isLoggedIn: false,
       loginForm: true,
       events: [],
-      currentEvent: null,
-      usernamesVenue: null,
-      usernamesArtist: null,
-      venueReviews: [],
-      artistReviews: []
+      currentEvent: null
     };
   }
 
@@ -164,7 +160,6 @@ class App extends Component {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       //  this.props.history.push('/home')
     }
-    // this.fetchReviews();
   }
 
   toggleToLogin = () => {
@@ -215,17 +210,7 @@ class App extends Component {
   };
 
   render() {
-    const {
-      isLoggedIn,
-      token,
-      user,
-      loginForm,
-      events,
-      artistReviews,
-      venueReviews,
-      usernamesVenue,
-      usernamesArtist
-    } = this.state;
+    const { isLoggedIn, token, user, loginForm, events } = this.state;
     return (
       <div className="App">
         <Header
@@ -237,12 +222,6 @@ class App extends Component {
           toggleToRegister={this.toggleToRegister}
         />
         <Main
-          handleSetEvent={this.handleSetEvent}
-          usernamesVenue={usernamesVenue}
-          usernamesArtist={usernamesArtist}
-          artistReviews={artistReviews}
-          venueReviews={venueReviews}
-          currentEvent={this.state.currentEvent}
           events={events}
           isLoggedIn={isLoggedIn}
           handleLogin={this.handleLogin}

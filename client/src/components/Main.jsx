@@ -1,29 +1,27 @@
 import React, { Component } from "react";
-import Welcome from "./Welcome";
+import Auth from "./Auth";
 import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import HomeDetails from "./HomeDetails";
 import Home from "./Home";
 import Events from "./Events";
+import { } from "../services/helper";
 import UserProfile from "./UserProfile";
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSetEvent = this.handleSetEvent.bind(this);
+  }
+
+  handleSetEvent(currentEvent) {
+    this.setState({ currentEvent });
+    this.props.history.push(`/events/${currentEvent.id}`);
+  }
 
   render() {
-    const {
-      handleRegister,
-      handleLogin,
-      handleSetEvent,
-      loginForm,
-      currentEvent,
-      events,
-      user,
-      venueReviews,
-      artistReviews,
-      usernamesVenue,
-      usernamesArtist,
-      isLoggedIn,
-    } = this.props;
+    const { handleRegister, handleLogin, loginForm, currentEvent, events, user } = this.props;
     return (
       <main>
         <Route
@@ -31,8 +29,7 @@ class Main extends Component {
           path="/"
           render={() => (
             <>
-              <Welcome
-                isLoggedIn={isLoggedIn}
+              <Auth
                 handleRegister={handleRegister}
                 handleLogin={handleLogin}
                 loginForm={loginForm}
@@ -49,12 +46,15 @@ class Main extends Component {
               {...props}
               events={events}
               currentEvent={currentEvent}
-              handleSetEvent={handleSetEvent}
+              handleSetEvent={this.handleSetEvent}
             />
           )}
         />
 
-        <Route path="/user/:id" render={() => <UserProfile user={user} />} />
+        <Route
+          path="/user/:id"
+          render={() => <UserProfile user={user} />}
+        />
 
         <Route
           path="/events/:id"
@@ -62,13 +62,9 @@ class Main extends Component {
             <Events
               {...props}
               user={user}
-              currentEvent={currentEvent}
               events={events}
-              usernamesVenue={usernamesVenue}
-              usernamesArtist={usernamesArtist}
-              artistReviews={artistReviews}
-              venueReviews={venueReviews}
-              handleSetEvent={handleSetEvent}
+              handleSetEvent={this.handleSetEvent}
+              currentEvent={currentEvent}
             />
           )}
         />
