@@ -26,7 +26,7 @@ import axios from 'axios';
 import decode from 'jwt-decode';
 import { withRouter } from 'react-router';
 
-const App = ({ location, ...props }) => {
+const App = ({ history, location, ...props }) => {
   const [state, setState] = React.useState({
     user: {
       name: '',
@@ -61,6 +61,8 @@ const App = ({ location, ...props }) => {
       }));
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       //  props.history.push('/home')
+    } else {
+      history.push('/');
     }
 
     if (location.pathname.includes('/events') && events.length) {
