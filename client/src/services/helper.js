@@ -4,7 +4,7 @@ import moment from 'moment';
 const API_KEY = process.env.REACT_APP_TM_KEY;
 
 // const BASE_URL = "http://localhost:3001"
-const BASE_URL = "https://banana-cobbler-97207.herokuapp.com/"
+const BASE_URL = 'https://banana-cobbler-97207.herokuapp.com/';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -20,7 +20,7 @@ const updateToken = (token) => {
 
 const dropToken = () => {
   localStorage.removeItem('token');
-  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.headers.common['Authorization'];
 };
 
 ///////// User LOGIN and REGISTRATION //////////
@@ -39,7 +39,7 @@ const loginUser = async (data) => {
 const getUser = async (id) => {
   const resp = await api.get(`/users/${id}`);
   return resp.data;
-}
+};
 
 /////////////// Events Attending ///////////////
 
@@ -87,19 +87,19 @@ const getLikes = async (userId) => {
 const findEvent = async (eventTitle) => {
   const resp = await api.get(`/events/${eventTitle}`);
   return resp.data;
-}
+};
 
 // Get a venue from database based on name
 const findVenue = async (venueTitle) => {
   const resp = await api.get(`/venues/${venueTitle}`);
   return resp.data.venue;
-}
+};
 
 // Get an artist from database based on name
 const findArtist = async (artistName) => {
   const resp = await api.get(`/artists/${artistName}`);
   return resp.data.artist;
-}
+};
 
 // Add venue
 const addVenue = async (venue) => {
@@ -141,9 +141,9 @@ const editVenueReview = async (venueReviewId, venueReview) => {
 
 // Get all venue reviews for one venue
 const getVenueReviews = async (venueId) => {
-  const resp = await api.get(`/venue-reviews/${venueId}`)
+  const resp = await api.get(`/venue-reviews/${venueId}`);
   return resp.data.venueReviews;
-}
+};
 
 //////////////// Artist Reviews ////////////////
 
@@ -167,9 +167,9 @@ const editArtistReview = async (artistReviewId, artistReview) => {
 
 // Get all artist reviews for one artist
 const getArtistReviews = async (artistId) => {
-  const resp = await api.get(`/artist-reviews/${artistId}`)
+  const resp = await api.get(`/artist-reviews/${artistId}`);
   return resp.data.artistReviews;
-}
+};
 
 ///////////////// TICKETMASTER API //////////////////
 
@@ -177,21 +177,25 @@ const getArtistReviews = async (artistId) => {
 let now = moment();
 const time = now.add(3, 'months');
 
-const threeMonthsFromNow = moment(time).format("YYYY-MM-DD")
+const threeMonthsFromNow = moment(time).format('YYYY-MM-DD');
 
 const allEvents = async (token) => {
-  delete axios.defaults.headers.common["Authorization"];
-  const resp = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&endDateTime=${threeMonthsFromNow}T00:00:00Z&size=70&apikey=${API_KEY}`);
+  delete axios.defaults.headers.common['Authorization'];
+  const resp = await axios.get(
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=345&endDateTime=${threeMonthsFromNow}T00:00:00Z&size=70&apikey=${API_KEY}`
+  );
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  return resp.data._embedded.events
-}
+  return resp.data._embedded.events;
+};
 
 const singleEvent = async (eventId, token) => {
-  delete axios.defaults.headers.common["Authorization"];
-  const resp = await axios.get(`https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`);
+  delete axios.defaults.headers.common['Authorization'];
+  const resp = await axios.get(
+    `https://cors-anywhere.herokuapp.com/https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`
+  );
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  return resp.data
-}
+  return resp.data;
+};
 
 export {
   updateToken,
@@ -221,4 +225,4 @@ export {
   getArtistReviews,
   allEvents,
   singleEvent,
-}
+};

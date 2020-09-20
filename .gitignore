@@ -4,3 +4,5 @@
 /favicon_io
 .vscode/
 node_modules/
+
+client/src/App.css.map
