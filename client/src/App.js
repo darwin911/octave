@@ -1,37 +1,39 @@
-import React, { Component } from "react";
-import axios from "axios";
-import "./App.css";
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
+import './App.css';
+
+import React, { Component } from 'react';
 import {
-  loginUser,
-  createUser,
-  updateToken,
-  allEvents,
-  addEvent,
-  addVenue,
-  addUserEvent,
   addArtist,
+  addEvent,
   addLike,
-  findVenue,
-  findEvent,
+  addUserEvent,
+  addVenue,
+  allEvents,
+  createUser,
   findArtist,
-  getVenueReviews,
+  findEvent,
+  findVenue,
   getArtistReviews,
-  getUser
-} from "./services/helper";
-import { withRouter } from "react-router";
-import decode from "jwt-decode";
+  getUser,
+  getVenueReviews,
+  loginUser,
+  updateToken,
+} from './services/helper';
+
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Main from './components/Main';
+import axios from 'axios';
+import decode from 'jwt-decode';
+import { withRouter } from 'react-router';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {
-        name: "",
-        picture: "",
-        id: ""
+        name: '',
+        picture: '',
+        id: '',
       },
       isLoggedIn: false,
       loginForm: true,
@@ -40,7 +42,7 @@ class App extends Component {
       usernamesVenue: null,
       usernamesArtist: null,
       venueReviews: [],
-      artistReviews: []
+      artistReviews: [],
     };
   }
 
@@ -50,7 +52,7 @@ class App extends Component {
     }
   };
 
-  handleSetEvent = currentEvent => {
+  handleSetEvent = (currentEvent) => {
     this.setState({ currentEvent });
     this.props.history.push(`/events/${currentEvent.id}`);
   };
@@ -60,7 +62,7 @@ class App extends Component {
     const artist = await findArtist(artistName);
     const artistData = {
       name: artistName,
-      picture: this.props.currentEvent._embedded.attractions[0].images[0].url
+      picture: this.props.currentEvent._embedded.attractions[0].images[0].url,
     };
     // will only add an artist to our database if artist does not exist
     if (artist) {
@@ -83,7 +85,7 @@ class App extends Component {
 
       const venueData = {
         title: venueName,
-        picture: this.props.currentEvent.images[0].url
+        picture: this.props.currentEvent.images[0].url,
       };
       // if event does not exist, then checks to see if venue exists in our database
       if (venue) {
@@ -92,7 +94,7 @@ class App extends Component {
       } else {
         const eventData = {
           title: eventName,
-          picture: this.props.currentEvent.images[0].url
+          picture: this.props.currentEvent.images[0].url,
         };
         const newVenue = await addVenue(venueData);
         const newEvent = await addEvent(eventData, newVenue.id);
@@ -101,9 +103,9 @@ class App extends Component {
     }
   };
 
-  getUsers = async arrayOfReviews => {
+  getUsers = async (arrayOfReviews) => {
     if (arrayOfReviews) {
-      const usernames = arrayOfReviews.map(async review => {
+      const usernames = arrayOfReviews.map(async (review) => {
         const user = await getUser(review.userId);
         return user;
       });
@@ -135,23 +137,23 @@ class App extends Component {
     this.setState({ usernamesVenue, usernamesArtist });
   };
 
-  check = async events => {
-    if (this.props.location.pathname.includes("/events")) {
-      const eventId = this.props.location.pathname.split("/")[2];
-      const currentEvent = events.filter(ev => ev.id === eventId)[0];
+  check = async (events) => {
+    if (this.props.location.pathname.includes('/events')) {
+      const eventId = this.props.location.pathname.split('/')[2];
+      const currentEvent = events.filter((ev) => ev.id === eventId)[0];
       this.setState({ currentEvent });
     }
   };
 
   async componentDidMount() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     const events = await allEvents(token);
 
     this.check(events);
 
     if (this.state.events) {
-      console.log("testing if events");
+      console.log('testing if events');
     }
     this.setState({ events });
 
@@ -159,9 +161,9 @@ class App extends Component {
       const user = decode(token);
       this.setState({
         user,
-        isLoggedIn: true
+        isLoggedIn: true,
       });
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       //  this.props.history.push('/home')
     }
     // this.fetchReviews();
@@ -175,25 +177,25 @@ class App extends Component {
     this.setState({ loginForm: false });
   };
 
-  handleLogin = async userData => {
+  handleLogin = async (userData) => {
     const resp = await loginUser(userData);
     await updateToken(resp.token);
     if (resp.token !== null) {
       this.setState({
         user: resp.userData,
-        isLoggedIn: true
+        isLoggedIn: true,
       });
     } else {
       this.setState({ isLoggedIn: false });
     }
-    this.props.history.push("/home");
+    this.props.history.push('/home');
   };
 
-  handleRegister = async userData => {
+  handleRegister = async (userData) => {
     const newUser = await createUser({
       email: userData.email,
       name: userData.name,
-      password: userData.password
+      password: userData.password,
     });
     this.handleLogin(userData);
 
@@ -206,11 +208,11 @@ class App extends Component {
   handleLogout = () => {
     this.setState({
       user: {
-        name: "",
-        picture: "",
-        id: ""
+        name: '',
+        picture: '',
+        id: '',
       },
-      isLoggedIn: false
+      isLoggedIn: false,
     });
   };
 
@@ -224,10 +226,10 @@ class App extends Component {
       artistReviews,
       venueReviews,
       usernamesVenue,
-      usernamesArtist
+      usernamesArtist,
     } = this.state;
     return (
-      <div className="App">
+      <div className='App'>
         <Header
           handleLogout={this.handleLogout}
           isLoggedIn={isLoggedIn}
