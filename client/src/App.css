@@ -35,7 +35,7 @@ html {
   display: grid;
   -ms-grid-rows: 60px auto 1fr 70px;
       grid-template-rows: 60px auto 1fr 70px;
-  font-family: "sofia-pro", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'sofia-pro', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
 }
 
@@ -208,7 +208,7 @@ main {
 
 .sign-in-btn,
 .sign-up-btn {
-  width: 70px;
+  width: 100%;
   font-weight: bold;
   margin: 0 auto;
   border: 1px solid #464646;
@@ -526,7 +526,7 @@ button.buy-tickets:hover {
 }
 
 .spinner:before, .spinner:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   border-width: 4px;
@@ -818,5 +818,11 @@ footer p {
   color: white;
   margin-bottom: 1rem;
   background: linear-gradient(-60deg, #0074d9 0%, #39cccc 80%);
+}
+
+.event-link-wrapper {
+  display: block;
+  height: 100%;
+  color: inherit;
 }
 /*# sourceMappingURL=App.css.map */

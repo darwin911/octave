@@ -3,23 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
-    "g": "^2.0.1",
+    "axios": "^0.18.1",
     "json-web-token": "^3.0.0",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.20",
     "moment": "^2.24.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-facebook-login": "^4.1.1",
-    "react-router": "^5.0.0",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
-    "surge": "^0.20.3"
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "react-scripts build && mv ./build/index.html ./build/200.html && surge ./build octave-bananas.surge.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -31,5 +29,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "surge": "^0.21.6"
+  }
 }
