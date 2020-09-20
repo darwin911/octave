@@ -71,7 +71,6 @@ class Events extends Component {
     }
 
     const artist = await findArtist(artistName);
-
     if (artist) {
       const artistReviews = await getArtistReviews(artist.id);
       this.setState({ artistReviews });
@@ -131,11 +130,11 @@ class Events extends Component {
 
   render() {
     const {
+      currentEvent,
       venueReviews,
       artistReviews,
       usernamesVenue,
       usernamesArtist,
-      currentEvent,
     } = this.state;
     return (
       <section className='events'>

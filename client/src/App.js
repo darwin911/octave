@@ -1,30 +1,29 @@
 import './App.css';
+import axios from 'axios';
+import Header from './components/Header'
+import Main from './components/Main';
+import Footer from './components/Footer';
 
 import React, { Component } from 'react';
 import {
-  addArtist,
-  addEvent,
-  addLike,
-  addUserEvent,
-  addVenue,
-  allEvents,
+  loginUser,
   createUser,
+  updateToken,
+  allEvents,
   findArtist,
+  addLike,
+  addArtist,
   findEvent,
+  addUserEvent,
   findVenue,
-  getArtistReviews,
+  addVenue,
+  addEvent,
   getUser,
   getVenueReviews,
-  loginUser,
-  updateToken,
-} from './services/helper';
-
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Main from './components/Main';
-import axios from 'axios';
-import decode from 'jwt-decode';
-import { withRouter } from 'react-router';
+  getArtistReviews
+} from "./services/helper";
+import { withRouter } from "react-router";
+import decode from "jwt-decode";
 
 class App extends Component {
   constructor(props) {
@@ -166,7 +165,6 @@ class App extends Component {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       //  this.props.history.push('/home')
     }
-    // this.fetchReviews();
   }
 
   toggleToLogin = () => {
@@ -239,12 +237,6 @@ class App extends Component {
           toggleToRegister={this.toggleToRegister}
         />
         <Main
-          handleSetEvent={this.handleSetEvent}
-          usernamesVenue={usernamesVenue}
-          usernamesArtist={usernamesArtist}
-          artistReviews={artistReviews}
-          venueReviews={venueReviews}
-          currentEvent={this.state.currentEvent}
           events={events}
           isLoggedIn={isLoggedIn}
           handleLogin={this.handleLogin}
