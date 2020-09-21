@@ -17,7 +17,7 @@
 }
 
 a {
-  color: white;
+  color: rgb(22, 22, 22);
 }
 
 nav a,
@@ -131,20 +131,20 @@ main {
 .register-form {
   display: flex;
   flex-direction: column;
-}
 
-.login-form {
-  margin-bottom: 1rem;
-}
+  input {
+    background: #ccc;
+    color: #222;
+    padding: 0.35em 0.45em;
+    border: none;
+    font-size: 0.9em;
+    border-radius: 5px;
+    font-family: inherit;
+  }
 
-.login-input,
-.register-input {
-  background: #ccc;
-  color: #222;
-  padding: 0.25rem;
-  border: none;
-  margin-bottom: 0.25rem;
-  border-radius: 3px;
+  & > * {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .fb-login {

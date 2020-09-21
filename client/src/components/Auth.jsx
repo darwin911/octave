@@ -1,124 +1,125 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
+import { loginUser, updateToken } from '../services/helper';
 
-class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userId: "",
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-      picture: ""
-    };
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { withRouter } from 'react-router';
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Auth = ({ history, user, setUser, isLogin, handleRegister }) => {
+  console.log({ isLogin });
+  const { handleSubmit, register, errors } = useForm();
 
-  handleChange(e) {
+  const onLogin = async (values) => {
+    const resp = await loginUser(values);
+    updateToken(resp.token);
+    if (resp.token !== null) {
+      setState((prevState) => ({
+        ...prevState,
+        isLoggedIn: true,
+      }));
+      setUser(resp.userData);
+      history.push('/home');
+    }
+  };
+
+  const [state, setState] = React.useState({
+    userId: '',
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    picture: '',
+  });
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
-  }
 
-  clearForm() {
-    this.setState({
-      userId: "",
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-      picture: ""
-    });
-  }
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  render() {
-    const userData = {
-      email: this.state.email,
-      name: this.state.name,
-      password: this.state.password
-    };
+  const userData = {
+    email: state.email,
+    name: state.name,
+    password: state.password,
+  };
 
-    return (
-      <div className="carousel">
-        <section className="auth">
-          {this.props.loginForm && (
-            <div>
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  this.props.handleLogin(userData);
-                  this.clearForm();
-                }}
-                className="login-form"
-              >
-                <input
-                  className="login-input"
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  onChange={this.handleChange}
-                  value={this.state.email}
-                  required
-                />
-                <input
-                  className="login-input"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={this.handleChange}
-                  value={this.state.password}
-                  required
-                />
-                <button className="sign-in-btn">Sign In</button>
-              </form>
-            </div>
-          )}
-          {!this.props.loginForm && (
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                this.props.handleRegister(userData);
-                this.clearForm();
-              }}
-              className="register-form"
-            >
-              <input
-                className="register-input"
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={this.handleChange}
-                value={this.state.name}
-                required
-              />
-              <input
-                className="register-input"
-                type="email"
-                name="email"
-                placeholder="email"
-                onChange={this.handleChange}
-                value={this.state.email}
-                required
-              />
-              <input
-                className="register-input"
-                type="password"
-                placeholder="Password"
-                name="password"
-                onChange={this.handleChange}
-                value={this.state.password}
-                required
-              />
-              <button className="sign-up-btn">Sign Up</button>
-            </form>
-          )}
-        </section>
-      </div>
-    );
-  }
-}
+  return (
+    <div className='carousel'>
+      <section className='auth'>
+        {isLogin && (
+          <form onSubmit={handleSubmit(onLogin)} className='login-form'>
+            <h2>Login</h2>
+            <input
+              autoComplete='username'
+              className='login-input'
+              name='email'
+              placeholder='Email'
+              onChange={handleChange}
+              value={state.email}
+              ref={register({
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address',
+                },
+              })}
+            />
+            {errors.email && errors.email.message}
+            <input
+              className='login-input'
+              placeholder='Password'
+              type='password'
+              name='password'
+              autoComplete='current-password'
+              onChange={handleChange}
+              ref={register({
+                required: true,
+                min: 3,
+                meesage: 'Too short!',
+              })}
+            />
+            {errors.password && errors.password.message}
+            <button className='sign-in-btn'>Sign In</button>
+          </form>
+        )}
+        {!isLogin && (
+          <form className='register-form' onSubmit={(e) => handleRegister(e, userData)}>
+            <h2>Register</h2>
+            <input
+              className='register-input'
+              type='text'
+              name='name'
+              placeholder='Name'
+              onChange={handleChange}
+              value={state.name}
+              required
+            />
+            <input
+              className='register-input'
+              type='email'
+              name='email'
+              placeholder='Email'
+              onChange={handleChange}
+              value={state.email}
+              required
+            />
+            <input
+              className='register-input'
+              type='password'
+              placeholder='Password'
+              name='password'
+              onChange={handleChange}
+              value={state.password}
+              required
+            />
+            <button className='sign-up-btn'>Sign Up</button>
+          </form>
+        )}
+      </section>
+    </div>
+  );
+};
 
 export default withRouter(Auth);
