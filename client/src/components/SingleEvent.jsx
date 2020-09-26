@@ -14,6 +14,7 @@ import ArtistReview from './ArtistReview';
 import ArtistReviewForm from './ArtistReviewForm';
 import EventDetails from './EventDetails';
 import React from 'react';
+import { Spinner } from './Spinner';
 import VenueReview from './VenueReview';
 import VenueReviewForm from './VenueReviewForm';
 import startCase from 'lodash/startCase';
@@ -204,5 +205,3 @@ const SingleEvent = ({ match, user }) => {
 };
 
 export default SingleEvent;
-
-const Spinner = () => <div className='spinner spinner-3' />;
