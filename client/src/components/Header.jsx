@@ -3,7 +3,7 @@ import React from 'react';
 import octave from '../assets/octave.png';
 import { withRouter } from 'react-router';
 
-const Header = ({ history, isLoggedIn, user, handleLogout, setIsLogin }) => {
+const Header = ({ history, isLoggedIn, user, handleLogout }) => {
   console.log({ isLoggedIn });
   const goToUserProfile = (userId) => {
     history.push(`/user/${userId}`);
@@ -19,7 +19,7 @@ const Header = ({ history, isLoggedIn, user, handleLogout, setIsLogin }) => {
         EVENTS
       </button>
       <nav>
-        {isLoggedIn ? (
+        {user ? (
           <>
             <img className='profile-pic' src={user.picture} alt={user.name} />
             <p className='nav-link' onClick={() => goToUserProfile(user.id)}>
@@ -32,10 +32,10 @@ const Header = ({ history, isLoggedIn, user, handleLogout, setIsLogin }) => {
           </>
         ) : (
           <>
-            <p className='nav-link' onClick={() => setIsLogin(true)}>
+            <button className='nav-link login' onClick={() => history.push('?login')}>
               Sign In
-            </p>
-            <button className='nav-link' onClick={() => setIsLogin(false)}>
+            </button>
+            <button className='nav-link register' onClick={() => history.push('?register')}>
               Create Account
             </button>
           </>

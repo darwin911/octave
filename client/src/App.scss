@@ -63,6 +63,8 @@ html {
   background: transparent;
   border: none;
   display: none;
+
+  font-family: inherit;
 }
 
 nav {
@@ -77,6 +79,16 @@ nav {
   margin-left: 0.45rem;
   padding: 0;
   font-weight: bold;
+  &.login,
+  &.register {
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .nav-signin,
@@ -117,12 +129,12 @@ main {
 }
 
 .auth {
-  width: 300px;
+  width: 400px;
   height: auto;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   max-width: 90%;
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -131,6 +143,7 @@ main {
 .register-form {
   display: flex;
   flex-direction: column;
+  padding: 0.5rem;
 
   input {
     background: #ccc;
@@ -184,11 +197,17 @@ main {
 }
 
 .sign-in-btn {
-  cursor: pointer;
   transition: background 100ms ease, color 100ms ease;
-  &:hover {
+  font-family: inherit;
+  &:hover:not(:disabled) {
+    cursor: pointer;
     background: var(--greyish-brown);
     color: white;
+  }
+
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0.5;
   }
 }
 

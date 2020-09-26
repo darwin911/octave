@@ -71,6 +71,7 @@ html {
   background: transparent;
   border: none;
   display: none;
+  font-family: inherit;
 }
 
 nav {
@@ -91,6 +92,17 @@ nav {
   margin-left: 0.45rem;
   padding: 0;
   font-weight: bold;
+}
+
+.nav-link.login, .nav-link.register {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.nav-link.login:hover, .nav-link.register:hover {
+  cursor: pointer;
 }
 
 .nav-signin,
@@ -142,12 +154,12 @@ main {
 }
 
 .auth {
-  width: 300px;
+  width: 400px;
   height: auto;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   max-width: 90%;
-  padding: 1rem;
+  padding: 1.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -166,6 +178,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 0.5rem;
 }
 
 .login-form input,
@@ -221,14 +234,20 @@ main {
 }
 
 .sign-in-btn {
-  cursor: pointer;
   -webkit-transition: background 100ms ease, color 100ms ease;
   transition: background 100ms ease, color 100ms ease;
+  font-family: inherit;
 }
 
-.sign-in-btn:hover {
+.sign-in-btn:hover:not(:disabled) {
+  cursor: pointer;
   background: var(--greyish-brown);
   color: white;
+}
+
+.sign-in-btn:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0.5;
 }
 
 .sign-up-btn {
