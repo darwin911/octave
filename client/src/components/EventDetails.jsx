@@ -24,10 +24,12 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
       <aside className='event-details'>
         <p className='event-date'>{moment(dates.start.localDate).format('dddd, MMM Do, YYYY')}</p>
         <h2 className='event-name'>{eventName !== artistName && eventName}</h2>
-        <h3 className='event-artist'>{artistName}</h3>
-        <button className='follow-btn' onClick={handleAddLike}>
-          +
-        </button>
+        <h3 className='event-artist'>
+          {artistName}
+          <button className='follow-btn' onClick={handleAddLike}>
+            +
+          </button>
+        </h3>
         {venues.map(
           ({
             id,
