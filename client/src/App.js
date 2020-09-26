@@ -14,7 +14,6 @@ import {
   getArtistReviews,
   getUser,
   getVenueReviews,
-  loginUser,
   updateToken,
 } from './services/helper';
 
@@ -24,17 +23,12 @@ import Main from './components/Main';
 import React from 'react';
 import axios from 'axios';
 import decode from 'jwt-decode';
+import { dropToken } from './services/helper';
 import { withRouter } from 'react-router';
 
-const App = ({ location, ...props }) => {
+const App = ({ history, location, ...props }) => {
   const [state, setState] = React.useState({
-    user: {
-      name: '',
-      picture: '',
-      id: '',
-    },
     isLoggedIn: false,
-    loginForm: true,
     events: [],
     currentEvent: null,
     usernamesVenue: null,
@@ -42,6 +36,9 @@ const App = ({ location, ...props }) => {
     venueReviews: [],
     artistReviews: [],
   });
+
+  const [user, setUser] = React.useState(null);
+  const [isLogin, setIsLogin] = React.useState(false);
   // const [venue, setVenue] = React.useState(null);
 
   React.useEffect(() => {
@@ -56,11 +53,13 @@ const App = ({ location, ...props }) => {
       const userData = decode(token);
       setState((prevState) => ({
         ...prevState,
-        user: userData,
         isLoggedIn: true,
       }));
+      setUser(userData);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      //  props.history.push('/home')
+      history.push('/home');
+    } else {
+      history.push('/');
     }
 
     if (location.pathname.includes('/events') && events.length) {
@@ -78,11 +77,6 @@ const App = ({ location, ...props }) => {
     if (userArray) {
       return userArray[id].user.name;
     }
-  };
-
-  const handleSetEvent = (currentEvent) => {
-    setState({ currentEvent });
-    props.history.push(`/events/${currentEvent.id}`);
   };
 
   const handleAddLike = async () => {
@@ -165,70 +159,42 @@ const App = ({ location, ...props }) => {
     setState({ usernamesVenue, usernamesArtist });
   };
 
-  const toggleToLogin = () => {
-    setState({ loginForm: true });
-  };
-
-  const toggleToRegister = () => {
-    setState({ loginForm: false });
-  };
-
-  const handleLogin = async (userData) => {
-    const resp = await loginUser(userData);
-    updateToken(resp.token);
-    if (resp.token !== null) {
-      setState((prevState) => ({
-        ...prevState,
-        user: resp.userData,
-        isLoggedIn: true,
-      }));
-    } else {
-      setState((prevState) => ({ ...prevState, isLoggedIn: false }));
-    }
-    props.history.push('/home');
-  };
-
-  const handleRegister = async (userData) => {
+  const handleRegister = async (ev, userData) => {
+    ev.preventDefault();
     const newUser = await createUser({
       email: userData.email,
       name: userData.name,
       password: userData.password,
     });
 
-    handleLogin(userData);
-
     updateToken(newUser.token);
 
     if (newUser) {
-      props.history.push(`/home/`);
+      history.push(`/home/`);
     }
   };
 
   const handleLogout = () => {
+    dropToken();
     setState((prevState) => ({
       ...prevState,
-      user: {
-        name: '',
-        picture: '',
-        id: '',
-      },
       isLoggedIn: false,
     }));
+    setUser(null);
+    history.push(`/`);
   };
 
   const {
     isLoggedIn,
     token,
-    user,
     loginForm,
     events,
-    currentEvent,
     // artistReviews,
     // venueReviews,
     // usernamesVenue,
     // usernamesArtist,
   } = state;
-  if (currentEvent) debugger;
+  console.log({ user, isLoggedIn });
   return (
     <div className='App'>
       <Header
@@ -236,17 +202,17 @@ const App = ({ location, ...props }) => {
         isLoggedIn={isLoggedIn}
         token={token}
         user={user}
-        toggleToLogin={toggleToLogin}
-        toggleToRegister={toggleToRegister}
+        setIsLogin={setIsLogin}
       />
       <Main
-        events={events}
-        isLoggedIn={isLoggedIn}
-        handleLogin={handleLogin}
-        handleRegister={handleRegister}
         token={token}
+        isLoggedIn={isLoggedIn}
+        handleRegister={handleRegister}
         user={user}
-        loginForm={loginForm}
+        setUser={setUser}
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        events={events}
       />
       <Footer />
     </div>
