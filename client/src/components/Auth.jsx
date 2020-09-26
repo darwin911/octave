@@ -58,7 +58,6 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
               name='email'
               placeholder='Email'
               onChange={handleChange}
-              value={state.email}
               ref={register({
                 required: true,
                 pattern: {
