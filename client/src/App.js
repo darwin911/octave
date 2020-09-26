@@ -57,7 +57,7 @@ const App = ({ history, location, ...props }) => {
       }));
       setUser(userData);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      //  props.history.push('/home')
+      history.push('/home');
     } else {
       history.push('/');
     }
