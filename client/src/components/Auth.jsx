@@ -4,8 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router';
 
-const Auth = ({ history, user, setUser, isLogin, handleRegister }) => {
-  console.log({ isLogin });
+const Auth = ({ history, user, setUser, handleRegister }) => {
   const { handleSubmit, register, errors } = useForm();
 
   const onLogin = async (values) => {
@@ -45,10 +44,12 @@ const Auth = ({ history, user, setUser, isLogin, handleRegister }) => {
     password: state.password,
   };
 
+  const login = !window.location.search.includes('?register');
+
   return (
     <div className='carousel'>
       <section className='auth'>
-        {isLogin && (
+        {login ? (
           <form onSubmit={handleSubmit(onLogin)} className='login-form'>
             <h2>Login</h2>
             <input
@@ -83,8 +84,7 @@ const Auth = ({ history, user, setUser, isLogin, handleRegister }) => {
             {errors.password && errors.password.message}
             <button className='sign-in-btn'>Sign In</button>
           </form>
-        )}
-        {!isLogin && (
+        ) : (
           <form className='register-form' onSubmit={(e) => handleRegister(e, userData)}>
             <h2>Register</h2>
             <input

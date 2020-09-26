@@ -71,6 +71,7 @@ html {
   background: transparent;
   border: none;
   display: none;
+  font-family: inherit;
 }
 
 nav {
@@ -91,6 +92,17 @@ nav {
   margin-left: 0.45rem;
   padding: 0;
   font-weight: bold;
+}
+
+.nav-link.login, .nav-link.register {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.nav-link.login:hover, .nav-link.register:hover {
+  cursor: pointer;
 }
 
 .nav-signin,
