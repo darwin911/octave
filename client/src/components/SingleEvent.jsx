@@ -150,7 +150,7 @@ const SingleEvent = ({ match, user }) => {
   return (
     <section className='events'>
       {event ? (
-        <>
+        <React.Fragment>
           <EventDetails
             currentEvent={event}
             handleAddLike={handleAddLike}
@@ -196,9 +196,9 @@ const SingleEvent = ({ match, user }) => {
                 ))}
             </div>
           </aside>
-        </>
+        </React.Fragment>
       ) : (
-        <Spinner />
+        <Spinner size={320} />
       )}
     </section>
   );
