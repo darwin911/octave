@@ -35,7 +35,6 @@ const SingleEvent = ({ match, user }) => {
     const getSingleEvent = async (eventId) => {
       const data = await singleEvent(eventId, token);
       if (data) {
-        console.log('setting event data');
         setEvent(data);
       }
     };

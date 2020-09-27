@@ -3,8 +3,7 @@ import React from 'react';
 import octave from '../assets/octave.png';
 import { withRouter } from 'react-router';
 
-const Header = ({ history, isLoggedIn, user, handleLogout }) => {
-  console.log({ isLoggedIn });
+const Header = ({ history, user, handleLogout }) => {
   const goToUserProfile = (userId) => {
     history.push(`/user/${userId}`);
   };
