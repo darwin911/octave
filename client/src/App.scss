@@ -3,7 +3,7 @@
 
 :root {
   --greyish-brown: #464646;
-  --spinner-dimensions: 100px;
+  --spinner-dimensions: 100%;
 }
 
 *,
@@ -199,6 +199,7 @@ main {
 .sign-in-btn {
   transition: background 100ms ease, color 100ms ease;
   font-family: inherit;
+
   &:hover:not(:disabled) {
     cursor: pointer;
     background: var(--greyish-brown);
@@ -453,6 +454,8 @@ button.buy-tickets:hover {
   transform: translateY(-50%);
   width: var(--spinner-dimensions);
   height: var(--spinner-dimensions);
+  max-height: 100%;
+  max-width: 100%;
 
   &:before,
   &:after {
@@ -462,6 +465,8 @@ button.buy-tickets:hover {
     border-width: 4px;
     border-style: solid;
     border-radius: 50%;
+    max-height: 100%;
+    max-width: 100%;
   }
 }
 
@@ -483,21 +488,22 @@ button.buy-tickets:hover {
     }
   }
 
-  &:before {
+  &:before,
+  &:after {
     width: var(--spinner-dimensions);
     height: var(--spinner-dimensions);
+    max-width: 100%;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+  }
+  &:before {
     border-color: var(--greyish-brown);
-    top: 0px;
-    left: 0px;
     animation: scale2 1s linear 0s infinite;
   }
 
   &:after {
-    width: var(--spinner-dimensions);
-    height: var(--spinner-dimensions);
     border-color: rgb(53, 147, 255);
-    top: 0;
-    left: 0;
     opacity: 0;
     animation: scale2 1s linear 0.5s infinite;
   }

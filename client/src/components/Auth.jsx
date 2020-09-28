@@ -1,7 +1,7 @@
 import { loginUser, updateToken } from '../services/helper';
 
 import React from 'react';
-import { Spinner } from './Spinner';
+// import { Spinner } from './Spinner';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router';
 
@@ -55,44 +55,40 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
         {login ? (
           <form onSubmit={handleSubmit(onLogin)} className='login-form'>
             <h2>Login</h2>
-            {!isSubmitting ? (
-              <>
-                <input
-                  autoComplete='username'
-                  className='login-input'
-                  name='email'
-                  placeholder='Email'
-                  onChange={handleChange}
-                  ref={register({
-                    required: true,
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address',
-                    },
-                  })}
-                />
-                {errors.email && errors.email.message}
-                <input
-                  className='login-input'
-                  placeholder='Password'
-                  type='password'
-                  name='password'
-                  autoComplete='current-password'
-                  onChange={handleChange}
-                  ref={register({
-                    required: true,
-                    min: 3,
-                    meesage: 'Too short!',
-                  })}
-                />
-                {errors.password && errors.password.message}
-                <button className='sign-in-btn' disabled={!isDirty}>
-                  Sign In
-                </button>
-              </>
-            ) : (
-              <Spinner />
-            )}
+            <label htmlFor='email'>Email Address:</label>
+            <input
+              autoComplete='username'
+              className='login-input'
+              name='email'
+              placeholder='user@email.com'
+              onChange={handleChange}
+              ref={register({
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address',
+                },
+              })}
+            />
+            {errors.email && errors.email.message}
+            <label htmlFor='password'>Password:</label>
+            <input
+              className='login-input'
+              type='password'
+              name='password'
+              placeholder='p@$sw0rD'
+              autoComplete='current-password'
+              onChange={handleChange}
+              ref={register({
+                required: true,
+                min: 3,
+                meesage: 'Too short!',
+              })}
+            />
+            {errors.password && errors.password.message}
+            <button className='sign-in-btn' disabled={!isDirty || isSubmitting}>
+              Sign In
+            </button>
           </form>
         ) : (
           <form className='register-form' onSubmit={(e) => handleRegister(e, userData)}>
@@ -129,7 +125,6 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
             </button>
           </form>
         )}
-        {isSubmitting && <Spinner />}
       </section>
     </div>
   );

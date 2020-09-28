@@ -178,10 +178,10 @@ const App = ({ history, location, ...props }) => {
     // usernamesVenue,
     // usernamesArtist,
   } = state;
-  console.log({ user, isLoggedIn });
+  console.info({ user, isLoggedIn });
   return (
     <div className='App'>
-      <Header handleLogout={handleLogout} isLoggedIn={isLoggedIn} token={token} user={user} />
+      <Header handleLogout={handleLogout} user={user} />
       <Main
         token={token}
         isLoggedIn={isLoggedIn}

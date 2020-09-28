@@ -15,7 +15,7 @@ const Reel = (props) => {
         </select>
       </header>
       {events.map((event) => (
-        <article key={event.id} className='event'>
+        <div key={event.id} className='event'>
           <Link to={`/events/${event.id}`} className='event-link-wrapper'>
             {/* Event Image */}
             <img
@@ -41,7 +41,7 @@ const Reel = (props) => {
               ))}
             </div>
           </Link>
-        </article>
+        </div>
       ))}
     </section>
   );

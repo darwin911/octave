@@ -2,7 +2,7 @@
 @import url("https://use.typekit.net/xwq0mnh.css");
 :root {
   --greyish-brown: #464646;
-  --spinner-dimensions: 100px;
+  --spinner-dimensions: 100%;
 }
 
 *,
@@ -548,6 +548,8 @@ button.buy-tickets:hover {
           transform: translateY(-50%);
   width: var(--spinner-dimensions);
   height: var(--spinner-dimensions);
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .spinner:before, .spinner:after {
@@ -557,6 +559,8 @@ button.buy-tickets:hover {
   border-width: 4px;
   border-style: solid;
   border-radius: 50%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 @-webkit-keyframes scale2 {
@@ -595,22 +599,23 @@ button.buy-tickets:hover {
   }
 }
 
-.spinner.spinner-3:before {
+.spinner.spinner-3:before, .spinner.spinner-3:after {
   width: var(--spinner-dimensions);
   height: var(--spinner-dimensions);
+  max-width: 100%;
+  max-height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.spinner.spinner-3:before {
   border-color: var(--greyish-brown);
-  top: 0px;
-  left: 0px;
   -webkit-animation: scale2 1s linear 0s infinite;
           animation: scale2 1s linear 0s infinite;
 }
 
 .spinner.spinner-3:after {
-  width: var(--spinner-dimensions);
-  height: var(--spinner-dimensions);
   border-color: #3593ff;
-  top: 0;
-  left: 0;
   opacity: 0;
   -webkit-animation: scale2 1s linear 0.5s infinite;
           animation: scale2 1s linear 0.5s infinite;

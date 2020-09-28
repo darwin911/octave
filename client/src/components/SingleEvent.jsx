@@ -35,7 +35,6 @@ const SingleEvent = ({ match, user }) => {
     const getSingleEvent = async (eventId) => {
       const data = await singleEvent(eventId, token);
       if (data) {
-        console.log('setting event data');
         setEvent(data);
       }
     };
@@ -95,11 +94,12 @@ const SingleEvent = ({ match, user }) => {
   // };
 
   const handleAddLike = async () => {
-    const artistName = state.event._embedded.attractions[0].name;
+    const artistName = event._embedded.attractions[0].name;
     const artist = await findArtist(artistName);
+
     const artistData = {
       name: artistName,
-      picture: state.event._embedded.attractions[0].images[0].url,
+      picture: event._embedded.attractions[0].images[0].url,
     };
     // will only add an artist to our database if artist does not exist
     if (artist) {
@@ -122,7 +122,7 @@ const SingleEvent = ({ match, user }) => {
 
       const venueData = {
         title: venueName,
-        picture: state.event.images[0].url,
+        picture: event.images[0].url,
       };
       // if event does not exist, then checks to see if venue exists in our database
       if (venue) {
@@ -150,7 +150,7 @@ const SingleEvent = ({ match, user }) => {
   return (
     <section className='events'>
       {event ? (
-        <>
+        <React.Fragment>
           <EventDetails
             currentEvent={event}
             handleAddLike={handleAddLike}
@@ -196,9 +196,9 @@ const SingleEvent = ({ match, user }) => {
                 ))}
             </div>
           </aside>
-        </>
+        </React.Fragment>
       ) : (
-        <Spinner />
+        <Spinner size={320} />
       )}
     </section>
   );
