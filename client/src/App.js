@@ -178,7 +178,7 @@ const App = ({ history, location, ...props }) => {
     // usernamesVenue,
     // usernamesArtist,
   } = state;
-  console.info({ user, isLoggedIn });
+
   return (
     <div className='App'>
       <Header handleLogout={handleLogout} user={user} />
