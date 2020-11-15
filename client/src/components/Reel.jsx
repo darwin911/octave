@@ -1,12 +1,13 @@
+import React, { useEffect, useState } from 'react';
 import sortEvents, { sortTypes } from '../util/sortEvents';
 
 import { Link } from 'react-router-dom';
-import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const Reel = ({ className, heading, events }) => {
-  const [sortBy, setSortBy] = React.useState(sortTypes.MOST_RECENT);
-  const [sortedEvents, setSortedEvents] = React.useState(events);
+  const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
+  const [sortedEvents, setSortedEvents] = useState(events);
   const handleChange = (ev) => {
     const {
       target: { value },
@@ -14,7 +15,7 @@ const Reel = ({ className, heading, events }) => {
     setSortBy(value);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (sortedEvents && sortedEvents.length) {
       setSortedEvents(sortEvents(events, sortBy));
     }
@@ -78,3 +79,9 @@ const Reel = ({ className, heading, events }) => {
 };
 
 export default Reel;
+
+Reel.propTypes = {
+  events: PropTypes.array.isRequired,
+  className: PropTypes.string.isRequired,
+  heading: PropTypes.string.isRequired,
+};

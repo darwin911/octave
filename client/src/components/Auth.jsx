@@ -8,7 +8,6 @@ import { withRouter } from 'react-router';
 const Auth = ({ history, user, setUser, handleRegister }) => {
   const { handleSubmit, register, errors, formState } = useForm();
   const { isDirty, isSubmitting } = formState;
-  console.log({ isDirty, isSubmitting });
 
   const onLogin = async (values) => {
     const resp = await loginUser(values);
