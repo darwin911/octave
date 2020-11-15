@@ -1,5 +1,4 @@
-// import orderBy from 'lodash/orderBy';
-import sortBy from 'lodash/sortBy';
+import { orderBy, sortBy } from 'lodash';
 
 const sortEvents = (events, sortType) => {
   switch (sortType) {
@@ -15,7 +14,7 @@ const sortEvents = (events, sortType) => {
       );
       return lowestPriceEvents;
     case sortTypes.HIGHEST_PRICE:
-      const highestPriceEvents = events.sort((a) => a.priceRanges[0].max);
+      const highestPriceEvents = orderBy(events, (e) => e.priceRanges[0].min, 'desc');
       return highestPriceEvents;
     default:
       return events;

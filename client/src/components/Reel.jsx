@@ -15,9 +15,8 @@ const Reel = ({ className, heading, events }) => {
   };
 
   React.useEffect(() => {
-    console.log('USE EFFECT - EVENTS');
-    if (sortedEvents && sortedEvents.length && events && events.length) {
-      // setSortedEvents(sortEvents(events, sortBy));
+    if (sortedEvents && sortedEvents.length) {
+      setSortedEvents(sortEvents(events, sortBy));
     }
   }, [sortBy]);
 
