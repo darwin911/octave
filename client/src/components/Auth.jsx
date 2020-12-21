@@ -11,7 +11,9 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
 
   const onLogin = async (values) => {
     const resp = await loginUser(values);
-    updateToken(resp.token);
+    if (resp.token) {
+      updateToken(resp.token);
+    }
     if (resp.token !== null) {
       setState((prevState) => ({
         ...prevState,
@@ -90,7 +92,9 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
             </button>
           </form>
         ) : (
-          <form className='register-form' onSubmit={(e) => handleRegister(e, userData)}>
+          <form
+            className='register-form'
+            onSubmit={(e) => handleRegister(e, userData)}>
             <h2>Register</h2>
             <input
               className='register-input'
