@@ -22,7 +22,7 @@ const Header = ({ history, user, handleLogout }) => {
           <>
             <img className='profile-pic' src={user.picture} alt={user.name} />
             <p className='nav-link' onClick={() => goToUserProfile(user.id)}>
-              Hi, {user.name.split(' ')[0]}!
+              Hi, {user.name ? user.name.split(' ')[0] : 'Guest'}!
             </p>
             <p className='nav-link' onClick={handleLogout}>
               Sign Out
@@ -31,10 +31,14 @@ const Header = ({ history, user, handleLogout }) => {
           </>
         ) : (
           <>
-            <button className='nav-link login' onClick={() => history.push('?login')}>
+            <button
+              className='nav-link login'
+              onClick={() => history.push('?login')}>
               Sign In
             </button>
-            <button className='nav-link register' onClick={() => history.push('?register')}>
+            <button
+              className='nav-link register'
+              onClick={() => history.push('?register')}>
               Create Account
             </button>
           </>
