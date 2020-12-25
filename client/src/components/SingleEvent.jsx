@@ -7,7 +7,7 @@ import {
   findArtist,
   findEvent,
   findVenue,
-  singleEvent,
+  singleEventById,
 } from '../services/helper';
 
 import ArtistReview from './ArtistReview';
@@ -33,7 +33,7 @@ const SingleEvent = ({ match, user }) => {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     const getSingleEvent = async (eventId) => {
-      const data = await singleEvent(eventId, token);
+      const data = await singleEventById(eventId, token);
       if (data) {
         setEvent(data);
       }
@@ -140,7 +140,12 @@ const SingleEvent = ({ match, user }) => {
     }
   };
 
-  const { venueReviews, artistReviews, usernamesVenue, usernamesArtist } = state;
+  const {
+    venueReviews,
+    artistReviews,
+    usernamesVenue,
+    usernamesArtist,
+  } = state;
 
   const venues = event && event._embedded && event._embedded.venues;
   const venueName = venues && startCase(venues[0].name.toLowerCase());

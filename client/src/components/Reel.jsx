@@ -19,7 +19,7 @@ const Reel = ({ className, heading, events }) => {
     if (sortedEvents && sortedEvents.length) {
       setSortedEvents(sortEvents(events, sortBy));
     }
-  }, [sortBy]);
+  }, [sortBy, events]);
 
   if (!sortedEvents) {
     return null;
@@ -59,8 +59,14 @@ const Reel = ({ className, heading, events }) => {
                 <p>{event.name}</p>
                 {/* Min/Max Price. If returned from API */}
                 {/* Date YYYY/MM/DD */}
-                <p>{moment(event.dates.start.localDate).format('MMM Do, YYYY')}</p>
-                <p>{event.priceRanges ? '$' + event.priceRanges[0].min : 'SOLD OUT'}</p>
+                <p>
+                  {moment(event.dates.start.localDate).format('MMM Do, YYYY')}
+                </p>
+                <p>
+                  {event.priceRanges
+                    ? '$' + event.priceRanges[0].min
+                    : 'SOLD OUT'}
+                </p>
                 {event._embedded.venues.map((venue) => (
                   <p key={venue.id}>{venue.name}</p>
                 ))}

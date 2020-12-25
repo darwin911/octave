@@ -28,8 +28,8 @@ const App = ({ history, location, ...props }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    const fetchAllEvents = async (localToken) => {
-      const events = await allEvents(localToken);
+    const fetchAllEvents = async () => {
+      const events = await allEvents();
       setState((prevState) => ({ ...prevState, events }));
     };
 
@@ -52,12 +52,12 @@ const App = ({ history, location, ...props }) => {
     }
 
     if (location.pathname.includes('/events') && events.length) {
-      fetchAllEvents(token);
+      fetchAllEvents();
       const currentEventId = location.pathname.split('/')[2];
       const currentEvent = events.filter((ev) => ev.id === currentEventId)[0];
       setState((prevState) => ({ ...prevState, currentEvent }));
     } else {
-      fetchAllEvents(token);
+      fetchAllEvents();
     }
   }, []);
 

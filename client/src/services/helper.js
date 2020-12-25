@@ -188,18 +188,18 @@ const getArtistReviews = async (artistId) => {
 };
 
 ///////////////// TICKETMASTER API //////////////////
-const allEvents = async (token, options) => {
+const allEvents = async ({ dmaId = 345 } = {}) => {
   try {
-    const resp = await api.get('/events');
+    const resp = await api.get(`/events${dmaId ? `/${dmaId}` : ''}`);
     return resp.data;
   } catch (error) {
     return error;
   }
 };
 
-const singleEvent = async (eventId, token) => {
+const singleEventById = async (eventId) => {
   try {
-    const resp = await api.get(`/events/${eventId}`);
+    const resp = await api.get(`/events/id/${eventId}`);
     return resp.data;
   } catch (error) {
     return error;
@@ -233,5 +233,5 @@ export {
   editArtistReview,
   getArtistReviews,
   allEvents,
-  singleEvent,
+  singleEventById,
 };

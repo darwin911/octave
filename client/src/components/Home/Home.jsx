@@ -5,21 +5,21 @@ import { DISTRICT_MARKETS } from '../../util/static/districtMarkets';
 import Reel from '../Reel';
 import { allEvents } from '../../services/helper';
 
-// import moment from 'moment';
-
 const Home = ({ events, setState }) => {
   const [districtMarket, setDistrictMarket] = useState(
-    DISTRICT_MARKETS['New York/Tri-State Area']
+    DISTRICT_MARKETS['New York']
   );
-  const localToken = localStorage.getItem('token');
 
   const handleChange = async (ev) => {
     let { value } = ev.target;
-    setDistrictMarket(value);
-    const events = await allEvents(localToken, { dmaId: value });
-    console.log(events);
+    setDistrictMarket(Number(value));
+  };
+
+  const refreshEvents = async (dmaId) => {
+    const events = await allEvents({ dmaId });
+    console.log({ dmaId });
+    console.info('fetched ', events.length, ' events');
     setState((prevState) => ({ ...prevState, events }));
-    // setState((prevState) => ({ ...prevState, events }));
   };
 
   return (
@@ -38,6 +38,7 @@ const Home = ({ events, setState }) => {
             )}
           </select>
         </label>
+        <button onClick={() => refreshEvents(districtMarket)}>Refresh</button>
       </header>
       {events && events.length > 0 && (
         <>
