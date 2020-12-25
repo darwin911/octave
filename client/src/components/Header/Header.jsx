@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import octave from '../assets/octave.png';
+import octave from '../../assets/octave.png';
 import { withRouter } from 'react-router';
 
 const Header = ({ history, user, handleLogout }) => {
-  const goToUserProfile = (userId) => {
-    history.push(`/user/${userId}`);
-  };
+  const displayName =
+    user && user.username ? user.username.split(' ')[0] : 'Guest';
 
   return (
     <header>
@@ -20,10 +19,10 @@ const Header = ({ history, user, handleLogout }) => {
       <nav>
         {user ? (
           <>
-            <img className='profile-pic' src={user.picture} alt={user.name} />
-            <p className='nav-link' onClick={() => goToUserProfile(user.id)}>
-              Hi, {user.username ? user.username.split(' ')[0] : 'Guest'}!
-            </p>
+            <HeaderProfilePic user={user} />
+            <Link className='nav-link' to={`/user/${user.id}`}>
+              Hi, {displayName}!
+            </Link>
             <p className='nav-link' onClick={handleLogout}>
               Sign Out
             </p>
@@ -31,11 +30,9 @@ const Header = ({ history, user, handleLogout }) => {
           </>
         ) : (
           <>
-            <button
-              className='nav-link login'
-              onClick={() => history.push('?login')}>
+            <Link className='nav-link login' to={'?login'}>
               Sign In
-            </button>
+            </Link>
             <button
               className='nav-link register'
               onClick={() => history.push('?register')}>
@@ -49,3 +46,8 @@ const Header = ({ history, user, handleLogout }) => {
 };
 
 export default withRouter(Header);
+
+const HeaderProfilePic = (user) =>
+  user.picture ? (
+    <img className='profile-pic' src={user.picture} alt={user.username} />
+  ) : null;

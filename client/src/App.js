@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { allEvents, createUser, getUser, updateToken } from './services/helper';
 
 import Footer from './components/Footer';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Main from './components/Main';
 import decode from 'jwt-decode';
 import { dropToken } from './services/helper';
