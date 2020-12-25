@@ -33,14 +33,15 @@ html {
   color: #ffffff;
   display: grid;
   grid-template-rows: auto auto 1fr 70px;
-  font-family: 'sofia-pro', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'sofia-pro', 'Lato', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
   min-height: 100vh;
   & > header {
     display: flex;
     color: #1d2126;
     align-items: center;
     border-bottom: 4px solid rgba(0, 0, 0, 0.5);
-    padding: 1.25rem 5vw;
+    padding: 1.25rem 2.5vw;
   }
 }
 
@@ -607,16 +608,22 @@ footer {
     font-weight: bold;
   }
 
+  .home {
+    padding-top: 1.5rem;
+  }
+
   .home,
   .events,
   .profile-page {
     grid-column: span 3;
+    width: 95vw;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .reel {
-    margin: 0 auto 2rem;
+    margin-bottom: 2rem;
     width: 100%;
-    max-width: 90%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     padding: 0;
@@ -674,10 +681,6 @@ footer {
 
   .event p {
     font-size: 15px;
-  }
-
-  .reel div {
-    padding: 0 0.25rem;
   }
 }
 
