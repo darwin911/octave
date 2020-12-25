@@ -1,18 +1,17 @@
 import './App.css';
 
-import { allEvents, createUser, updateToken } from './services/helper';
+import React, { useEffect, useState } from 'react';
+import { allEvents, createUser, getUser, updateToken } from './services/helper';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Main from './components/Main';
-import React from 'react';
-import axios from 'axios';
 import decode from 'jwt-decode';
 import { dropToken } from './services/helper';
 import { withRouter } from 'react-router';
 
 const App = ({ history, location, ...props }) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     isLoggedIn: false,
     events: [],
     currentEvent: null,
@@ -22,11 +21,11 @@ const App = ({ history, location, ...props }) => {
     artistReviews: [],
   });
 
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
   // const [venue, setVenue] = React.useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
 
     const fetchAllEvents = async (localToken) => {
@@ -34,15 +33,20 @@ const App = ({ history, location, ...props }) => {
       setState((prevState) => ({ ...prevState, events }));
     };
 
-    if (token) {
-      const userData = decode(token);
+    const fetchUserData = async (token) => {
+      const tokenData = decode(token);
+      const userId = tokenData.sub;
+      const data = await getUser(userId);
       setState((prevState) => ({
         ...prevState,
         isLoggedIn: true,
       }));
-      setUser(userData);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setUser(data.user);
       history.push('/home');
+    };
+
+    if (token) {
+      fetchUserData(token);
     } else {
       history.push('/');
     }
@@ -50,7 +54,6 @@ const App = ({ history, location, ...props }) => {
     if (location.pathname.includes('/events') && events.length) {
       fetchAllEvents(token);
       const currentEventId = location.pathname.split('/')[2];
-      debugger;
       const currentEvent = events.filter((ev) => ev.id === currentEventId)[0];
       setState((prevState) => ({ ...prevState, currentEvent }));
     } else {
@@ -146,16 +149,23 @@ const App = ({ history, location, ...props }) => {
 
   const handleRegister = async (ev, userData) => {
     ev.preventDefault();
-    const newUser = await createUser({
-      email: userData.email,
-      name: userData.name,
-      password: userData.password,
-    });
+    try {
+      const data = await createUser({
+        email: userData.email,
+        username: userData.name,
+        password: userData.password,
+      });
 
-    updateToken(newUser.token);
+      if (data.token) {
+        updateToken(data.token);
+      }
 
-    if (newUser) {
-      history.push(`/home/`);
+      if (data.user) {
+        setUser(data.user);
+        history.push(`/home`);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -189,6 +199,7 @@ const App = ({ history, location, ...props }) => {
         user={user}
         setUser={setUser}
         events={events}
+        setState={setState}
       />
       <Footer />
     </div>

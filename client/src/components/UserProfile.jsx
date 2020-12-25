@@ -24,14 +24,20 @@ const UserProfile = ({ user, match }) => {
   if (!user) return null;
   return (
     <div className='profile-page'>
-      <h1 className='profile-title'>Welcome, {user.name.split(' ')[0]}!</h1>
+      <h1 className='profile-title'>
+        Welcome, {user.name && user.name.split(' ')[0]}!
+      </h1>
       <h2 className='profile-header'>Your Events</h2>
       <section className='events-attending'>
         {userEvents &&
           userEvents.events &&
           userEvents.events.map((event) => (
             <div className='event-attending' key={event.id}>
-              <img className='profile-img' src={event.picture} alt='User Profile' />
+              <img
+                className='profile-img'
+                src={event.picture}
+                alt='User Profile'
+              />
               <p className='profile-info'>{event.title}</p>
             </div>
           ))}
@@ -43,7 +49,11 @@ const UserProfile = ({ user, match }) => {
           userLikes.artists &&
           userLikes.artists.map((artist) => (
             <div className='artist-following' key={artist.id}>
-              <img className='profile-img' src={artist.picture} alt='user profile' />
+              <img
+                className='profile-img'
+                src={artist.picture}
+                alt='user profile'
+              />
               <p className='profile-info'>{artist.name}</p>
             </div>
           ))}

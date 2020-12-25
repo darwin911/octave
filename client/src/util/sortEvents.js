@@ -1,10 +1,17 @@
 import { orderBy, sortBy } from 'lodash';
 
+/**
+ * @method sortEvents - Sorts an array of event objects
+ * @param {Array} events
+ * @param {string} sortType
+ */
+
 const sortEvents = (events, sortType) => {
   switch (sortType) {
     case sortTypes.MOST_RECENT:
       const recentEvents = events.sort(
-        (a, b) => new Date(a.dates.start.dateTime) - new Date(b.dates.start.dateTime)
+        (a, b) =>
+          new Date(a.dates.start.dateTime) - new Date(b.dates.start.dateTime)
       );
       return recentEvents;
     case sortTypes.LOWEST_PRICE:
@@ -14,7 +21,11 @@ const sortEvents = (events, sortType) => {
       );
       return lowestPriceEvents;
     case sortTypes.HIGHEST_PRICE:
-      const highestPriceEvents = orderBy(events, (e) => e.priceRanges[0].min, 'desc');
+      const highestPriceEvents = orderBy(
+        events,
+        (e) => e.priceRanges[0].min,
+        'desc'
+      );
       return highestPriceEvents;
     default:
       return events;

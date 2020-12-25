@@ -1,23 +1,44 @@
+import React, { useState } from 'react';
 import sortEvents, { sortTypes } from '../util/sortEvents';
 
-import React from 'react';
+import { DISTRICT_MARKETS } from '../util/static/districtMarkets';
 import Reel from './Reel';
+import { allEvents } from '../services/helper';
 
 // import moment from 'moment';
 
-const Home = ({ events }) => {
-  // const sortedEvents = [...events].sort((ev1, ev2) => {
-  //   const first = moment(ev1.dates.start.localDate).format('MM DD YYYY');
-  //   const second = moment(ev2.dates.start.localDate).format('MM DD YYYY');
-  //   if (first < second) {
-  //     return -1;
-  //   } else {
-  //     return 1;
-  //   }
-  // });
+const Home = ({ events, setState }) => {
+  const [districtMarket, setDistrictMarket] = useState(
+    DISTRICT_MARKETS['New York/Tri-State Area']
+  );
+  const localToken = localStorage.getItem('token');
+
+  const handleChange = async (ev) => {
+    let { value } = ev.target;
+    setDistrictMarket(value);
+    const events = await allEvents(localToken, { dmaId: value });
+    console.log(events);
+    setState((prevState) => ({ ...prevState, events }));
+    // setState((prevState) => ({ ...prevState, events }));
+  };
 
   return (
     <section className='home'>
+      <header>
+        <h2>Options</h2>
+        <label>
+          <p>Select Market</p>
+          <select onChange={handleChange} value={districtMarket}>
+            {Object.entries(DISTRICT_MARKETS).map(
+              ([districtMarketLabel, dmaId]) => (
+                <option value={dmaId} key={dmaId}>
+                  {districtMarketLabel}
+                </option>
+              )
+            )}
+          </select>
+        </label>
+      </header>
       {events && events.length > 0 && (
         <>
           <Reel
