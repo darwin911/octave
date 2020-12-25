@@ -19,7 +19,7 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
         ...prevState,
         isLoggedIn: true,
       }));
-      setUser(resp.userData);
+      setUser(resp.user);
       history.push('/home');
     }
   };

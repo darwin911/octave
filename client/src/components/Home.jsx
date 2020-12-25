@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import sortEvents, { sortTypes } from '../util/sortEvents';
 
-import { DISTRICT_MARKETS } from '../util/districtMarkets';
+import { DISTRICT_MARKETS } from '../util/static/districtMarkets';
 import Reel from './Reel';
 import { allEvents } from '../services/helper';
 
 // import moment from 'moment';
 
 const Home = ({ events, setState }) => {
-  const [districtMarket, setDistrictMarket] = useState(DISTRICT_MARKETS['New York/Tri-State Area']);
+  const [districtMarket, setDistrictMarket] = useState(
+    DISTRICT_MARKETS['New York/Tri-State Area']
+  );
   const localToken = localStorage.getItem('token');
 
   const handleChange = async (ev) => {
@@ -27,11 +29,13 @@ const Home = ({ events, setState }) => {
         <label>
           <p>Select Market</p>
           <select onChange={handleChange} value={districtMarket}>
-            {Object.entries(DISTRICT_MARKETS).map(([districtMarketLabel, dmaId]) => (
-              <option value={dmaId} key={dmaId}>
-                {districtMarketLabel}
-              </option>
-            ))}
+            {Object.entries(DISTRICT_MARKETS).map(
+              ([districtMarketLabel, dmaId]) => (
+                <option value={dmaId} key={dmaId}>
+                  {districtMarketLabel}
+                </option>
+              )
+            )}
           </select>
         </label>
       </header>

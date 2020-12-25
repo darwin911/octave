@@ -22,7 +22,7 @@ const Header = ({ history, user, handleLogout }) => {
           <>
             <img className='profile-pic' src={user.picture} alt={user.name} />
             <p className='nav-link' onClick={() => goToUserProfile(user.id)}>
-              Hi, {user.name ? user.name.split(' ')[0] : 'Guest'}!
+              Hi, {user.username ? user.username.split(' ')[0] : 'Guest'}!
             </p>
             <p className='nav-link' onClick={handleLogout}>
               Sign Out

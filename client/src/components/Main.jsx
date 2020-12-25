@@ -6,7 +6,7 @@ import SingleEvent from './SingleEvent';
 import UserProfile from './UserProfile';
 import { withRouter } from 'react-router';
 
-const Main = ({ history, handleRegister, handleLogin, events, setUser, user }) => {
+const Main = ({ history, handleRegister, handleLogin, events, setState, setUser, user }) => {
   // const handleSetEvent = (currentEvent) => {
   //   setSelectedEvent(currentEvent);
   //   history.push(`/events/${currentEvent.id}`);
@@ -26,7 +26,10 @@ const Main = ({ history, handleRegister, handleLogin, events, setUser, user }) =
         )}
       />
 
-      <Route path='/home' render={(props) => <Home {...props} events={events} />} />
+      <Route
+        path='/home'
+        render={(props) => <Home {...props} events={events} setState={setState} />}
+      />
       <Route path='/user/:id' render={(props) => <UserProfile {...props} user={user} />} />
       <Route path='/events/:id' render={(props) => <SingleEvent {...props} user={user} />} />
     </main>
