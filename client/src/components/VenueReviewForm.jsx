@@ -1,92 +1,95 @@
-import React, { Component } from 'react';
-import {
-  addVenueReview,
-  addVenue,
-  findVenue,
-  } from '../services/helper';
+import React, { useState } from 'react';
+import { addVenue, addVenueReview, findVenue } from '../services/helper';
 
-class VenueReviewForm extends Component {
+import { Spinner } from './Spinner';
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReview: false,
-      content:'',
-      score: 3,
-    };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  handleChange(e) {
-    const { name, value } = e.target
-    this.setState({
-      [name]: value
-    })
-  }
+const VenueReviewForm = ({ event, user }) => {
+  const [state, setState] = useState({
+    isReview: false,
+    content: '',
+    score: 3,
+  });
 
-  async handleSubmit(e) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const review = ({
-      content: this.state.content,
-      score: this.state.score
-    })
+    const review = {
+      content: state.content,
+      score: state.score,
+    };
 
-    const venueName = this.props.currentEvent._embedded.venues[0].name;
+    const venueName = event._embedded.venues[0].name;
     const venue = await findVenue(venueName);
 
     if (!venue.venue) {
       const newVenue = await addVenue({
         title: venueName,
-        picture: this.props.currentEvent._embedded.venues[0].images[0].url
+        picture: event._embedded.venues[0].images[0].url,
       });
       // eslint-disable-next-line
-      const venueReview = await addVenueReview(newVenue.venue.id, this.props.user.id, review);
-      
+      const venueReview = await addVenueReview(
+        newVenue.venue.id,
+        user.id,
+        review
+      );
     } else {
       // eslint-disable-next-line
-      const venueReview = await addVenueReview(venue.venue.id, this.props.user.id, review);
+      const venueReview = await addVenueReview(venue.venue.id, user.id, review);
     }
 
-    this.setState({
+    setState({
       isReview: false,
       content: '',
       score: 0,
     });
-  }
+  };
 
-  render() {
-    return (
-      <>
-        {this.state.isReview ? (
-          <>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type='text'
-                value={this.state.content}
-                id='content'
-                name='content'
-                onChange={this.handleChange} />
-              <input
-                type='number'
-                value={this.state.score}
-                id='score'
-                name='score'
-                min="1"
-                max="5"
-                onChange={this.handleChange} />
-              <button>Submit</button>
-            </form>
-          </>
-        ) : (
-          <>
-            <button className="review-btn" onClick={() => this.setState({ isReview: true })}>
-              Write a review
-            </button>
-          </>
-        )}
-      </>
-    );
-  }
-}
+  if (!event) return <Spinner />;
+
+  return (
+    <>
+      {state.isReview ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <input
+              type='text'
+              value={state.content}
+              id='content'
+              name='content'
+              onChange={handleChange}
+            />
+            <input
+              type='number'
+              value={state.score}
+              id='score'
+              name='score'
+              min='1'
+              max='5'
+              onChange={handleChange}
+            />
+            <button>Submit</button>
+          </form>
+        </>
+      ) : (
+        <>
+          <button
+            className='review-btn'
+            onClick={() =>
+              setState((prevState) => ({ ...prevState, isReview: true }))
+            }>
+            Write a review
+          </button>
+        </>
+      )}
+    </>
+  );
+};
 
 export default VenueReviewForm;
