@@ -17,19 +17,22 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
     priceRanges,
     url: eventUrl,
   } = currentEvent;
-
+  const date = moment(dates.start.localDate).format('dddd, MMM Do, YYYY');
   return (
     <article className='selected-event'>
-      <img src={images.sort((a, b) => b.width - a.width)[4].url} alt={eventName || artistName} />
+      <img
+        src={images.sort((a, b) => b.width - a.width)[4].url}
+        alt={eventName || artistName}
+      />
       <aside className='event-details'>
-        <p className='event-date'>{moment(dates.start.localDate).format('dddd, MMM Do, YYYY')}</p>
+        <p className='event-date'>{date}</p>
         <h2 className='event-name'>{eventName !== artistName && eventName}</h2>
-        <h3 className='event-artist'>
-          {artistName}
+        <div>
+          <h3 className='event-artist'>{artistName}</h3>
           <button className='follow-btn' onClick={handleAddLike}>
             +
           </button>
-        </h3>
+        </div>
         {venues.map(
           ({
             id,
@@ -39,7 +42,8 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
             ...venue
           }) => (
             <p key={id} className='venue-location'>
-              <span className='venue-name'>{venueName}</span>, {venueCity}, {venueStateCode}
+              <span className='venue-name'>{venueName}</span>, {venueCity},{' '}
+              {venueStateCode}
             </p>
           )
         )}
@@ -50,7 +54,8 @@ const EventDetails = ({ currentEvent, handleAddLike, handleAttendEvent }) => {
         {priceRanges ? (
           <p className='buy-tickets'>
             <a href={eventUrl} target='_blank' rel='noopener noreferrer'>
-              Buy Tickets - ${parseInt(priceRanges[0].min)} - ${parseInt(priceRanges[0].max)}
+              Buy Tickets - ${parseInt(priceRanges[0].min)} - $
+              {parseInt(priceRanges[0].max)}
             </a>
           </p>
         ) : (

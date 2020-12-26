@@ -163,16 +163,30 @@ const SingleEvent = ({ match, user }) => {
           />
 
           <aside className='reviews'>
+            <div style={{ fontSize: '0.75em' }}>
+              <h4>Info:</h4>
+              <p>{event.info}</p>
+            </div>
+            <br />
+            {event.ticketLimit && (
+              <div style={{ fontSize: '0.75em' }}>
+                <h5>Ticket Limit:</h5>
+                <p>{event.ticketLimit.info}</p>
+                <br />
+              </div>
+            )}
+            <div style={{ fontSize: '0.75em' }}>
+              <h5>Please Note:</h5>
+              <p>{event.pleaseNote}</p>
+            </div>
+            <br />
             <h4>{venueName} Reviews</h4>
-
             <VenueReviewForm event={event} user={user} />
-
             {venues.map(({ id, city, state, ...venue }) => (
               <p key={id} className='venue-name'>
                 {city.name}, {state.stateCode}
               </p>
             ))}
-
             <div className='venue-review'>
               {venueReviews &&
                 venueReviews.map((review, id) => (

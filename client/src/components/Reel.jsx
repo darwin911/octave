@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import sortEvents, { sortTypes } from '../util/sortEvents';
 
-import { Link } from 'react-router-dom';
+import EventCard from './EventCard';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 const Reel = ({ className, heading, events }) => {
   const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
@@ -45,41 +44,7 @@ const Reel = ({ className, heading, events }) => {
         </div>
       </header>
       {sortedEvents.length > 0 &&
-        sortedEvents.map((event) => (
-          <div key={event.id} className='event'>
-            <Link to={`/events/${event.id}`} className='event-link-wrapper'>
-              {/* Event Image */}
-              <img
-                className='event-img'
-                src={event.images.sort((a, b) => b.width - a.width)[5].url}
-                alt={event.name}
-              />
-              {/* Event Name */}
-              <div>
-                <p>{event.name}</p>
-                {/* Min/Max Price. If returned from API */}
-                {/* Date YYYY/MM/DD */}
-                <p>
-                  {moment(event.dates.start.localDate).format('MMM Do, YYYY')}
-                </p>
-                <p>
-                  {event.priceRanges
-                    ? '$' + event.priceRanges[0].min
-                    : 'SOLD OUT'}
-                </p>
-                {event._embedded.venues.map((venue) => (
-                  <p key={venue.id}>{venue.name}</p>
-                ))}
-
-                {event._embedded.venues.map((venue) => (
-                  <p key={venue.id}>
-                    {venue.city.name}, {venue.state.stateCode}
-                  </p>
-                ))}
-              </div>
-            </Link>
-          </div>
-        ))}
+        sortedEvents.map((event) => <EventCard key={event.id} data={event} />)}
     </section>
   );
 };
