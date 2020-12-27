@@ -30,6 +30,9 @@ const EventCard = ({ data }) => {
           ))}
         </div>
       </Link>
+      <a href={data.url} target='_blank' rel='noopener noreferrer'>
+        Buy Now
+      </a>
     </div>
   );
 };
