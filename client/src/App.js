@@ -42,7 +42,9 @@ const App = ({ history, location, ...props }) => {
         isLoggedIn: true,
       }));
       setUser(data.user);
-      history.push('/home');
+      if (location.pathname === '/') {
+        history.push('/home');
+      }
     };
 
     if (token) {
