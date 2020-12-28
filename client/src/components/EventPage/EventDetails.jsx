@@ -26,7 +26,7 @@ const EventDetails = ({
   const eventImages = orderBy(images, 'width');
   const cardImg = eventImages[5].url;
 
-  const { min, max } = priceRanges[0];
+  const { min = 0, max = 0 } = priceRanges ? priceRanges[0] : {};
   const minPrice = Math.round(min);
   const maxPrice = Math.round(max);
   return (

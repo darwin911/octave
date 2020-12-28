@@ -32,9 +32,9 @@ const SingleEvent = ({ match, user }) => {
   const eventId = match.params.id;
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     const getSingleEvent = async (eventId) => {
-      const data = await singleEventById(eventId, token);
+      const data = await singleEventById(eventId);
       if (data) {
         setEvent(data);
         if (data._embedded.venues) {
