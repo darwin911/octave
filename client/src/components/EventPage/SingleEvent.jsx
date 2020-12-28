@@ -56,7 +56,7 @@ const SingleEvent = ({ match, user }) => {
     if (!event && eventId) {
       getSingleEvent(match.params.id);
     }
-  }, [event, setEvent, venue, attraction]);
+  }, [event, setEvent, venue, attraction, match]);
 
   const checkUsernames = (userArray, id) => {
     if (userArray) {
