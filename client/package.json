@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv build/index.html build/200.html",
+    "surge": "surge ./build https://octave-bananas.surge.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
