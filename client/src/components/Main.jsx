@@ -3,6 +3,7 @@ import HomeDetails from './Home/HomeDetails';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import SingleEvent from './EventPage/SingleEvent';
+import SingleVenue from './VenuePage/SingleVenue';
 import UserProfile from './UserProfile';
 import { withRouter } from 'react-router';
 
@@ -47,6 +48,10 @@ const Main = ({
       <Route
         path='/events/:id'
         render={(props) => <SingleEvent {...props} user={user} />}
+      />
+      <Route
+        path='/venues/:venueId'
+        render={(props) => <SingleVenue {...props} user={user} />}
       />
     </main>
   );
