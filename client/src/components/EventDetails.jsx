@@ -1,7 +1,6 @@
-import { orderBy, sortBy } from 'lodash';
-
 import React from 'react';
 import moment from 'moment';
+import { orderBy } from 'lodash';
 
 const EventDetails = ({
   venue,
