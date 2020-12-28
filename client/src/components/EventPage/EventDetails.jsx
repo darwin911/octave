@@ -29,6 +29,17 @@ const EventDetails = ({
   const { min = 0, max = 0 } = priceRanges ? priceRanges[0] : {};
   const minPrice = Math.round(min);
   const maxPrice = Math.round(max);
+
+  const VenueLocation = ({ name, city, state }) => {
+    return (
+      <p className='venue-location'>
+        <span className='venue-name'>
+          <a href={`/venues/${venue.id}`}>{name}</a>
+        </span>
+        , {city}, {state}
+      </p>
+    );
+  };
   return (
     <article className='selected-event'>
       <img src={cardImg} alt={eventName || artistName} />
@@ -43,10 +54,11 @@ const EventDetails = ({
             +
           </button>
         </div>
-        <p className='venue-location'>
-          <span className='venue-name'>{venueName}</span>, {venue.city.name},{' '}
-          {venue.state.stateCode}
-        </p>
+        <VenueLocation
+          name={venueName}
+          city={venue.city.name}
+          state={venue.state.stateCode}
+        />
         <button className='attending-btn' onClick={handleAttendEvent}>
           &#10004;
         </button>{' '}
