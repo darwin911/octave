@@ -7,8 +7,8 @@ import {
 
 import { Spinner } from '../Spinner';
 
-const VenueReviewForm = ({ venue, user }) => {
-  const [state, setState] = useState({
+const VenueReviewForm = ({ venue, user, setVenueReviews }) => {
+  const [formState, setFormState] = useState({
     isReview: false,
     text: '',
     score: 0,
@@ -18,7 +18,7 @@ const VenueReviewForm = ({ venue, user }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({
+    setFormState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -57,8 +57,8 @@ const VenueReviewForm = ({ venue, user }) => {
         const data = await addVenueReview({
           venueId: venueId,
           userId: userId,
-          text: state.text,
-          score: state.score,
+          text: formState.text,
+          score: formState.score,
         });
         console.log('new venue review', data);
       }
@@ -67,12 +67,18 @@ const VenueReviewForm = ({ venue, user }) => {
       const reviewData = {
         venueId: venueId,
         userId: userId,
-        text: state.text,
-        score: state.score,
+        text: formState.text,
+        score: formState.score,
       };
       const data = await addVenueReview(reviewData);
+      console.log({ data });
       if (data.success) {
-        setState({
+        setVenueReviews((prevState) => {
+          console.log({ prevState });
+          return [...prevState, data.review];
+        });
+
+        setFormState({
           isReview: false,
           text: '',
           score: 0,
@@ -87,7 +93,7 @@ const VenueReviewForm = ({ venue, user }) => {
 
   return (
     <>
-      {state.isReview ? (
+      {formState.isReview ? (
         <>
           <form onSubmit={handleSubmit}>
             <header>
@@ -95,7 +101,7 @@ const VenueReviewForm = ({ venue, user }) => {
             </header>
             <input
               type='number'
-              value={state.score}
+              value={formState.score}
               id='score'
               name='score'
               min='1'
@@ -104,7 +110,7 @@ const VenueReviewForm = ({ venue, user }) => {
             />
             <input
               type='text'
-              value={state.text}
+              value={formState.text}
               id='text'
               name='text'
               onChange={handleChange}
@@ -117,7 +123,7 @@ const VenueReviewForm = ({ venue, user }) => {
           <button
             className='review-btn'
             onClick={() =>
-              setState((prevState) => ({ ...prevState, isReview: true }))
+              setFormState((prevState) => ({ ...prevState, isReview: true }))
             }>
             Write a review
           </button>

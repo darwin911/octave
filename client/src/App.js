@@ -17,8 +17,6 @@ const App = ({ history, location, ...props }) => {
     currentEvent: null,
     usernamesVenue: null,
     usernamesArtist: null,
-    venueReviews: [],
-    artistReviews: [],
   });
 
   const [user, setUser] = useState(null);
@@ -185,8 +183,6 @@ const App = ({ history, location, ...props }) => {
     isLoggedIn,
     token,
     events,
-    // artistReviews,
-    // venueReviews,
     // usernamesVenue,
     // usernamesArtist,
   } = state;

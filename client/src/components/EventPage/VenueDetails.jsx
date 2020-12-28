@@ -9,6 +9,7 @@ const VenueDetails = ({
   usernamesVenue,
   checkUsernames,
   user,
+  setVenueReviews,
 }) => {
   if (!venue || !user) return null;
   const venueName = venue && startCase(venue.name);
@@ -16,7 +17,11 @@ const VenueDetails = ({
     <section>
       <h2>Venue Details</h2>
       <h4>{venueName} Reviews</h4>
-      <VenueReviewForm venue={venue} user={user} />
+      <VenueReviewForm
+        venue={venue}
+        user={user}
+        setVenueReviews={setVenueReviews}
+      />
       <p className='venue-name'>
         {venue.city.name}, {venue.state.stateCode}
       </p>

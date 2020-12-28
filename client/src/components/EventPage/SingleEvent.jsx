@@ -22,11 +22,11 @@ const SingleEvent = ({ match, user }) => {
   const [event, setEvent] = useState(null);
   const [venue, setVenue] = useState(null);
   const [attraction, setAttraction] = useState(null);
-  const [state, setState] = useState({
+  const [venueReviews, setVenueReviews] = useState([]);
+  const [artistReviews] = useState([]);
+  const [state] = useState({
     usernamesVenue: null,
     usernamesArtist: null,
-    venueReviews: [],
-    artistReviews: [],
   });
 
   const eventId = match.params.id;
@@ -40,15 +40,13 @@ const SingleEvent = ({ match, user }) => {
         if (data._embedded.venues) {
           const venueData = data._embedded.venues[0];
           setVenue(venueData);
-          console.log(venueData.id);
           const venueReviewData = await getVenueReviews(venueData.id);
-          console.log(venueReviewData);
-          setState((prevState) => ({
-            ...prevState,
-            venueReviews: venueReviewData.reviews,
-          }));
+
+          if (venueReviewData.reviews) {
+            setVenueReviews(venueReviewData.reviews);
+          }
         }
-        // console.log('Attraction: ', data._embedded.attractions);
+
         if (data._embedded.attractions) {
           setAttraction(data._embedded.attractions[0]);
         }
@@ -65,49 +63,6 @@ const SingleEvent = ({ match, user }) => {
       return userArray[id].user.name;
     }
   };
-
-  // const getUsers = async (arrayOfReviews) => {
-  //   if (arrayOfReviews) {
-  //     const usernames = arrayOfReviews.map(async (review) => {
-  //       const user = await getUser(review.userId);
-  //       return user;
-  //     });
-  //     return await Promise.all(usernames);
-  //   }
-  // };
-
-  // const fetchReviews = async () => {
-  //   let venue = null;
-  //   let artist = null;
-
-  //   const venueName = event._embedded.venues[0].name;
-  //   debugger;
-  //   const artistName =
-  //     state.event._embedded.attractions && state.event._embedded.attractions[0].name;
-
-  //   if (venueName) {
-  //     venue = await findVenue(venueName);
-  //   }
-
-  //   if (venue) {
-  //     const venueReviews = await getVenueReviews(venue.id);
-  //     setState((prevState) => ({ ...prevState, venueReviews }));
-  //   }
-
-  //   if (artistName) {
-  //     artist = await findArtist(artistName);
-  //   }
-
-  //   if (artist) {
-  //     const artistReviews = await getArtistReviews(artist.id);
-  //     setState((prevState) => ({ ...prevState, artistReviews }));
-  //   }
-
-  //   const usernamesVenue = await getUsers(state.venueReviews);
-  //   const usernamesArtist = await getUsers(state.artistReviews);
-
-  //   setState({ usernamesVenue, usernamesArtist });
-  // };
 
   const handleAddLike = async () => {
     const artistName = event._embedded.attractions[0].name;
@@ -156,12 +111,7 @@ const SingleEvent = ({ match, user }) => {
     }
   };
 
-  const {
-    venueReviews,
-    artistReviews,
-    usernamesVenue,
-    usernamesArtist,
-  } = state;
+  const { usernamesVenue, usernamesArtist } = state;
 
   if (!venue || !user) return null;
   return (
@@ -184,6 +134,7 @@ const SingleEvent = ({ match, user }) => {
               usernamesVenue={usernamesVenue}
               checkUsernames={checkUsernames}
               user={user}
+              setVenueReviews={setVenueReviews}
             />
 
             <div className='artist-review'>
@@ -211,3 +162,46 @@ const SingleEvent = ({ match, user }) => {
 };
 
 export default SingleEvent;
+
+// const getUsers = async (arrayOfReviews) => {
+//   if (arrayOfReviews) {
+//     const usernames = arrayOfReviews.map(async (review) => {
+//       const user = await getUser(review.userId);
+//       return user;
+//     });
+//     return await Promise.all(usernames);
+//   }
+// };
+
+// const fetchReviews = async () => {
+//   let venue = null;
+//   let artist = null;
+
+//   const venueName = event._embedded.venues[0].name;
+//   debugger;
+//   const artistName =
+//     state.event._embedded.attractions && state.event._embedded.attractions[0].name;
+
+//   if (venueName) {
+//     venue = await findVenue(venueName);
+//   }
+
+//   if (venue) {
+//     const venueReviews = await getVenueReviews(venue.id);
+//     setState((prevState) => ({ ...prevState, venueReviews }));
+//   }
+
+//   if (artistName) {
+//     artist = await findArtist(artistName);
+//   }
+
+//   if (artist) {
+//     const artistReviews = await getArtistReviews(artist.id);
+//     setState((prevState) => ({ ...prevState, artistReviews }));
+//   }
+
+//   const usernamesVenue = await getUsers(state.venueReviews);
+//   const usernamesArtist = await getUsers(state.artistReviews);
+
+//   setState({ usernamesVenue, usernamesArtist });
+// };
