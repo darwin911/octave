@@ -8,20 +8,20 @@ const VenueDetails = ({
   reviews,
   usernamesVenue,
   checkUsernames,
-  userId,
+  user,
 }) => {
-  if (!venue) return null;
+  if (!venue || !user) return null;
   const venueName = venue && startCase(venue.name);
   return (
     <section>
       <h2>Venue Details</h2>
       <h4>{venueName} Reviews</h4>
-      <VenueReviewForm venue={venue} userId={userId} />
+      <VenueReviewForm venue={venue} user={user} />
       <p className='venue-name'>
         {venue.city.name}, {venue.state.stateCode}
       </p>
       <div className='venue-review'>
-        {reviews &&
+        {reviews ? (
           reviews.map((review, id) => (
             <VenueReview
               key={id}
@@ -30,7 +30,12 @@ const VenueDetails = ({
               usernamesVenue={usernamesVenue}
               checkUsernames={checkUsernames}
             />
-          ))}
+          ))
+        ) : (
+          <sub style={{ fontSize: '0.9em' }}>
+            No reviews for {venueName} found.
+          </sub>
+        )}
       </div>
     </section>
   );

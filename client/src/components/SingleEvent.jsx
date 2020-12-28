@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   addArtist,
   addEvent,
@@ -6,22 +7,22 @@ import {
   addVenue,
   findArtist,
   findEvent,
-  findVenue,
+  getVenueReviews,
   singleEventById,
 } from '../services/helper';
 
 import ArtistReview from './ArtistReview';
 import ArtistReviewForm from './ArtistReviewForm';
 import EventDetails from './EventDetails';
-import React from 'react';
+import EventInfo from './EventInfo';
 import { Spinner } from './Spinner';
-import VenueReview from './VenueReview';
-import VenueReviewForm from './VenueReviewForm';
-import startCase from 'lodash/startCase';
+import VenueDetails from './VenueDetails';
 
 const SingleEvent = ({ match, user }) => {
-  const [event, setEvent] = React.useState(null);
-  const [state] = React.useState({
+  const [event, setEvent] = useState(null);
+  const [venue, setVenue] = useState(null);
+  const [attraction, setAttraction] = useState(null);
+  const [state, setState] = useState({
     usernamesVenue: null,
     usernamesArtist: null,
     venueReviews: [],
@@ -30,19 +31,34 @@ const SingleEvent = ({ match, user }) => {
 
   const eventId = match.params.id;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     const getSingleEvent = async (eventId) => {
       const data = await singleEventById(eventId, token);
       if (data) {
         setEvent(data);
+        if (data._embedded.venues) {
+          const venueData = data._embedded.venues[0];
+          setVenue(venueData);
+          console.log(venueData.id);
+          const venueReviewData = await getVenueReviews(venueData.id);
+          console.log(venueReviewData);
+          setState((prevState) => ({
+            ...prevState,
+            venueReviews: venueReviewData.reviews,
+          }));
+        }
+        // console.log('Attraction: ', data._embedded.attractions);
+        if (data._embedded.attractions) {
+          setAttraction(data._embedded.attractions[0]);
+        }
       }
     };
 
     if (!event && eventId) {
       getSingleEvent(match.params.id);
     }
-  }, [event, setEvent]);
+  }, [event, setEvent, venue, attraction]);
 
   const checkUsernames = (userArray, id) => {
     if (userArray) {
@@ -118,7 +134,7 @@ const SingleEvent = ({ match, user }) => {
       await addUserEvent(user.id, event.event.id);
     } else {
       const venueName = state.event._embedded.venues[0].name;
-      const venue = await findVenue(venueName);
+      // const venue = await findVenue(venueName);
 
       const venueData = {
         title: venueName,
@@ -147,60 +163,31 @@ const SingleEvent = ({ match, user }) => {
     usernamesArtist,
   } = state;
 
-  const venues = event && event._embedded && event._embedded.venues;
-  const venueName = venues && startCase(venues[0].name.toLowerCase());
-
-  const attractions = event && event._embedded && event._embedded.attractions;
-
+  if (!venue || !user) return null;
   return (
     <section className='events'>
-      {event ? (
+      {user && event ? (
         <React.Fragment>
           <EventDetails
+            venue={venue}
+            attraction={attraction}
             currentEvent={event}
             handleAddLike={handleAddLike}
             handleAttendEvent={handleAttendEvent}
           />
 
           <aside className='reviews'>
-            <div style={{ fontSize: '0.75em' }}>
-              <h4>Info:</h4>
-              <p>{event.info}</p>
-            </div>
-            <br />
-            {event.ticketLimit && (
-              <div style={{ fontSize: '0.75em' }}>
-                <h5>Ticket Limit:</h5>
-                <p>{event.ticketLimit.info}</p>
-                <br />
-              </div>
-            )}
-            <div style={{ fontSize: '0.75em' }}>
-              <h5>Please Note:</h5>
-              <p>{event.pleaseNote}</p>
-            </div>
-            <br />
-            <h4>{venueName} Reviews</h4>
-            <VenueReviewForm event={event} user={user} />
-            {venues.map(({ id, city, state, ...venue }) => (
-              <p key={id} className='venue-name'>
-                {city.name}, {state.stateCode}
-              </p>
-            ))}
-            <div className='venue-review'>
-              {venueReviews &&
-                venueReviews.map((review, id) => (
-                  <VenueReview
-                    key={id}
-                    id={id}
-                    review={review}
-                    usernamesVenue={usernamesVenue}
-                    checkUsernames={checkUsernames}
-                  />
-                ))}
-            </div>
+            <EventInfo event={event} />
+            <VenueDetails
+              venue={venue}
+              reviews={venueReviews}
+              usernamesVenue={usernamesVenue}
+              checkUsernames={checkUsernames}
+              user={user}
+            />
+
             <div className='artist-review'>
-              <h4>{attractions && attractions[0].name} Reviews</h4>
+              <h4>{attraction && attraction.name} Reviews</h4>
 
               <ArtistReviewForm event={event} user={user} />
               {artistReviews &&

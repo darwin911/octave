@@ -98,22 +98,10 @@ const findEvent = async (eventTitle) => {
   return resp.data;
 };
 
-// Get a venue from database based on name
-const findVenue = async (venueTitle) => {
-  const resp = await api.get(`/venues/${venueTitle}`);
-  return resp.data.venue;
-};
-
 // Get an artist from database based on name
 const findArtist = async (artistName) => {
   const resp = await api.get(`/artists/${artistName}`);
   return resp.data.artist;
-};
-
-// Add venue
-const addVenue = async (venue) => {
-  const resp = await api.post(`/venues/`, venue);
-  return resp.data.venue;
 };
 
 // Add artist
@@ -122,21 +110,48 @@ const addArtist = async (artist) => {
   return resp.data;
 };
 
+// Venues
+
+// Get a venue from database based on name
+const getVenueByVenueId = async (venueId) => {
+  try {
+    const resp = await api.get(`/venues/${venueId}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+// Add venue
+const addVenue = async (venue) => {
+  try {
+    const resp = await api.post(`/venues`, venue);
+    return resp.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Add event
 const addEvent = async (event, venueId) => {
   const resp = await api.post(`/events/${venueId}`, event);
   return resp.data.event;
 };
 
-//////////////// Venue Reviews ////////////////
+// End Venues
+
+////////////////  Reviews ////////////////
 
 // Add venue review
-const addVenueReview = async (venueId, userId, venueReview) => {
-  const resp = await api.post(
-    `/venue-reviews/${venueId}/users/${userId}`,
-    venueReview
-  );
-  return resp.data;
+const addVenueReview = async (data) => {
+  try {
+    const resp = await api.post(`/reviews/venues`, data);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response.data);
+    return error.response.data;
+  }
 };
 
 // Delete venue review
@@ -153,8 +168,13 @@ const editVenueReview = async (venueReviewId, venueReview) => {
 
 // Get all venue reviews for one venue
 const getVenueReviews = async (venueId) => {
-  const resp = await api.get(`/venue-reviews/${venueId}`);
-  return resp.data.venueReviews;
+  try {
+    const resp = await api.get(`/reviews/venues/${venueId}`);
+    return resp.data;
+  } catch (error) {
+    // Add error handling
+    return error;
+  }
 };
 
 //////////////// Artist Reviews ////////////////
@@ -217,7 +237,7 @@ export {
   addLike,
   deleteLike,
   getLikes,
-  findVenue,
+  getVenueByVenueId,
   findArtist,
   findEvent,
   addVenue,

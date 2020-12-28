@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { addVenue, addVenueReview, findVenue } from '../services/helper';
+import {
+  addVenue,
+  addVenueReview,
+  getVenueByVenueId,
+} from '../services/helper';
 
 import { Spinner } from './Spinner';
 
-const VenueReviewForm = ({ event, user }) => {
+const VenueReviewForm = ({ venue, user }) => {
   const [state, setState] = useState({
     isReview: false,
-    content: '',
-    score: 3,
+    text: '',
+    score: 0,
   });
+  const [error, setError] = useState(null);
+  const userId = user._id;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,51 +26,73 @@ const VenueReviewForm = ({ event, user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const review = {
-      content: state.content,
-      score: state.score,
-    };
 
-    const venueName = event._embedded.venues[0].name;
-    const venue = await findVenue(venueName);
+    const venueName = venue.name;
+    const venuePicture = venue.images && venue.images[0].url;
+    const venueUrl = venue.url;
+    const venueCity = venue.city.name;
+    const venueStateCode = venue.state.stateCode;
+    const venueAddress = venue.address.line1;
 
-    if (!venue.venue) {
+    // check venue does not exist in database with the venue.id
+    let venueId = venue.id;
+    const dbVenue = await getVenueByVenueId(venueId);
+
+    if (!dbVenue) {
+      console.log('No venue found in database. Creating one now.');
+      // pass venue data to backend to generate venue record
       const newVenue = await addVenue({
-        title: venueName,
-        picture: event._embedded.venues[0].images[0].url,
+        venueId,
+        name: venueName,
+        url: venueUrl,
+        city: venueCity,
+        state: venueStateCode,
+        address: venueAddress,
+        image: { url: venuePicture },
       });
-      // eslint-disable-next-line
-      const venueReview = await addVenueReview(
-        newVenue.venue.id,
-        user.id,
-        review
-      );
-    } else {
-      // eslint-disable-next-line
-      const venueReview = await addVenueReview(venue.venue.id, user.id, review);
-    }
 
-    setState({
-      isReview: false,
-      content: '',
-      score: 0,
-    });
+      console.log('created venue in database with id:', venueId);
+
+      if (newVenue) {
+        const data = await addVenueReview({
+          venueId: venueId,
+          userId: userId,
+          text: state.text,
+          score: state.score,
+        });
+        console.log('new venue review', data);
+      }
+    } else {
+      // Generate Review
+      const reviewData = {
+        venueId: venueId,
+        userId: userId,
+        text: state.text,
+        score: state.score,
+      };
+      const data = await addVenueReview(reviewData);
+      if (data.success) {
+        setState({
+          isReview: false,
+          text: '',
+          score: 0,
+        });
+      } else {
+        setError(data.msg);
+      }
+    }
   };
 
-  if (!event) return <Spinner />;
+  if (!venue) return <Spinner />;
 
   return (
     <>
       {state.isReview ? (
         <>
           <form onSubmit={handleSubmit}>
-            <input
-              type='text'
-              value={state.content}
-              id='content'
-              name='content'
-              onChange={handleChange}
-            />
+            <header>
+              {error && <h1 style={{ color: 'red' }}>{error}</h1>}
+            </header>
             <input
               type='number'
               value={state.score}
@@ -72,6 +100,13 @@ const VenueReviewForm = ({ event, user }) => {
               name='score'
               min='1'
               max='5'
+              onChange={handleChange}
+            />
+            <input
+              type='text'
+              value={state.text}
+              id='text'
+              name='text'
               onChange={handleChange}
             />
             <button>Submit</button>

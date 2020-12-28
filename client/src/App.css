@@ -2,6 +2,7 @@
 @import url("https://use.typekit.net/xwq0mnh.css");
 :root {
   --greyish-brown: #464646;
+  --primary-color: #0074d9;
   --spinner-dimensions: 100%;
 }
 
@@ -661,7 +662,7 @@ button.buy-tickets:hover {
   background: var(--greyish-brown);
   color: white;
   border: none;
-  padding: 0.5rem;
+  padding: 0.7rem;
   border-radius: 4px;
   font-size: 13px;
   font-weight: bold;
@@ -671,19 +672,17 @@ button.buy-tickets:hover {
   letter-spacing: normal;
   margin-left: 2rem;
   cursor: pointer;
-  -webkit-transform: perspective(1px) translateZ(0);
-          transform: perspective(1px) translateZ(0);
-  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition: -webkit-box-shadow 200ms ease-in-out;
-  transition: -webkit-box-shadow 200ms ease-in-out;
-  transition: box-shadow 200ms ease-in-out;
-  transition: box-shadow 200ms ease-in-out, -webkit-box-shadow 200ms ease-in-out;
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.35);
+  -webkit-transition: 120ms ease;
+  transition: 120ms ease;
+  border: 1px solid transparent;
 }
 
-.review-btn:hover {
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-          box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+.review-btn:hover, .review-btn:focus {
+  border-color: var(--primary-color);
+  -webkit-box-shadow: 0px 0px 9px -2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 9px -2px rgba(0, 0, 0, 0.5);
 }
 
 .event {
