@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import sortEvents, { sortTypes } from '../../util/sortEvents';
 
 import { DISTRICT_MARKETS } from '../../util/static/districtMarkets';
-import Reel from '../Reel';
+import Reel from './Reel';
 import { allEvents } from '../../services/helper';
 
 const Home = ({ events, setState }) => {

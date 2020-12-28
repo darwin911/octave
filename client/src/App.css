@@ -741,7 +741,6 @@ footer p {
   .profile-page {
     grid-column: span 3;
     width: 95vw;
-    max-width: 1200px;
     margin: 0 auto;
   }
   .reel {

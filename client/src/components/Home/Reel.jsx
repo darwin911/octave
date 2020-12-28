@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import sortEvents, { sortTypes } from '../util/sortEvents';
+import sortEvents, { sortTypes } from '../../util/sortEvents';
 
-import EventCard from './EventCard';
+import EventCard from '../Home/EventCard';
 import PropTypes from 'prop-types';
 
 const Reel = ({ className, heading, events }) => {
@@ -27,7 +27,7 @@ const Reel = ({ className, heading, events }) => {
   return (
     <section className={className}>
       <header>
-        <h3>{heading}</h3>
+        <h3 className='heading'>{heading}</h3>
         <div>
           <label htmlFor='event-filter-select'>
             <sub>Sort By</sub>

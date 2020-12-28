@@ -3,9 +3,9 @@ import {
   addVenue,
   addVenueReview,
   getVenueByVenueId,
-} from '../services/helper';
+} from '../../services/helper';
 
-import { Spinner } from './Spinner';
+import { Spinner } from '../Spinner';
 
 const VenueReviewForm = ({ venue, user }) => {
   const [state, setState] = useState({

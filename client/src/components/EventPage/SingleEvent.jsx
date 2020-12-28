@@ -9,13 +9,13 @@ import {
   findEvent,
   getVenueReviews,
   singleEventById,
-} from '../services/helper';
+} from '../../services/helper';
 
 import ArtistReview from './ArtistReview';
 import ArtistReviewForm from './ArtistReviewForm';
 import EventDetails from './EventDetails';
 import EventInfo from './EventInfo';
-import { Spinner } from './Spinner';
+import { Spinner } from '../Spinner';
 import VenueDetails from './VenueDetails';
 
 const SingleEvent = ({ match, user }) => {

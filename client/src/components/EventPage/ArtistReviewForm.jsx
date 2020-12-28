@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
-import {
-  addArtistReview,
-  addArtist,
-  findArtist,
-  } from '../services/helper';
+import { addArtist, addArtistReview, findArtist } from '../../services/helper';
 
 class ArtistReviewForm extends Component {
-
   constructor() {
     super();
     this.state = {
       isReview: false,
-      content:'',
+      content: '',
       score: 3,
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
   }
 
   async handleSubmit(e) {
     e.preventDefault();
     const review = {
       content: this.state.content,
-      score: this.state.score
-    }
+      score: this.state.score,
+    };
 
     const artistName = this.props.currentEvent._embedded.attractions[0].name;
     const artist = await findArtist(artistName);
@@ -37,12 +32,21 @@ class ArtistReviewForm extends Component {
     if (!artist) {
       const newArtist = await addArtist({
         name: this.props.currentEvent._embedded.attractions[0].name,
-        picture: this.props.currentEvent._embedded.attractions[0].images[0].url});
+        picture: this.props.currentEvent._embedded.attractions[0].images[0].url,
+      });
       // eslint-disable-next-line
-      const artistReview = await addArtistReview(newArtist.id, this.props.user.id, review);
+      const artistReview = await addArtistReview(
+        newArtist.id,
+        this.props.user.id,
+        review
+      );
     } else {
       // eslint-disable-next-line
-      const artistReview = await addArtistReview(artist.id, this.props.user.id, review);
+      const artistReview = await addArtistReview(
+        artist.id,
+        this.props.user.id,
+        review
+      );
     }
 
     this.setState({
@@ -63,21 +67,25 @@ class ArtistReviewForm extends Component {
                 value={this.state.content}
                 id='content'
                 name='content'
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+              />
               <input
                 type='number'
                 value={this.state.score}
                 id='score'
-                min="1"
-                max="5"
+                min='1'
+                max='5'
                 name='score'
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+              />
               <button>Submit</button>
             </form>
           </>
         ) : (
           <>
-            <button className="review-btn" onClick={() => this.setState({ isReview: true })}>
+            <button
+              className='review-btn'
+              onClick={() => this.setState({ isReview: true })}>
               Write a review
             </button>
           </>

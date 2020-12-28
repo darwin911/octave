@@ -2,7 +2,7 @@ import Home from './Home/Home';
 import HomeDetails from './Home/HomeDetails';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SingleEvent from './SingleEvent';
+import SingleEvent from './EventPage/SingleEvent';
 import UserProfile from './UserProfile';
 import { withRouter } from 'react-router';
 
