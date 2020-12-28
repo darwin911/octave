@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import moment from 'moment';
 import { orderBy } from 'lodash';
@@ -34,7 +35,7 @@ const EventDetails = ({
     return (
       <p className='venue-location'>
         <span className='venue-name'>
-          <a href={`/venues/${venue.id}`}>{name}</a>
+          <Link to={`/venues/${venue.id}`}>{name}</Link>
         </span>
         , {city}, {state}
       </p>

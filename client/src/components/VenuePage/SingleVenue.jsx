@@ -41,11 +41,15 @@ const SingleVenue = ({ match }) => {
       <h4>Location</h4>
       <p>{formatLocation(venue)}</p>
 
-      <h4>Contact</h4>
-      <p>{venue.boxOfficeInfo.phoneNumberDetail}</p>
+      {venue.boxOfficeInfo && (
+        <>
+          <h4>Contact</h4>
+          <p>{venue.boxOfficeInfo.phoneNumberDetail}</p>
 
-      <h4>Open Hours</h4>
-      <p>{venue.boxOfficeInfo.openHoursDetail}</p>
+          <h4>Open Hours</h4>
+          <p>{venue.boxOfficeInfo.openHoursDetail}</p>
+        </>
+      )}
 
       {venue.generalInfo && (
         <>
