@@ -7,20 +7,7 @@ import SingleVenue from './VenuePage/SingleVenue';
 import UserProfile from './UserProfile';
 import { withRouter } from 'react-router';
 
-const Main = ({
-  history,
-  handleRegister,
-  handleLogin,
-  events,
-  setState,
-  setUser,
-  user,
-}) => {
-  // const handleSetEvent = (currentEvent) => {
-  //   setSelectedEvent(currentEvent);
-  //   history.push(`/events/${currentEvent.id}`);
-  // };
-
+const Main = ({ handleRegister, handleLogin, setUser, user }) => {
   return (
     <main>
       <Route
@@ -35,12 +22,7 @@ const Main = ({
         )}
       />
 
-      <Route
-        path='/home'
-        render={(props) => (
-          <Home {...props} events={events} setState={setState} />
-        )}
-      />
+      <Route path='/home' render={(props) => <Home {...props} />} />
       <Route
         path='/user/:id'
         render={(props) => <UserProfile {...props} user={user} />}

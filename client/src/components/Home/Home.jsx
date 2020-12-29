@@ -1,54 +1,21 @@
-import React, { useState } from 'react';
-import sortEvents, { sortTypes } from '../../util/sortEvents';
+import React, { useContext } from 'react';
 
-import { DISTRICT_MARKETS } from '../../util/static/districtMarkets';
+import { AppContext } from '../../context/Store';
+import HomeOptions from './HomeOptions';
 import Reel from './Reel';
-import { allEvents } from '../../services/helper';
+import { Spinner } from '../Spinner';
 
-const Home = ({ events, setState }) => {
-  const [districtMarket, setDistrictMarket] = useState(
-    DISTRICT_MARKETS['New York']
-  );
-
-  const handleChange = async (ev) => {
-    let { value } = ev.target;
-    setDistrictMarket(Number(value));
-  };
-
-  const refreshEvents = async (dmaId) => {
-    const events = await allEvents({ dmaId });
-    console.log({ dmaId });
-    console.info('fetched ', events.length, ' events');
-    setState((prevState) => ({ ...prevState, events }));
-  };
+const Home = () => {
+  const [state] = useContext(AppContext);
 
   return (
     <section className='home'>
-      <header>
-        <h2>Options</h2>
-        <label>
-          <p>Select Market</p>
-          <select onChange={handleChange} value={districtMarket}>
-            {Object.entries(DISTRICT_MARKETS).map(
-              ([districtMarketLabel, dmaId]) => (
-                <option value={dmaId} key={dmaId}>
-                  {districtMarketLabel}
-                </option>
-              )
-            )}
-          </select>
-        </label>
-        <button onClick={() => refreshEvents(districtMarket)}>Refresh</button>
-      </header>
-      {events && events.length > 0 && (
+      {state.events && state.events.length < 1 ? (
+        <Spinner size={200} />
+      ) : (
         <>
-          <Reel
-            heading='UPCOMING EVENTS'
-            className='reel'
-            events={sortEvents(events, sortTypes.MOST_RECENT).slice(0, 10)}
-          />
-
-          <Reel heading='EVENTS IN NYC' className='reel' events={events} />
+          <HomeOptions />
+          <Reel heading='UPCOMING EVENTS' className='reel' />
         </>
       )}
     </section>
