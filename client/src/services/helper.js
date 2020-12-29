@@ -207,9 +207,14 @@ const getArtistReviews = async (artistId) => {
 };
 
 ///////////////// TICKETMASTER API //////////////////
+/**
+ * @method allEvents
+ * @param {object} options
+ */
 const allEvents = async ({ dmaId = 345 } = {}) => {
   try {
-    const resp = await api.get(`/events${dmaId ? `/${dmaId}` : ''}`);
+    let URL = `/events/${dmaId}`;
+    const resp = await api.get(URL);
     return resp.data;
   } catch (error) {
     return error;

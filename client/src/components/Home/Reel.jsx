@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import sortEvents, { sortTypes } from '../../util/sortEvents';
 
+import { AppContext } from '../../context/Store';
 import EventCard from '../Home/EventCard';
 import PropTypes from 'prop-types';
+import { Spinner } from '../Spinner';
 
-const Reel = ({ className, heading, events }) => {
+const Reel = ({ className, heading }) => {
+  const [state] = useContext(AppContext);
   const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
-  const [sortedEvents, setSortedEvents] = useState(events);
+  const [sortedEvents, setSortedEvents] = useState(null);
+
   const handleChange = (ev) => {
     const {
       target: { value },
@@ -15,13 +19,17 @@ const Reel = ({ className, heading, events }) => {
   };
 
   useEffect(() => {
-    if (sortedEvents && sortedEvents.length) {
-      setSortedEvents(sortEvents(events, sortBy));
+    if (state.events) {
+      setSortedEvents(sortEvents(state.events, sortBy));
     }
-  }, [sortBy, events]);
+  }, [sortBy, state.events]);
 
   if (!sortedEvents) {
-    return null;
+    return (
+      <section className={className}>
+        <Spinner />
+      </section>
+    );
   }
 
   return (
@@ -52,7 +60,6 @@ const Reel = ({ className, heading, events }) => {
 export default Reel;
 
 Reel.propTypes = {
-  events: PropTypes.array.isRequired,
   className: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
 };
