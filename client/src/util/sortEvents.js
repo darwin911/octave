@@ -23,7 +23,7 @@ const sortEvents = (events, sortType) => {
     case sortTypes.HIGHEST_PRICE:
       const highestPriceEvents = orderBy(
         events,
-        (e) => e.priceRanges[0].min,
+        (e) => e.priceRanges && e.priceRanges[0].min,
         'desc'
       );
       return highestPriceEvents;

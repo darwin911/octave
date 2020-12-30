@@ -20,7 +20,8 @@ const Reel = ({ className, heading }) => {
 
   useEffect(() => {
     if (state.events) {
-      setSortedEvents(sortEvents(state.events, sortBy));
+      console.log('setting sorted events', state.events.length);
+      setSortedEvents(sortEvents(state.events, sortBy).slice(0, 100));
     }
   }, [sortBy, state.events]);
 
@@ -52,7 +53,9 @@ const Reel = ({ className, heading }) => {
         </div>
       </header>
       {sortedEvents.length > 0 &&
-        sortedEvents.map((event) => <EventCard key={event.id} data={event} />)}
+        sortedEvents.map((event) => (
+          <EventCard key={event.id} eventData={event} venues={null} />
+        ))}
     </section>
   );
 };

@@ -2,35 +2,37 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import moment from 'moment';
 
-const EventCard = ({ data }) => {
+const EventCard = ({ eventData }) => {
+  if (!eventData) return null;
+  const { id, dates, images, name, priceRanges, url } = eventData;
   return (
     <div className='event'>
-      <Link to={`/events/${data.id}`} className='event-link-wrapper'>
+      <Link to={`/events/${id}`} className='event-link-wrapper'>
         {/* Event Image */}
         <img
           className='event-img'
-          src={data.images.sort((a, b) => b.width - a.width)[5].url}
-          alt={data.name}
+          src={images.sort((a, b) => b.width - a.width)[5].url}
+          alt={name}
         />
         {/* Event Name */}
         <div>
-          <p>{data.name}</p>
+          <p>{name}</p>
           {/* Min/Max Price. If returned from API */}
           {/* Date YYYY/MM/DD */}
-          <p>{moment(data.dates.start.localDate).format('MMM Do, YYYY')}</p>
-          <p>{data.priceRanges ? '$' + data.priceRanges[0].min : 'SOLD OUT'}</p>
-          {data._embedded.venues.map((venue) => (
+          <p>{moment(dates.start.localDate).format('MMM Do, YYYY')}</p>
+          <p>{priceRanges ? '$' + priceRanges[0].min : 'SOLD OUT'}</p>
+          {eventData._embedded.venues.map((venue) => (
             <p key={venue.id}>{venue.name}</p>
           ))}
 
-          {data._embedded.venues.map((venue) => (
+          {eventData._embedded.venues.map((venue) => (
             <p key={venue.id}>
               {venue.city.name}, {venue.state.stateCode}
             </p>
           ))}
         </div>
       </Link>
-      <a href={data.url} target='_blank' rel='noopener noreferrer'>
+      <a href={url} target='_blank' rel='noopener noreferrer'>
         Buy Now
       </a>
     </div>

@@ -211,9 +211,21 @@ const getArtistReviews = async (artistId) => {
  * @method allEvents
  * @param {object} options
  */
-const allEvents = async ({ dmaId = 345 } = {}) => {
+const allEvents = async ({
+  dmaId = 345,
+  classificationName = 'music',
+  size = 100,
+  sort = 'date,asc',
+} = {}) => {
   try {
-    let URL = `/events/${dmaId}`;
+    const params = new URLSearchParams({
+      dmaId,
+      classificationName,
+      size,
+      sort,
+    }).toString();
+    let URL = `/events/?${params}`;
+    console.log(URL);
     const resp = await api.get(URL);
     return resp.data;
   } catch (error) {
