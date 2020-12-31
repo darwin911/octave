@@ -211,24 +211,25 @@ const getArtistReviews = async (artistId) => {
  * @method allEvents
  * @param {object} options
  */
-const allEvents = async ({
-  dmaId = 345,
-  classificationName = 'music',
-  size = 100,
-  sort = 'date,asc',
-} = {}) => {
+const allEvents = async (data) => {
+  console.time('Getting Events');
   try {
-    const params = new URLSearchParams({
-      dmaId,
-      classificationName,
-      size,
-      sort,
-    }).toString();
-    let URL = `/events/?${params}`;
-    console.log(URL);
-    const resp = await api.get(URL);
+    const params = {
+      ...data,
+      classificationName: 'music',
+      size: 150,
+      sort: 'date,asc',
+    };
+    const url = new URL('/events/', BASE_URL);
+    url.search = new URLSearchParams(params);
+
+    console.log({ URL: url.href });
+    const resp = await api.get(url.href);
+    console.timeEnd('Getting Events');
     return resp.data;
   } catch (error) {
+    console.log(error);
+    console.timeEnd('Getting Events');
     return error;
   }
 };

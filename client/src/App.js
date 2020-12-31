@@ -44,6 +44,7 @@ export const App = withRouter(({ history, location, ...props }) => {
     } else {
       history.push('/');
     }
+    console.log('App :: useEffect()');
   }, [history, dispatch, location.pathname]);
 
   // useEffect(() => {
