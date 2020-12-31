@@ -6,17 +6,6 @@ import { SET_EVENTS } from '../../context/constants';
 import { allEvents } from '../../services/helper';
 
 const HomeOptions = () => {
-  return (
-    <header>
-      <h2>Options</h2>
-      <SelectMarket />
-    </header>
-  );
-};
-
-export default HomeOptions;
-
-const SelectMarket = () => {
   const dispatch = useContext(AppContext)[1];
   const [districtMarket, setDistrictMarket] = useState(
     DISTRICT_MARKETS['New York']
@@ -30,10 +19,22 @@ const SelectMarket = () => {
     setDistrictMarket(Number(value));
   };
   return (
-    <>
+    <header>
+      <h2>Options</h2>
+      <SelectMarket onChange={handleChange} market={districtMarket}  />
+      <IncludeTBA />
+    </header>
+  );
+};
+
+export default HomeOptions;
+
+const SelectMarket = ({ onChange, market }) => {
+  return (
+    <div>
       <label>
         <p>Select Market</p>
-        <select onChange={handleChange} value={districtMarket}>
+        <select onChange={onChange} value={market}>
           {Object.entries(DISTRICT_MARKETS).map(
             ([districtMarketLabel, dmaId]) => (
               <option value={dmaId} key={dmaId}>
@@ -44,6 +45,24 @@ const SelectMarket = () => {
         </select>
       </label>
       <button onClick={() => handleRefresh(districtMarket)}>Refresh</button>
-    </>
+    </div>
+  );
+};
+
+const IncludeTBA = () => {
+  const [includeTBA, setIncludeTBA] = useState(false);
+  return (
+    <div>
+      <label htmlFor='include-tba'>
+        {includeTBA ? 'Include TBA' : 'Less data, more faster'}
+        <input
+          type='checkbox'
+          name='include-tba'
+          id='include-tba'
+          value={includeTBA}
+          onChange={(ev) => setIncludeTBA(ev.target.checked)}
+        />
+      </label>
+    </div>
   );
 };
