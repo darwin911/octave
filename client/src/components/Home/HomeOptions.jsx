@@ -6,13 +6,22 @@ import { SET_EVENTS } from '../../context/constants';
 import { allEvents } from '../../services/helper';
 
 const HomeOptions = () => {
+  return (
+    <header>
+      <h2>Options</h2>
+      <SelectMarket />
+    </header>
+  );
+};
+
+export default HomeOptions;
+
+const SelectMarket = () => {
   const dispatch = useContext(AppContext)[1];
   const [districtMarket, setDistrictMarket] = useState(
     DISTRICT_MARKETS['New York']
   );
-
   const handleRefresh = async (market) => {
-    console.log(market);
     const events = await allEvents({ dmaId: market });
     dispatch({ type: SET_EVENTS, payload: events });
   };
@@ -21,8 +30,7 @@ const HomeOptions = () => {
     setDistrictMarket(Number(value));
   };
   return (
-    <header>
-      <h2>Options</h2>
+    <>
       <label>
         <p>Select Market</p>
         <select onChange={handleChange} value={districtMarket}>
@@ -36,8 +44,6 @@ const HomeOptions = () => {
         </select>
       </label>
       <button onClick={() => handleRefresh(districtMarket)}>Refresh</button>
-    </header>
+    </>
   );
 };
-
-export default HomeOptions;

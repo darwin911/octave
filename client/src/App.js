@@ -46,15 +46,15 @@ export const App = withRouter(({ history, location, ...props }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const events = await allEvents();
-      dispatch({ type: SET_EVENTS, payload: events });
-    };
-    if (!events) {
-      fetchEvents();
-    }
-  }, [events]);
+  // useEffect(() => {
+  //   const fetchEvents = async () => {
+  //     const events = await allEvents();
+  //     dispatch({ type: SET_EVENTS, payload: events });
+  //   };
+  //   if (!events) {
+  //     fetchEvents();
+  //   }
+  // }, [events]);
 
   const handleRegister = async (ev, userData) => {
     ev.preventDefault();

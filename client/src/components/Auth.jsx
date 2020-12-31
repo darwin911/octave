@@ -18,10 +18,6 @@ const Auth = ({ history, handleRegister }) => {
       updateToken(resp.token);
     }
     if (resp.token !== null) {
-      setState((prevState) => ({
-        ...prevState,
-        isLoggedIn: true,
-      }));
       let userData = resp.user;
       dispatch({ type: SET_USER, payload: userData });
       history.push('/home');
