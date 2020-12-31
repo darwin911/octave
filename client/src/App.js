@@ -1,8 +1,8 @@
 import './App.css';
 
-import { LOGOUT, SET_EVENTS, SET_USER } from './context/constants';
+import { LOGOUT, SET_USER } from './context/constants';
 import React, { useContext, useEffect, useState } from 'react';
-import { allEvents, createUser, getUser, updateToken } from './services/helper';
+import { createUser, getUser, updateToken } from './services/helper';
 
 import { AppContext } from './context/Store';
 import Footer from './components/Footer';
@@ -13,7 +13,7 @@ import { dropToken } from './services/helper';
 import { withRouter } from 'react-router';
 
 export const App = withRouter(({ history, location, ...props }) => {
-  const [{ user, events }, dispatch] = useContext(AppContext);
+  const [{ user }, dispatch] = useContext(AppContext);
 
   const [state, setState] = useState({
     isLoggedIn: false,
@@ -44,7 +44,8 @@ export const App = withRouter(({ history, location, ...props }) => {
     } else {
       history.push('/');
     }
-  }, []);
+    console.log('App :: useEffect()');
+  }, [history, dispatch, location.pathname]);
 
   // useEffect(() => {
   //   const fetchEvents = async () => {

@@ -19,7 +19,7 @@ const UserProfile = ({ user, match }) => {
       }
     };
     getEventsAndLikes(userId);
-  }, []);
+  }, [userId]);
 
   if (!user) return null;
   return (

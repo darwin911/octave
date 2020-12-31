@@ -2,27 +2,24 @@ import React, { useContext, useState } from 'react';
 
 import { AppContext } from '../../context/Store';
 import { DISTRICT_MARKETS } from '../../util/static/districtMarkets';
+import IncludeTBA from './IncludeTBA';
 import { SET_EVENTS } from '../../context/constants';
+import SelectMarket from './SelectMarket';
 import { allEvents } from '../../services/helper';
 
 const HomeOptions = () => {
-  return (
-    <header>
-      <h2>Options</h2>
-      <SelectMarket />
-    </header>
-  );
-};
-
-export default HomeOptions;
-
-const SelectMarket = () => {
   const dispatch = useContext(AppContext)[1];
   const [districtMarket, setDistrictMarket] = useState(
     DISTRICT_MARKETS['New York']
   );
-  const handleRefresh = async (market) => {
-    const events = await allEvents({ dmaId: market });
+  const [includeTBA, setIncludeTBA] = useState(false);
+  const handleRefresh = async () => {
+    const searchOptions = {
+      dmaId: districtMarket,
+      includeTBA: includeTBA ? 'yes' : 'no',
+    };
+    const events = await allEvents(searchOptions);
+    if (events) console.info(`Setting ${events.length} events.`);
     dispatch({ type: SET_EVENTS, payload: events });
   };
   const handleChange = async (ev) => {
@@ -30,20 +27,16 @@ const SelectMarket = () => {
     setDistrictMarket(Number(value));
   };
   return (
-    <>
-      <label>
-        <p>Select Market</p>
-        <select onChange={handleChange} value={districtMarket}>
-          {Object.entries(DISTRICT_MARKETS).map(
-            ([districtMarketLabel, dmaId]) => (
-              <option value={dmaId} key={dmaId}>
-                {districtMarketLabel}
-              </option>
-            )
-          )}
-        </select>
-      </label>
-      <button onClick={() => handleRefresh(districtMarket)}>Refresh</button>
-    </>
+    <header>
+      <h2>Options</h2>
+      <SelectMarket
+        onChange={handleChange}
+        onRefresh={handleRefresh}
+        market={districtMarket}
+      />
+      <IncludeTBA isChecked={includeTBA} onChange={setIncludeTBA} />
+    </header>
   );
 };
+
+export default HomeOptions;

@@ -19,9 +19,9 @@ const Reel = ({ className, heading }) => {
   };
 
   useEffect(() => {
-    if (state.events) {
+    if (state.events && state.events.length) {
       console.log('setting sorted events', state.events.length);
-      setSortedEvents(sortEvents(state.events, sortBy).slice(0, 100));
+      setSortedEvents(sortEvents(state.events, sortBy));
     }
   }, [sortBy, state.events]);
 

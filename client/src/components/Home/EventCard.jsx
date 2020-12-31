@@ -21,11 +21,11 @@ const EventCard = ({ eventData }) => {
           {/* Date YYYY/MM/DD */}
           <p>{moment(dates.start.localDate).format('MMM Do, YYYY')}</p>
           <p>{priceRanges ? '$' + priceRanges[0].min : 'SOLD OUT'}</p>
-          {eventData._embedded.venues.map((venue) => (
+          {eventData._embedded?.venues.map((venue) => (
             <p key={venue.id}>{venue.name}</p>
           ))}
 
-          {eventData._embedded.venues.map((venue) => (
+          {eventData._embedded?.venues.map((venue) => (
             <p key={venue.id}>
               {venue.city.name}, {venue.state.stateCode}
             </p>

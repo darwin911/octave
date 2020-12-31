@@ -25,7 +25,7 @@ const SingleVenue = ({ match }) => {
     if (!venue) {
       fetchVenue(venueId);
     }
-  }, [venue]);
+  }, [venue, venueId]);
 
   if (!venue) return <span>Loading</span>;
   return (
