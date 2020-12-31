@@ -7,7 +7,7 @@ import SingleVenue from './VenuePage/SingleVenue';
 import UserProfile from './UserProfile';
 import { withRouter } from 'react-router';
 
-const Main = ({ handleRegister, handleLogin, setUser, user }) => {
+const Main = ({ handleRegister, handleLogin, user }) => {
   return (
     <main>
       <Route
@@ -17,7 +17,6 @@ const Main = ({ handleRegister, handleLogin, setUser, user }) => {
           <HomeDetails
             handleLogin={handleLogin}
             handleRegister={handleRegister}
-            setUser={setUser}
           />
         )}
       />
