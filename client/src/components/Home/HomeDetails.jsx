@@ -1,14 +1,10 @@
 import Auth from '../Auth';
 import React from 'react';
 
-const HomeDetails = ({ handleLogin, handleRegister, isLogin, setUser }) => {
+const HomeDetails = ({ handleLogin, handleRegister, isLogin }) => {
   return (
     <>
-      <Auth
-        handleRegister={handleRegister}
-        handleLogin={handleLogin}
-        setUser={setUser}
-      />
+      <Auth handleRegister={handleRegister} handleLogin={handleLogin} />
       <section className='home-details'>
         <h4>Discover events near you</h4>
         <p>Get alerts when your favorite artists are in town</p>

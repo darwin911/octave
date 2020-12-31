@@ -1,11 +1,14 @@
+import React, { useContext } from 'react';
 import { loginUser, updateToken } from '../services/helper';
 
-import React from 'react';
+import { AppContext } from '../context/Store';
+import { SET_USER } from '../context/constants';
 // import { Spinner } from './Spinner';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router';
 
-const Auth = ({ history, user, setUser, handleRegister }) => {
+const Auth = ({ history, handleRegister }) => {
+  const dispatch = useContext(AppContext)[1];
   const { handleSubmit, register, errors, formState } = useForm();
   const { isDirty, isSubmitting } = formState;
 
@@ -19,7 +22,8 @@ const Auth = ({ history, user, setUser, handleRegister }) => {
         ...prevState,
         isLoggedIn: true,
       }));
-      setUser(resp.user);
+      let userData = resp.user;
+      dispatch({ type: SET_USER, payload: userData });
       history.push('/home');
     }
   };

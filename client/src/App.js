@@ -1,5 +1,6 @@
 import './App.css';
 
+import { LOGOUT, SET_EVENTS, SET_USER } from './context/constants';
 import React, { useContext, useEffect, useState } from 'react';
 import { allEvents, createUser, getUser, updateToken } from './services/helper';
 
@@ -7,13 +8,12 @@ import { AppContext } from './context/Store';
 import Footer from './components/Footer';
 import Header from './components/Header/Header';
 import Main from './components/Main';
-import { SET_EVENTS } from './context/constants';
 import decode from 'jwt-decode';
 import { dropToken } from './services/helper';
 import { withRouter } from 'react-router';
 
 export const App = withRouter(({ history, location, ...props }) => {
-  const [{ events }, dispatch] = useContext(AppContext);
+  const [{ user, events }, dispatch] = useContext(AppContext);
 
   const [state, setState] = useState({
     isLoggedIn: false,
@@ -21,8 +21,6 @@ export const App = withRouter(({ history, location, ...props }) => {
     usernamesVenue: null,
     usernamesArtist: null,
   });
-
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -35,7 +33,7 @@ export const App = withRouter(({ history, location, ...props }) => {
         ...prevState,
         isLoggedIn: true,
       }));
-      setUser(data.user);
+      dispatch({ type: SET_USER, payload: data.user });
       if (location.pathname === '/') {
         history.push('/home');
       }
@@ -72,7 +70,7 @@ export const App = withRouter(({ history, location, ...props }) => {
       }
 
       if (data.user) {
-        setUser(data.user);
+        dispatch({ type: SET_USER, payload: data.user });
         history.push(`/home`);
       }
     } catch (error) {
@@ -86,7 +84,7 @@ export const App = withRouter(({ history, location, ...props }) => {
       ...prevState,
       isLoggedIn: false,
     }));
-    setUser(null);
+    dispatch({ type: LOGOUT });
     history.push(`/`);
   };
 
@@ -100,7 +98,6 @@ export const App = withRouter(({ history, location, ...props }) => {
         isLoggedIn={isLoggedIn}
         handleRegister={handleRegister}
         user={user}
-        setUser={setUser}
       />
       <Footer />
     </div>
