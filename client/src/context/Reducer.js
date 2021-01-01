@@ -1,6 +1,6 @@
-import { SET_EVENTS, SET_USER } from './constants';
+import { LOGOUT, SET_EVENTS, SET_USER } from './constants';
 
-// import { initialState } from './Store';
+import { initialState } from './Store';
 
 export const Reducer = (state, action) => {
   switch (action.type) {
@@ -9,6 +9,10 @@ export const Reducer = (state, action) => {
         ...state,
         user: action.payload,
         loading: false,
+      };
+    case LOGOUT:
+      return {
+        ...initialState,
       };
     case SET_EVENTS:
       return {
