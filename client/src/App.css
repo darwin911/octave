@@ -131,6 +131,7 @@ main {
 .carousel {
   grid-column: span 3;
   background: center/cover no-repeat url("http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg");
+  background-color: black;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -149,13 +150,31 @@ main {
   width: 100%;
 }
 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .auth {
   width: 500px;
   height: auto;
-  min-height: 100px;
+  min-height: 300px;
   background: whitesmoke;
   max-width: 90%;
-  padding: 2rem;
+  padding: 2.25rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -166,6 +185,9 @@ main {
   border-radius: 5px;
   -webkit-box-shadow: 0px 2px 1rem -2px black;
           box-shadow: 0px 2px 1rem -2px black;
+  opacity: 0;
+  -webkit-animation: 220ms ease-out 250ms 1 fadeIn forwards;
+          animation: 220ms ease-out 250ms 1 fadeIn forwards;
 }
 
 .auth h1 {
@@ -182,7 +204,6 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 0.5rem;
 }
 
 .login-form > label,
@@ -220,26 +241,6 @@ main {
 .login-form input::placeholder,
 .register-form input::placeholder {
   opacity: 0.5;
-}
-
-.fb-login {
-  font-size: 0.8rem;
-  width: 400px;
-  max-width: 90%;
-  margin: 0 auto;
-  background: rgba(244, 244, 244, 0.95);
-  padding: 0.7rem;
-  border-radius: 5px;
-}
-
-.fb-btn {
-  background: navy;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 5px;
-  font-weight: bold;
-  margin: 0 auto;
-  display: block;
 }
 
 .login-form img {
@@ -542,10 +543,8 @@ main {
   max-width: 250px;
   border-radius: 27.5px;
   cursor: pointer;
-  -webkit-transform: perspective(1px) translateZ(0);
-          transform: perspective(1px) translateZ(0);
-  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 1px black;
+          box-shadow: 0 0 1px black;
   -webkit-transition: -webkit-box-shadow 200ms ease-in-out;
   transition: -webkit-box-shadow 200ms ease-in-out;
   transition: box-shadow 200ms ease-in-out;

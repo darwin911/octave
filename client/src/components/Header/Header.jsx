@@ -9,7 +9,7 @@ const Header = ({ history, user, handleLogout }) => {
 
   return (
     <header>
-      <Link to='/home'>
+      <Link to={user ? '/home' : '/'}>
         <img className='title' src={octave} alt='Octave' />
       </Link>
       <button className='header-link'>ARTISTS</button>
