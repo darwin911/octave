@@ -28,13 +28,10 @@ const HomeOptions = () => {
   };
   return (
     <header>
-      <h2>Options</h2>
-      <SelectMarket
-        onChange={handleChange}
-        onRefresh={handleRefresh}
-        market={districtMarket}
-      />
+      <h2>Select Options</h2>
+      <SelectMarket onChange={handleChange} />
       <IncludeTBA isChecked={includeTBA} onChange={setIncludeTBA} />
+      <button onClick={() => handleRefresh(districtMarket)}>Refresh</button>
     </header>
   );
 };

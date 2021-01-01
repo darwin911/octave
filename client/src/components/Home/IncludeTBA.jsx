@@ -4,7 +4,7 @@ const IncludeTBA = ({ isChecked, onChange }) => {
   return (
     <div>
       <label htmlFor='include-tba'>
-        {isChecked ? 'Include TBA' : 'Less data, more faster'}
+        <span>Include TBA: </span>
         <input
           type='checkbox'
           name='include-tba'

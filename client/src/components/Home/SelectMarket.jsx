@@ -3,11 +3,11 @@ import React from 'react';
 
 const districtMarkets = Object.entries(DISTRICT_MARKETS);
 
-const SelectMarket = ({ onChange, onRefresh, market }) => {
+const SelectMarket = ({ onChange, market }) => {
   return (
     <div>
       <label>
-        <p>Select Market</p>
+        <span>Market: </span>
         <select onChange={onChange} value={market}>
           {districtMarkets.map(([districtMarketLabel, dmaId]) => (
             <option key={dmaId} value={dmaId}>
@@ -16,7 +16,6 @@ const SelectMarket = ({ onChange, onRefresh, market }) => {
           ))}
         </select>
       </label>
-      <button onClick={() => onRefresh(market)}>Refresh</button>
     </div>
   );
 };
