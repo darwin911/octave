@@ -3,7 +3,6 @@ import { loginUser, updateToken } from '../services/helper';
 
 import { AppContext } from '../context/Store';
 import { SET_USER } from '../context/constants';
-// import { Spinner } from './Spinner';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router';
 
@@ -13,12 +12,12 @@ const Auth = ({ history, handleRegister }) => {
   const { isDirty, isSubmitting } = formState;
 
   const onLogin = async (values) => {
-    const resp = await loginUser(values);
-    if (resp.token) {
-      updateToken(resp.token);
+    const data = await loginUser(values);
+    if (data.token) {
+      updateToken(data.token);
     }
-    if (resp.token !== null) {
-      let userData = resp.user;
+    if (data.token !== null) {
+      let userData = data.user;
       dispatch({ type: SET_USER, payload: userData });
       history.push('/home');
     }
@@ -55,9 +54,10 @@ const Auth = ({ history, handleRegister }) => {
       <section className='auth'>
         {login ? (
           <form onSubmit={handleSubmit(onLogin)} className='login-form'>
-            <h2>Login</h2>
-            <label htmlFor='email'>Email Address:</label>
+            <h1>Login</h1>
+            <label htmlFor='email'>Email:</label>
             <input
+              id='email'
               autoComplete='username'
               className='login-input'
               name='email'
@@ -74,6 +74,7 @@ const Auth = ({ history, handleRegister }) => {
             {errors.email && errors.email.message}
             <label htmlFor='password'>Password:</label>
             <input
+              id='password'
               className='login-input'
               type='password'
               name='password'
@@ -95,35 +96,40 @@ const Auth = ({ history, handleRegister }) => {
           <form
             className='register-form'
             onSubmit={(e) => handleRegister(e, userData)}>
-            <h2>Register</h2>
+            <h1>Register</h1>
+            <label htmlFor='name'>Name:</label>
             <input
+              id='name'
               className='register-input'
               type='text'
               name='name'
-              placeholder='Name'
+              placeholder='FirstName LastName'
               onChange={handleChange}
               value={state.name}
               required
             />
+            <label htmlFor='email'>Email:</label>
             <input
               className='register-input'
               type='email'
               name='email'
-              placeholder='Email'
+              placeholder='user@email.com'
               onChange={handleChange}
               value={state.email}
               required
             />
+            <label htmlFor='password'>Password:</label>
             <input
               className='register-input'
               type='password'
-              placeholder='Password'
               name='password'
+              autoComplete='new-password'
+              placeholder='p@$sw0rD'
               onChange={handleChange}
               value={state.password}
               required
             />
-            <button className='sign-up-btn' disabled={!isDirty}>
+            <button className='sign-up-btn' disabled={!isDirty || isSubmitting}>
               Sign Up
             </button>
           </form>

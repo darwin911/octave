@@ -1,13 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900'); */
-@import url('https://use.typekit.net/xwq0mnh.css');
-
-:root {
-  --greyish-brown: #464646;
-  --primary-color: #0074d9;
-  --spinner-dimensions: 100%;
-}
-
-$primary-color: var(--primary-color);
+@import 'variables';
 
 *,
 *::before,
@@ -20,12 +11,7 @@ $primary-color: var(--primary-color);
 }
 
 a {
-  color: rgb(22, 22, 22);
-}
-
-nav a,
-nav p {
-  cursor: pointer;
+  color: $brand-black;
 }
 
 html {
@@ -33,18 +19,18 @@ html {
 }
 
 .App {
-  color: #ffffff;
   display: grid;
   grid-template-rows: auto auto 1fr 70px;
-  font-family: 'sofia-pro', 'Lato', 'Helvetica Neue', Helvetica, Arial,
-    sans-serif;
+  font-family: 'sofia-pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
   & > header {
+    $shadow-color: rgba(black, 0.5);
     display: flex;
-    color: #1d2126;
+    color: $brand-black;
     align-items: center;
-    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid $brand-black;
     padding: 1.25rem 2.5vw;
+    box-shadow: 0px 3px 0.8rem -0.35rem $shadow-color;
   }
 }
 
@@ -53,7 +39,7 @@ html {
 }
 
 .title {
-  color: #1d2126;
+  color: $brand-black;
   height: 36px;
   object-fit: contain;
   width: 154px;
@@ -62,7 +48,7 @@ html {
 .header-link {
   font-weight: 700;
   margin-left: 4rem;
-  color: #1d2126;
+  color: $brand-black;
   font-size: 1.2rem;
   background: transparent;
   border: none;
@@ -133,14 +119,21 @@ main {
 }
 
 .auth {
-  width: 400px;
+  width: 500px;
   height: auto;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.98);
+  background: whitesmoke;
   max-width: 90%;
-  padding: 1.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0px 2px 1rem -2px black;
+
+  h1 {
+    font-size: 2.2em;
+    margin-bottom: 0.5em;
+  }
 }
 
 .login-form,
@@ -149,18 +142,23 @@ main {
   flex-direction: column;
   padding: 0.5rem;
 
+  & > label {
+    margin-bottom: 0.35rem;
+  }
+
   input {
-    background: #ccc;
     color: #222;
-    padding: 0.35em 0.45em;
-    border: none;
+    padding: 0.5em;
+    border: 2px solid #ccc;
     font-size: 0.9em;
     border-radius: 5px;
     font-family: inherit;
-  }
+    margin-bottom: 1rem;
+    line-height: 1;
 
-  & > * {
-    margin-bottom: 0.5rem;
+    &::placeholder {
+      opacity: 0.5;
+    }
   }
 }
 
@@ -191,13 +189,16 @@ main {
 .sign-in-btn,
 .sign-up-btn {
   width: 100%;
+  max-width: 120px;
   font-weight: bold;
-  margin: 0 auto;
-  border: 1px solid #464646;
-  color: var(--greyish-brown);
-  border-radius: 18px;
-  padding: 0.5rem;
   font-size: 16px;
+  font-family: inherit;
+  margin: 0 auto;
+  border: 2px solid #464646;
+  color: $brand-black;
+  background-color: white;
+  border-radius: 50em;
+  padding: 0.5rem;
 }
 
 .sign-in-btn {
@@ -241,15 +242,12 @@ main {
     flex-direction: column;
     justify-content: space-between;
     grid-column: 1 / -1;
+    @media screen and (min-width: 360px) {
+      flex-direction: row;
+    }
     select {
       align-self: flex-end;
     }
-  }
-}
-
-@media screen and (min-width: 360px) {
-  .reel header {
-    flex-direction: row;
   }
 }
 
@@ -478,6 +476,8 @@ button.buy-tickets:hover {
 }
 
 .spinner.spinner-3 {
+  $duration: 1.35s;
+
   @keyframes scale2 {
     0% {
       transform: scale(0);
@@ -506,13 +506,13 @@ button.buy-tickets:hover {
   }
   &:before {
     border-color: var(--greyish-brown);
-    animation: scale2 1s linear 0s infinite;
+    animation: scale2 $duration ease-out 0s infinite;
   }
 
   &:after {
-    border-color: rgb(53, 147, 255);
+    border-color: $brand-black;
     opacity: 0;
-    animation: scale2 1s linear 0.5s infinite;
+    animation: scale2 $duration ease-in-out ($duration / 2.25) infinite;
   }
 }
 
@@ -584,14 +584,15 @@ img {
   width: 150px;
 }
 
-footer {
+.footer {
+  color: white;
   font-size: 15px;
   grid-row-start: 4;
   bottom: 0;
   width: 100%;
   display: flex;
   align-items: center;
-  background: #1d2126;
+  background: $brand-black;
   padding: 0 5vw;
   p {
     margin-left: auto;
@@ -601,6 +602,9 @@ footer {
 .footer-links {
   margin-right: 4rem;
   display: none;
+  & > a {
+    color: white;
+  }
 }
 
 @media screen and (min-width: 415px) {
@@ -611,6 +615,10 @@ footer {
   .nav-link {
     margin-right: 1rem;
     font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .home {

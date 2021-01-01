@@ -1,8 +1,7 @@
-/* @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900'); */
-@import url("https://use.typekit.net/xwq0mnh.css");
 :root {
-  --greyish-brown: #464646;
   --primary-color: #0074d9;
+  --greyish-brown: #464646;
+  --brand-black: #1d2126;
   --spinner-dimensions: 100%;
 }
 
@@ -18,12 +17,7 @@
 }
 
 a {
-  color: #161616;
-}
-
-nav a,
-nav p {
-  cursor: pointer;
+  color: var(--brand-black);
 }
 
 html {
@@ -31,12 +25,11 @@ html {
 }
 
 .App {
-  color: #ffffff;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto auto 1fr 70px;
       grid-template-rows: auto auto 1fr 70px;
-  font-family: 'sofia-pro', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'sofia-pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
 }
 
@@ -44,12 +37,14 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #1d2126;
+  color: var(--brand-black);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 3px solid var(--brand-black);
   padding: 1.25rem 2.5vw;
+  -webkit-box-shadow: 0px 3px 0.8rem -0.35rem rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 3px 0.8rem -0.35rem rgba(0, 0, 0, 0.5);
 }
 
 .profile-pic {
@@ -57,7 +52,7 @@ html {
 }
 
 .title {
-  color: #1d2126;
+  color: var(--brand-black);
   height: 36px;
   -o-object-fit: contain;
      object-fit: contain;
@@ -67,7 +62,7 @@ html {
 .header-link {
   font-weight: 700;
   margin-left: 4rem;
-  color: #1d2126;
+  color: var(--brand-black);
   font-size: 1.2rem;
   background: transparent;
   border: none;
@@ -155,12 +150,12 @@ main {
 }
 
 .auth {
-  width: 400px;
+  width: 500px;
   height: auto;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.98);
+  background: whitesmoke;
   max-width: 90%;
-  padding: 1.5rem;
+  padding: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,6 +163,14 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 2px 1rem -2px black;
+          box-shadow: 0px 2px 1rem -2px black;
+}
+
+.auth h1 {
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
 }
 
 .login-form,
@@ -182,20 +185,41 @@ main {
   padding: 0.5rem;
 }
 
+.login-form > label,
+.register-form > label {
+  margin-bottom: 0.35rem;
+}
+
 .login-form input,
 .register-form input {
-  background: #ccc;
   color: #222;
-  padding: 0.35em 0.45em;
-  border: none;
+  padding: 0.5em;
+  border: 2px solid #ccc;
   font-size: 0.9em;
   border-radius: 5px;
   font-family: inherit;
+  margin-bottom: 1rem;
+  line-height: 1;
 }
 
-.login-form > *,
-.register-form > * {
-  margin-bottom: 0.5rem;
+.login-form input::-webkit-input-placeholder,
+.register-form input::-webkit-input-placeholder {
+  opacity: 0.5;
+}
+
+.login-form input:-ms-input-placeholder,
+.register-form input:-ms-input-placeholder {
+  opacity: 0.5;
+}
+
+.login-form input::-ms-input-placeholder,
+.register-form input::-ms-input-placeholder {
+  opacity: 0.5;
+}
+
+.login-form input::placeholder,
+.register-form input::placeholder {
+  opacity: 0.5;
 }
 
 .fb-login {
@@ -225,13 +249,16 @@ main {
 .sign-in-btn,
 .sign-up-btn {
   width: 100%;
+  max-width: 120px;
   font-weight: bold;
-  margin: 0 auto;
-  border: 1px solid #464646;
-  color: var(--greyish-brown);
-  border-radius: 18px;
-  padding: 0.5rem;
   font-size: 16px;
+  font-family: inherit;
+  margin: 0 auto;
+  border: 2px solid #464646;
+  color: var(--brand-black);
+  background-color: white;
+  border-radius: 50em;
+  padding: 0.5rem;
 }
 
 .sign-in-btn {
@@ -290,11 +317,6 @@ main {
   grid-column: 1 / -1;
 }
 
-.reel header select {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-}
-
 @media screen and (min-width: 360px) {
   .reel header {
     -webkit-box-orient: horizontal;
@@ -302,6 +324,11 @@ main {
         -ms-flex-direction: row;
             flex-direction: row;
   }
+}
+
+.reel header select {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 .event {
@@ -616,15 +643,15 @@ button.buy-tickets:hover {
 
 .spinner.spinner-3:before {
   border-color: var(--greyish-brown);
-  -webkit-animation: scale2 1s linear 0s infinite;
-          animation: scale2 1s linear 0s infinite;
+  -webkit-animation: scale2 1.35s ease-out 0s infinite;
+          animation: scale2 1.35s ease-out 0s infinite;
 }
 
 .spinner.spinner-3:after {
-  border-color: #3593ff;
+  border-color: var(--brand-black);
   opacity: 0;
-  -webkit-animation: scale2 1s linear 0.5s infinite;
-          animation: scale2 1s linear 0.5s infinite;
+  -webkit-animation: scale2 1.35s ease-in-out 0.6s infinite;
+          animation: scale2 1.35s ease-in-out 0.6s infinite;
 }
 
 .reviews {
@@ -698,7 +725,8 @@ img {
   width: 150px;
 }
 
-footer {
+.footer {
+  color: white;
   font-size: 15px;
   -ms-grid-row: 4;
       grid-row-start: 4;
@@ -710,17 +738,21 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #1d2126;
+  background: var(--brand-black);
   padding: 0 5vw;
 }
 
-footer p {
+.footer p {
   margin-left: auto;
 }
 
 .footer-links {
   margin-right: 4rem;
   display: none;
+}
+
+.footer-links > a {
+  color: white;
 }
 
 @media screen and (min-width: 415px) {
@@ -732,6 +764,9 @@ footer p {
   .nav-link {
     margin-right: 1rem;
     font-weight: bold;
+  }
+  .nav-link:hover {
+    cursor: pointer;
   }
   .home {
     padding-top: 1.5rem;

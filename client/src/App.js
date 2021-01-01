@@ -47,16 +47,6 @@ export const App = withRouter(({ history, location, ...props }) => {
     console.log('App :: useEffect()');
   }, [history, dispatch, location.pathname]);
 
-  // useEffect(() => {
-  //   const fetchEvents = async () => {
-  //     const events = await allEvents();
-  //     dispatch({ type: SET_EVENTS, payload: events });
-  //   };
-  //   if (!events) {
-  //     fetchEvents();
-  //   }
-  // }, [events]);
-
   const handleRegister = async (ev, userData) => {
     ev.preventDefault();
     try {
