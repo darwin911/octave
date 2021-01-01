@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   addArtist,
   addEvent,
@@ -11,6 +11,7 @@ import {
   singleEventById,
 } from '../../services/helper';
 
+import { AppContext } from '../../context/Store';
 import ArtistReview from './ArtistReview';
 import ArtistReviewForm from './ArtistReviewForm';
 import EventDetails from './EventDetails';
@@ -18,7 +19,8 @@ import EventInfo from './EventInfo';
 import { Spinner } from '../Spinner';
 import VenueDetails from './VenueDetails';
 
-const SingleEvent = ({ match, user }) => {
+const SingleEvent = ({ match }) => {
+  const [{ user }] = useContext(AppContext);
   const [event, setEvent] = useState(null);
   const [venue, setVenue] = useState(null);
   const [attraction, setAttraction] = useState(null);

@@ -3,13 +3,11 @@ import sortEvents, { sortTypes } from '../../util/sortEvents';
 
 import { AppContext } from '../../context/Store';
 import EventCard from '../Home/EventCard';
-import PropTypes from 'prop-types';
-import { Spinner } from '../Spinner';
 
 const Reel = ({ className, heading }) => {
   const [state] = useContext(AppContext);
   const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
-  const [sortedEvents, setSortedEvents] = useState(null);
+  const [sortedEvents, setSortedEvents] = useState(state.events);
 
   const handleChange = (ev) => {
     const {
@@ -27,16 +25,16 @@ const Reel = ({ className, heading }) => {
 
   if (!sortedEvents) {
     return (
-      <section className={className}>
-        <Spinner />
+      <section className='reel'>
+        <h1>Welcome! Octave works to help you find events.</h1>
       </section>
     );
   }
 
   return (
-    <section className={className}>
+    <section className='reel'>
       <header>
-        <h3 className='heading'>{heading}</h3>
+        <h2 className='heading'>Events</h2>
         <div>
           <label htmlFor='event-filter-select'>
             <sub>Sort By</sub>
@@ -52,17 +50,11 @@ const Reel = ({ className, heading }) => {
           </select>
         </div>
       </header>
-      {sortedEvents.length > 0 &&
-        sortedEvents.map((event) => (
-          <EventCard key={event.id} eventData={event} venues={null} />
-        ))}
+      {sortedEvents?.map((event) => (
+        <EventCard key={event.id} eventData={event} venues={null} />
+      ))}
     </section>
   );
 };
 
 export default Reel;
-
-Reel.propTypes = {
-  className: PropTypes.string.isRequired,
-  heading: PropTypes.string.isRequired,
-};
