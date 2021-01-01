@@ -4,7 +4,7 @@ import sortEvents, { sortTypes } from '../../util/sortEvents';
 import { AppContext } from '../../context/Store';
 import EventCard from '../Home/EventCard';
 
-const Reel = ({ className, heading }) => {
+const Reel = () => {
   const [state] = useContext(AppContext);
   const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
   const [sortedEvents, setSortedEvents] = useState(state.events);
