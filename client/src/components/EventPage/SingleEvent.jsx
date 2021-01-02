@@ -115,7 +115,7 @@ const SingleEvent = ({ match }) => {
 
   const { usernamesVenue, usernamesArtist } = state;
 
-  if (!venue || !user) return null;
+  if (!venue || !user) return <Spinner size={500} />;
   return (
     <section className='events'>
       {user && event ? (

@@ -24,18 +24,18 @@ const Reel = () => {
     }
   }, [sortBy, events]);
 
-  if (!sortedEvents) {
-    return (
-      <section className='reel'>
-        <h1>Welcome! Octave works to help you find events.</h1>
-      </section>
-    );
-  }
-
   if (isLoading) {
     return (
       <section className='reel'>
         <Spinner size={320} />
+      </section>
+    );
+  }
+
+  if (!sortedEvents) {
+    return (
+      <section className='reel'>
+        <h1>Welcome! Octave works to help you find events.</h1>
       </section>
     );
   }
