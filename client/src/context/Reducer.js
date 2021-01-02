@@ -1,4 +1,4 @@
-import { LOGOUT, SET_EVENTS, SET_USER } from './constants';
+import { LOGOUT, SET_EVENTS, SET_USER, TOGGLE_LOADING } from './constants';
 
 import { initialState } from './Store';
 
@@ -8,7 +8,7 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
-        loading: false,
+        isLoading: false,
       };
     case LOGOUT:
       return {
@@ -18,7 +18,12 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         events: action.payload,
-        loading: false,
+        isLoading: false,
+      };
+    case TOGGLE_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
     default:
       return state;

@@ -5,7 +5,7 @@ import { Reducer } from './Reducer';
 export const initialState = {
   user: null,
   events: null,
-  loading: false,
+  isLoading: false,
 };
 
 export const AppContext = createContext(initialState);
