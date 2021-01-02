@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   addArtist,
   addEvent,
@@ -33,32 +33,26 @@ const SingleEvent = ({ match }) => {
 
   const eventId = match.params.id;
 
-  useEffect(() => {
-    // const token = localStorage.getItem('token');
-    const getSingleEvent = async (eventId) => {
-      const data = await singleEventById(eventId);
-      if (data) {
-        setEvent(data);
-        if (data._embedded.venues) {
-          const venueData = data._embedded.venues[0];
-          setVenue(venueData);
-          const venueReviewData = await getVenueReviews(venueData.id);
+  const getSingleEvent = useCallback(async (eventId) => {
+    const data = await singleEventById(eventId);
+    if (data) {
+      setEvent(data);
+      setVenue(data._embedded?.venues[0]);
+      setAttraction(data._embedded?.attractions[0]);
 
-          if (venueReviewData.reviews) {
-            setVenueReviews(venueReviewData.reviews);
-          }
-        }
-
-        if (data._embedded.attractions) {
-          setAttraction(data._embedded.attractions[0]);
-        }
+      const venueId = data._embedded?.venues[0].id;
+      const venueReviewData = await getVenueReviews(venueId);
+      if (venueReviewData.reviews) {
+        setVenueReviews(venueReviewData.reviews);
       }
-    };
-
-    if (!event && eventId) {
-      getSingleEvent(match.params.id);
     }
-  }, [event, eventId, setEvent, venue, attraction, match]);
+  }, []);
+
+  useEffect(() => {
+    if (!event && eventId) {
+      getSingleEvent(eventId);
+    }
+  }, [event, eventId, setEvent, venue, attraction, getSingleEvent]);
 
   const checkUsernames = (userArray, id) => {
     if (userArray) {
