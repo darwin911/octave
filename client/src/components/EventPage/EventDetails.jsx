@@ -23,7 +23,8 @@ const EventDetails = ({
   const { name: venueName } = venue;
   const artistName = attraction && attraction.name;
 
-  const date = moment(dates.start.localDate).format('dddd, MMM Do, YYYY');
+  const date =
+    dates && moment(dates.start.localDate).format('dddd, MMM Do, YYYY');
   const eventImages = orderBy(images, 'width');
   const cardImg = eventImages[5].url;
 
