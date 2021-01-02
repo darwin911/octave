@@ -442,6 +442,7 @@ button.buy-tickets:hover {
 }
 
 .spinner {
+  grid-column: 1 / -1;
   position: relative;
   top: 50%;
   margin: 0 auto;

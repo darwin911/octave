@@ -35,8 +35,11 @@ const HomeOptions = () => {
       <h2>Select Options</h2>
       <SelectMarket onChange={handleChange} />
       <IncludeTBA isChecked={includeTBA} onChange={setIncludeTBA} />
-      <button onClick={() => handleRefresh(districtMarket)}>Search</button>
-      <p>Loading: {isLoading ? 'Yes' : 'No'}</p>
+      <button
+        disabled={isLoading}
+        onClick={() => handleRefresh(districtMarket)}>
+        Search
+      </button>
     </header>
   );
 };

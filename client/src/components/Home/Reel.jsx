@@ -3,11 +3,12 @@ import sortEvents, { sortTypes } from '../../util/sortEvents';
 
 import { AppContext } from '../../context/Store';
 import EventCard from '../Home/EventCard';
+import { Spinner } from '../Spinner';
 
 const Reel = () => {
-  const [state] = useContext(AppContext);
+  const [{ events, isLoading }] = useContext(AppContext);
   const [sortBy, setSortBy] = useState(sortTypes.MOST_RECENT);
-  const [sortedEvents, setSortedEvents] = useState(state.events);
+  const [sortedEvents, setSortedEvents] = useState(events);
 
   const handleChange = (ev) => {
     const {
@@ -17,16 +18,24 @@ const Reel = () => {
   };
 
   useEffect(() => {
-    if (state.events && state.events.length) {
-      console.log('setting sorted events', state.events.length);
-      setSortedEvents(sortEvents(state.events, sortBy));
+    if (events && events.length) {
+      console.log('setting sorted events', events.length);
+      setSortedEvents(sortEvents(events, sortBy));
     }
-  }, [sortBy, state.events]);
+  }, [sortBy, events]);
 
   if (!sortedEvents) {
     return (
       <section className='reel'>
         <h1>Welcome! Octave works to help you find events.</h1>
+      </section>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <section className='reel'>
+        <Spinner size={320} />
       </section>
     );
   }
