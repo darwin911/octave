@@ -8,7 +8,7 @@ const SelectMarket = ({ onChange, market }) => {
     <div>
       <label>
         <span>Market: </span>
-        <select onChange={onChange} value={market}>
+        <select name='districtMarket' onChange={onChange} value={market}>
           {districtMarkets.map(([districtMarketLabel, dmaId]) => (
             <option key={dmaId} value={dmaId}>
               {districtMarketLabel}

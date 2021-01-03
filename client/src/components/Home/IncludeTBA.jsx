@@ -7,10 +7,15 @@ const IncludeTBA = ({ isChecked, onChange }) => {
         <span>Include TBA: </span>
         <input
           type='checkbox'
-          name='include-tba'
+          name='includeTBA'
           id='include-tba'
           value={isChecked}
-          onChange={(ev) => onChange(ev.target.checked)}
+          onChange={(ev) =>
+            onChange((prevState) => ({
+              ...prevState,
+              includeTBA: ev.target.checked,
+            }))
+          }
         />
       </label>
     </div>

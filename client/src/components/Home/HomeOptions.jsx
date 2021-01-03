@@ -10,36 +10,60 @@ import { allEvents } from '../../services/helper';
 
 const HomeOptions = () => {
   const [{ isLoading }, dispatch] = useContext(AppContext);
-  const [districtMarket, setDistrictMarket] = useState(
-    DISTRICT_MARKETS['New York']
-  );
-  const [includeTBA, setIncludeTBA] = useState(false);
+  const [{ districtMarket, includeTBA, keyword }, setSearchState] = useState({
+    keyword: '',
+    districtMarket: DISTRICT_MARKETS['New York'],
+    includeTBA: false,
+  });
   const handleRefresh = async () => {
     dispatch({ type: TOGGLE_LOADING, payload: true });
     const searchOptions = {
+      keyword,
       dmaId: districtMarket,
       includeTBA: includeTBA ? 'yes' : 'no',
     };
     const events = await allEvents(searchOptions);
-    if (events) console.info(`Setting ${events.length} events.`);
+    if (events.length) console.info(`Setting ${events.length} events.`);
     dispatch({ type: SET_EVENTS, payload: events });
     dispatch({ type: TOGGLE_LOADING, payload: false });
   };
   const handleChange = async (ev) => {
-    let { value } = ev.target;
-    setDistrictMarket(Number(value));
+    let { value, name } = ev.target;
+
+    setSearchState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
     <header>
-      <h2>Select Options</h2>
-      <SelectMarket onChange={handleChange} />
-      <IncludeTBA isChecked={includeTBA} onChange={setIncludeTBA} />
-      <button
-        disabled={isLoading}
-        onClick={() => handleRefresh(districtMarket)}>
-        Search
-      </button>
+      <h2>Search Options</h2>
+      <form className='search-options-form'>
+        <SelectMarket onChange={handleChange} />
+        <IncludeTBA isChecked={includeTBA} onChange={setSearchState} />
+        <input
+          name='keyword'
+          type='text'
+          value={keyword}
+          placeholder='Search by Keyword'
+          aria-label='Search by Keyword'
+          onChange={handleChange}
+        />
+        <button
+          onClick={(ev) => {
+            ev.preventDefault();
+            setSearchState((prevState) => ({ ...prevState, keyword: '' }));
+          }}>
+          Clear
+        </button>
+
+        <button
+          disabled={isLoading}
+          onClick={() => handleRefresh(districtMarket)}>
+          Search
+        </button>
+      </form>
     </header>
   );
 };
