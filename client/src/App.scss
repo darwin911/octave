@@ -1,4 +1,4 @@
-@import 'variables';
+@import './scss/variables';
 
 *,
 *::before,
@@ -641,6 +641,10 @@ img {
     align-self: end;
     width: 100%;
     margin: 0;
+  }
+
+  .reel > .heading {
+    grid-column: 1 / -1;
   }
 
   .filter {
