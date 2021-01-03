@@ -8,17 +8,13 @@ const EventCard = ({ eventData }) => {
   return (
     <div className='event'>
       <Link to={`/events/${id}`} className='event-link-wrapper'>
-        {/* Event Image */}
         <img
           className='event-img'
           src={images.sort((a, b) => b.width - a.width)[5].url}
           alt={name}
         />
-        {/* Event Name */}
         <div>
           <p>{name}</p>
-          {/* Min/Max Price. If returned from API */}
-          {/* Date YYYY/MM/DD */}
           <p>{moment(dates.start.localDate).format('MMM Do, YYYY')}</p>
           <p>{priceRanges ? '$' + priceRanges[0].min : 'SOLD OUT'}</p>
           {eventData._embedded?.venues.map((venue) => (

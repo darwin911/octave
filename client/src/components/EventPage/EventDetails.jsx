@@ -50,12 +50,10 @@ const EventDetails = ({
         {eventName !== artistName && (
           <h2 className='event-name'>{eventName}</h2>
         )}
-        <div>
-          <h3 className='event-artist'>{artistName}</h3>
-          <button className='follow-btn' onClick={handleAddLike}>
-            +
-          </button>
-        </div>
+        <h3 className='event-artist'>{artistName}</h3>
+        <button className='follow-btn' onClick={handleAddLike}>
+          +
+        </button>
         <VenueLocation
           name={venueName}
           city={venue.city.name}

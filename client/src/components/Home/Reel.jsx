@@ -60,7 +60,7 @@ const Reel = () => {
         </div>
       </header>
       {sortedEvents?.map((event) => (
-        <EventCard key={event.id} eventData={event} venues={null} />
+        <EventCard key={event.id} eventData={event} />
       ))}
     </section>
   );
