@@ -212,75 +212,6 @@ main {
   color: white;
 }
 
-.filter {
-  grid-column-start: 1;
-  max-width: 150px;
-  justify-self: end;
-  font-size: 1rem;
-  text-transform: uppercase;
-  border: none;
-  background: transparent;
-}
-
-.reel {
-  display: grid;
-  grid-column-gap: 9vw;
-  grid-row-gap: 2.5rem;
-  padding: 1.75rem 0.75rem;
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    grid-column: 1 / -1;
-    @media screen and (min-width: 360px) {
-      flex-direction: row;
-    }
-    select {
-      align-self: flex-end;
-    }
-  }
-}
-
-.event {
-  font-size: 0.8rem;
-  cursor: pointer;
-
-  p {
-    text-align: left;
-    font-size: 15px;
-    &:first-child {
-      font-size: 18px;
-      font-weight: bold;
-    }
-  }
-
-  &:hover .event-img {
-    // opacity: 0.8;
-  }
-}
-
-.event-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  object-fit: center;
-  transition: transform 300ms;
-}
-
-.home-details {
-  min-height: 100px;
-  grid-column: span 3;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-}
-
-.home-details:last-child {
-  border-bottom: none;
-}
-
 .profile-page h2 {
   margin-bottom: 1rem;
 }
@@ -318,11 +249,6 @@ main {
 .profile-img + p {
   display: inline;
   margin-left: 1.2rem;
-}
-
-.events {
-  max-width: 97%;
-  margin: 0 auto;
 }
 
 .selected-event {
@@ -565,15 +491,6 @@ button.buy-tickets:hover {
   margin: 0 auto;
 }
 
-img {
-  /* min-width: 25px; */
-  max-width: 100%;
-}
-
-.events-reel img {
-  width: 150px;
-}
-
 .footer {
   color: white;
   font-size: 15px;
@@ -620,31 +537,8 @@ img {
   .profile-page {
     grid-column: span 3;
     width: 95vw;
-    // max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
-  }
-
-  .reel {
-    margin-bottom: 2rem;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    padding: 0;
-    &:nth-of-type(1) {
-      margin-top: 1.5rem;
-    }
-  }
-
-  .reel h3 {
-    text-align: left;
-    grid-column: span 1;
-    align-self: end;
-    width: 100%;
-    margin: 0;
-  }
-
-  .reel > .heading {
-    grid-column: 1 / -1;
   }
 
   .filter {
@@ -692,10 +586,6 @@ img {
 }
 
 @media screen and (min-width: 800px) {
-  .reel {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   main {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -733,12 +623,6 @@ img {
   }
 }
 
-@media screen and (min-width: 1200px) {
-  .reel {
-    grid-template-columns: repeat(4, minmax(175px, 1fr));
-  }
-}
-
 .purple {
   color: white;
   margin-bottom: 1rem;
@@ -750,3 +634,5 @@ img {
   height: 100%;
   color: inherit;
 }
+
+@import './scss/home';

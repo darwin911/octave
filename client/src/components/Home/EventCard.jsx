@@ -27,10 +27,10 @@ const EventCard = ({ eventData }) => {
             </p>
           ))}
         </div>
+        {/* <a href={url} target='_blank' rel='noopener noreferrer'>
+          Buy Now
+        </a> */}
       </Link>
-      <a href={url} target='_blank' rel='noopener noreferrer'>
-        Buy Now
-      </a>
     </div>
   );
 };
