@@ -128,6 +128,13 @@ main {
   grid-row: span 2;
 }
 
+@media screen and (min-width: 415px) {
+  main {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .carousel {
   grid-column: span 3;
   background: center/cover no-repeat url("http://rafiyaoverseas.com/wp-content/uploads/2018/12/pexels-photo-1306791.jpeg");
@@ -701,42 +708,6 @@ button.buy-tickets:hover {
   }
 }
 
-@media screen and (min-width: 800px) {
-  main {
-    -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-  }
-  .home-details {
-    width: 100%;
-    padding: 0 1rem;
-    grid-column: span 1;
-    min-height: 150px;
-    border: none;
-  }
-  .home-details:nth-child(3) {
-    border-left: 2px solid rgba(0, 0, 0, 0.25);
-    border-right: 2px solid rgba(0, 0, 0, 0.25);
-  }
-  .header-link,
-  .footer-links {
-    display: block;
-  }
-  .events {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-  }
-  .selected-event {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-  }
-  .event-details {
-    padding-left: 2.5rem;
-  }
-}
-
 .purple {
   color: white;
   margin-bottom: 1rem;
@@ -943,5 +914,37 @@ button.buy-tickets:hover {
 .search-options-form button {
   font-size: 1em;
   padding: 0.25rem;
+}
+
+@media screen and (min-width: 800px) {
+  .home-details {
+    width: 100%;
+    padding: 0 1rem;
+    grid-column: span 1;
+    min-height: 150px;
+    border: none;
+  }
+  .home-details:nth-child(3) {
+    border-left: 2px solid rgba(0, 0, 0, 0.25);
+    border-right: 2px solid rgba(0, 0, 0, 0.25);
+  }
+  .header-link,
+  .footer-links {
+    display: block;
+  }
+  .events {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  .selected-event {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .event-details {
+    padding-left: 2.5rem;
+  }
 }
 /*# sourceMappingURL=App.css.map */
