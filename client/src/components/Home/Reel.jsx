@@ -21,7 +21,13 @@ const Reel = () => {
     if (events && events.length) {
       console.log('setting sorted events', events.length);
       setSortedEvents(sortEvents(events, sortBy));
+    } else if (events && events.length === 0) {
+      console.log('There is an empty array in event data');
+      setSortedEvents(sortEvents(events, sortBy));
     }
+    return () => {
+      console.log('this is a cleanup function in useEffect in Reel.');
+    };
   }, [sortBy, events]);
 
   if (isLoading) {
@@ -44,6 +50,7 @@ const Reel = () => {
     <section className='reel'>
       <header>
         <h2 className='heading'>Events</h2>
+        <EventCount count={sortedEvents.length} />
         <div>
           <label htmlFor='event-filter-select'>
             <sub>Sort By</sub>
@@ -67,3 +74,6 @@ const Reel = () => {
 };
 
 export default Reel;
+
+const EventCount = ({ count }) =>
+  count >= 0 ? <p>Found {count} results.</p> : null;

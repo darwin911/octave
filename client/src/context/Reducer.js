@@ -15,6 +15,7 @@ export const Reducer = (state, action) => {
         ...initialState,
       };
     case SET_EVENTS:
+      console.log({ payload: action.payload });
       return {
         ...state,
         events: action.payload,

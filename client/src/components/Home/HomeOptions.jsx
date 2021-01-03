@@ -15,7 +15,8 @@ const HomeOptions = () => {
     districtMarket: DISTRICT_MARKETS['New York'],
     includeTBA: false,
   });
-  const handleRefresh = async () => {
+  const handleRefresh = async (ev) => {
+    ev.preventDefault();
     dispatch({ type: TOGGLE_LOADING, payload: true });
     const searchOptions = {
       keyword,
@@ -24,6 +25,8 @@ const HomeOptions = () => {
     };
     const events = await allEvents(searchOptions);
     if (events.length) console.info(`Setting ${events.length} events.`);
+
+    console.log('Dispatching...');
     dispatch({ type: SET_EVENTS, payload: events });
     dispatch({ type: TOGGLE_LOADING, payload: false });
   };
@@ -39,28 +42,26 @@ const HomeOptions = () => {
   return (
     <header>
       <h2>Search Options</h2>
-      <form className='search-options-form'>
+      <form className='search-options-form' onSubmit={handleRefresh}>
         <SelectMarket onChange={handleChange} />
         <IncludeTBA isChecked={includeTBA} onChange={setSearchState} />
         <input
           name='keyword'
           type='text'
           value={keyword}
-          placeholder='Search by Keyword'
-          aria-label='Search by Keyword'
+          placeholder='Search Event by Keyword'
+          aria-label='Search Event by Keyword'
           onChange={handleChange}
         />
         <button
-          onClick={(ev) => {
-            ev.preventDefault();
+          type='button'
+          onClick={() => {
             setSearchState((prevState) => ({ ...prevState, keyword: '' }));
           }}>
           Clear
         </button>
 
-        <button
-          disabled={isLoading}
-          onClick={() => handleRefresh(districtMarket)}>
+        <button type='submit' disabled={isLoading}>
           Search
         </button>
       </form>
