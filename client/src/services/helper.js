@@ -220,7 +220,7 @@ const allEvents = async (data) => {
       size: 150,
       sort: 'date,asc',
     };
-    const url = new URL('/events/', BASE_URL);
+    const url = new URL('/events', BASE_URL);
     url.search = new URLSearchParams(params);
 
     console.log({ URL: url.href });
