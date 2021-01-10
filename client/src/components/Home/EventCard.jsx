@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const EventCard = ({ eventData }) => {
   if (!eventData) return null;
-  const { id, dates, images, name, priceRanges, url } = eventData;
+  const { id, dates, images, name, priceRanges } = eventData;
   return (
     <div className='event'>
       <Link to={`/events/${id}`} className='event-link-wrapper'>
