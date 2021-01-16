@@ -38,7 +38,10 @@ const SingleEvent = ({ match }) => {
     if (data) {
       setEvent(data);
       setVenue(data._embedded?.venues[0]);
-      setAttraction(data._embedded?.attractions[0]);
+
+      if (data._embedded?.attractions) {
+        setAttraction(data._embedded?.attractions[0]);
+      }
 
       const venueId = data._embedded?.venues[0].id;
       const venueReviewData = await getVenueReviews(venueId);
