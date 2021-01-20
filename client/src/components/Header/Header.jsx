@@ -12,10 +12,16 @@ const Header = ({ history, user, handleLogout }) => {
       <Link to={user ? '/home' : '/'}>
         <img className='title' src={octave} alt='Octave' />
       </Link>
-      <button className='header-link'>ARTISTS</button>
-      <button href='#' className='header-link'>
-        EVENTS
-      </button>
+      {user && (
+        <>
+          <Link to='/artists' className='header-link'>
+            ARTISTS
+          </Link>
+          <Link to='/events' className='header-link'>
+            EVENTS
+          </Link>
+        </>
+      )}
       <nav>
         {user ? (
           <>
