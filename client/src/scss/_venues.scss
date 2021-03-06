@@ -1,0 +1,15 @@
+@import './variables';
+
+.container {
+  width: $maxWidthContent;
+  max-width: 95%;
+  margin: 4rem auto;
+}
+
+.venue-name {
+  font-size: xx-large;
+}
+
+.venue-image {
+  max-width: 100%;
+}

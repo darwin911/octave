@@ -916,6 +916,10 @@ button.buy-tickets:hover {
   padding: 0.25rem;
 }
 
+.search-options-form .search-option-label {
+  margin-right: 0.5em;
+}
+
 @media screen and (min-width: 800px) {
   .home-details {
     width: 100%;
@@ -946,5 +950,26 @@ button.buy-tickets:hover {
   .event-details {
     padding-left: 2.5rem;
   }
+}
+
+:root {
+  --primary-color: #0074d9;
+  --greyish-brown: #464646;
+  --brand-black: #1d2126;
+  --spinner-dimensions: 100%;
+}
+
+.container {
+  width: 1080px;
+  max-width: 95%;
+  margin: 4rem auto;
+}
+
+.venue-name {
+  font-size: xx-large;
+}
+
+.venue-image {
+  max-width: 100%;
 }
 /*# sourceMappingURL=App.css.map */

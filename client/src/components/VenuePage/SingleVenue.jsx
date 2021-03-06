@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getVenueByVenueId, getVenueReviews } from '../../services/helper';
 
+import { Spinner } from '../Spinner';
 import VenueReview from '../EventPage/VenueReview';
 import formatLocation from '../../util/formatLocation';
 import { withRouter } from 'react-router';
@@ -27,17 +28,19 @@ const SingleVenue = ({ match }) => {
     }
   }, [venue, venueId]);
 
-  if (!venue) return <span>Loading</span>;
+  if (!venue) return <Spinner />;
+
   return (
-    <section style={{ gridColumn: 'span 3' }}>
-      <h1>
+    <section className='container' style={{ gridColumn: 'span 3' }}>
+      <h1 className='venue-name'>
         <a href={venue.url}>{venue.name}</a>
       </h1>
-      <h4>Images</h4>
-      {venue.images &&
-        venue.images.map((img) => (
-          <img key={img.url} src={img.url} alt={img.url} />
-        ))}
+      {venue.images && (
+        <>
+          <h4>Images</h4>
+          <VenueImages venue={venue} />
+        </>
+      )}
       <h4>Location</h4>
       <p>{formatLocation(venue)}</p>
 
@@ -60,16 +63,17 @@ const SingleVenue = ({ match }) => {
         </>
       )}
 
-      <h4>Parking</h4>
-      <p>{venue.parkingDetail}</p>
-
+      {venue.parkingDetail && <p>{venue.parkingDetail}</p>}
       <br />
 
-      <h2>Venue Reviews</h2>
-      {reviews &&
-        reviews.map((review) => (
-          <VenueReview key={review._id} review={review} />
-        ))}
+      {reviews && reviews.length ? (
+        <>
+          <h2>Venue Reviews</h2>
+          {reviews.map((review) => (
+            <VenueReview key={review._id} review={review} />
+          ))}
+        </>
+      ) : null}
 
       {/* <pre>
         <code style={{ lineHeight: 1.5, whiteSpace: 'pre-line' }}>
@@ -81,3 +85,9 @@ const SingleVenue = ({ match }) => {
 };
 
 export default withRouter(SingleVenue);
+
+const VenueImages = ({ venue }) => {
+  return venue.images.map((img) => (
+    <img className='venue-image' key={img.url} src={img.url} alt={img.url} />
+  ));
+};

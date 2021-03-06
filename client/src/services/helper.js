@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000'
-    : 'https://octave-api.herokuapp.com/';
+const BASE_URL = 'https://octave-api.herokuapp.com/';
+// process.env.NODE_ENV === 'development'
+//   ? 'http://localhost:3001'
+//   : 'https://octave-api.herokuapp.com/';
 // const BASE_URL = 'https://banana-cobbler-97207.herokuapp.com/';
 
 const api = axios.create({
