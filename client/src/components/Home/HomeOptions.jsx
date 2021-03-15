@@ -24,9 +24,7 @@ const HomeOptions = () => {
       includeTBA: includeTBA ? 'yes' : 'no',
     };
     const events = await allEvents(searchOptions);
-    if (events.length) console.info(`Setting ${events.length} events.`);
 
-    console.log('Dispatching...');
     dispatch({ type: SET_EVENTS, payload: events });
     dispatch({ type: TOGGLE_LOADING, payload: false });
   };
